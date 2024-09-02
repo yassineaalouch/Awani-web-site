@@ -79,7 +79,7 @@ export default function ProductPage({Session,product}) {
       setListOfRatingCarts(ratingCarts)
       setCommentsList(commentsResponse.data);
       setRatingList(ratingResponse.data);
-      const purchaseDate = new Date( listRatingProduct.data.timerRating.filter(ele=>ele.productId===product?._id)[0].purchaseDate)
+      const purchaseDate = new Date( listRatingProduct.data.timerRating.filter(ele=>ele.productId===product?._id)[0]?.purchaseDate)
       const timeNow = new Date()
       setTimeLimit((timeNow-purchaseDate)/(1000 * 60 * 60 * 24))
       const totalRating = TotalRatingCalculator(ratingResponse.data);
@@ -162,12 +162,13 @@ export default function ProductPage({Session,product}) {
 
     }
   }
-  const existingProductIndex = cartProducts.findIndex(item => item.id === product._id);
+  const existingProductIndex = cartProducts.filter(item => item.id === product._id)
   const addToCart = (product) => {
-    
-    if (existingProductIndex >= 0) {
+    if (existingProductIndex.length>0) {
+      console.log(existingProductIndex)
 
     } else {
+      console.log(existingProductIndex)
       // Si le produit n'existe pas dans le panier, ajoutez-le
       const newProduct = {
         id: product._id,
@@ -193,15 +194,9 @@ export default function ProductPage({Session,product}) {
                   : item
           )
       );
+      console.log('cart',cartProducts)
   };
 
-  const handleRemoveItem = (id) => {
-      setCartProducts((prevItems) => prevItems.filter((item) => item.id !== id));
-
-  };
-  const totalPrice = cartProducts.reduce((acc, item) => acc + item.totalPrice, 0);
-
-  
 
   return (
     <div>
@@ -259,13 +254,13 @@ export default function ProductPage({Session,product}) {
                 <p className="text-gray-600">{product?.description}</p>
               </div> 
               <div className='mt-10'>
-              <button
+              {/* <button
                 className="mt-4 w-1/2 bg-yellow-500 flex justify-center gap-3 items-center text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
-                
+                onClick={() => addToCart(product)}
               >
                   Add To Cart <FaCartShopping size={25}/>
-              </button>
-            {/* {existingProductIndex?           
+              </button> */}
+            {existingProductIndex?           
                <button
                 className="mt-4 w-1/2 bg-yellow-500 flex justify-center gap-3 items-center text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
                 onClick={() => addToCart(product)}
@@ -281,7 +276,7 @@ export default function ProductPage({Session,product}) {
                       >
                           <IoRemove size={20}/>
                       </button>
-                      <span className="px-4">{cartProducts.filter((item) => item.id == product._id)[0].quantity}</span>
+                      <span className="px-4">{cartProducts?.filter((item) => item.id == product._id)[0]?.quantity}</span>
                       <button
                           onClick={() => handleQuantityChange(product._id, 1)}
                           className="px-2 py-1 font-bold bg-gray-200 rounded-md hover:bg-gray-300"
@@ -290,7 +285,7 @@ export default function ProductPage({Session,product}) {
                       </button>
                   </div>
               </div>
-              } */}
+              }
               </div>
                 <div className="mt-8">
                   {product?.properties?.length>0&&

@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function CartPage() {
     const { cartProducts, setCartProducts } = useContext(CartContext);
-
+    console.log('cartDelete',cartProducts)
     const handleQuantityChange = (id, delta) => {
         setCartProducts((prevItems) =>
             prevItems.map((item) =>
@@ -26,18 +26,17 @@ export default function CartPage() {
     };
 
     const handleRemoveItem = (id) => {
-        setCartProducts((prevItems) => prevItems.filter((item) => item.id !== id));
-
+        setCartProducts((prevItems) => {prevItems.filter((item) => item.id !== id)});
     };
-    const totalPrice = cartProducts.reduce((acc, item) => acc + item.totalPrice, 0);
+    const totalPrice = cartProducts?.reduce((acc, item) => acc + item.totalPrice, 0);
     return (
         <>
             <NavBarInterface /> 
-            <div className={cartProducts.length>0?"lg:flex justify-between md:justify-around min-h-screen pt-14 bg-gray-100 p-6":' justify-between md:justify-around min-h-screen pt-14 bg-gray-100 p-6"'}>
+            <div className={cartProducts?.length>0?"lg:flex justify-between md:justify-around min-h-screen pt-14 bg-gray-100 p-6":' justify-between md:justify-around min-h-screen pt-14 bg-gray-100 p-6"'}>
                 <div className="">
                     <div className="max-w-4xl mx-auto mb-4 lg:mb-4 bg-white p-4 shadow-md rounded-lg">
                         <h1 className="text-2xl font-semibold mb-6">Your Cart</h1>
-                        {cartProducts.length > 0 ? (
+                        {cartProducts?.length > 0 ? (
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                 {cartProducts.map((item) => (
                                     <div
@@ -92,7 +91,7 @@ export default function CartPage() {
 
                         )}
                     </div>
-                    {cartProducts.length > 0 &&
+                    {cartProducts?.length > 0 &&
                         <div className="max-h-60 flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
                             <Link href={'/Checkout'} className="bg-yellow-300 p-2 rounded-lg hover:bg-yellow-500">
                                 Continue to checkout

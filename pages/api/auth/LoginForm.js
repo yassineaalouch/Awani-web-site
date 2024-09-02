@@ -191,10 +191,8 @@ export default function LoginForm({ children }) {
       <Footer className="!mt-0"/> */}
       </>
     );
-  }else if(session && session.user.role==='admin'){
-  router.push('/dashbordAdmine')
-  }else if(session && session.user.role==='user'){
-  router.push('/account')
+  }else{
+  router.push('/')
   }
   
   // return (

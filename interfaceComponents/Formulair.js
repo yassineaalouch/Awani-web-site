@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+import { isPossiblePhoneNumber } from 'react-phone-number-input'
+
 
 export default function Formulair(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -8,7 +12,7 @@ export default function Formulair(props) {
   const [telephone, setTelephone] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
-  
+  const [invalidPhoneNumber,setInvalidPhoneNumber] = useState(false)
   const [emailCount, setEmailCount] = useState(0);
   const emailLimit = 5;
   const resetTime = 2 * 60 * 1000; // 4 minutes en millisecondes
@@ -30,7 +34,7 @@ export default function Formulair(props) {
 
   async function sendUserMessage(ev) {
     ev.preventDefault();
-    
+    if(telephone&&isPossiblePhoneNumber(telephone)===true){
     const currentTime = new Date().getTime();
     const storedTime = localStorage.getItem('emailTimestamp') || currentTime;
     
@@ -62,11 +66,16 @@ export default function Formulair(props) {
     setTelephone('');
     setSubject('');
     setMessage('');
+    setInvalidPhoneNumber(false)
+  }else{
+    setInvalidPhoneNumber(true)
+  }
   }
 
   return (
-    <div className={`bg-white shadow-lg rounded-lg p-8 max-w-lg w-fit ${props.className}`}>
+    <div className={`bg-white shadow-lg rounded-lg p-4 mb-4 sm:p-8 max-w-lg w-fit ${props.className}`}>
       <h2 className="text-2xl font-bold mb-6 text-yellow-500">Contact Us</h2>
+      
       <form onSubmit={sendUserMessage} className="w-fit lg:w-96 space-y-2 lg:space-y-6">
         <div className="grid lg:grid-cols-2 gap-2 lg:gap-6">
           <div className="block">
@@ -78,20 +87,20 @@ export default function Formulair(props) {
               required
               onChange={(e) => setEmail(e.target.value)}
               value={email}
-              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 text-md border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
+              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 outline-none text-md border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
               placeholder="you@example.com"
             />
           </div>
 
           <div className="lg:block">
-            <label htmlFor="Company_Name" className="block text-md font-semibold text-gray-700 mb-2">Company Name</label>
+            <label htmlFor="Company_Name" className="block text-md font-semibold outline-none text-gray-700 mb-2">Company Name</label>
             <input
               type="text"
               id="Company_Name"
               name="Company_Name"
               onChange={(e) => setCompany_Name(e.target.value)}
               value={company_Name}
-              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 text-md border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
+              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 text-md outline-none border  border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
               placeholder="Company Name"
             />
           </div>
@@ -100,19 +109,17 @@ export default function Formulair(props) {
         <div className="grid lg:grid-cols-2 gap-2 lg:gap-6">
           <div className="block">
             <label htmlFor="Telephone" className="block text-md font-semibold text-gray-700 mb-2">Telephone *</label>
-            <input
-              type="tel"
+            <PhoneInput
+              defaultCountry={'US'}
               id="Telephone"
               name="Telephone"
-              required
-              onChange={(e) => setTelephone(e.target.value)}
+              onChange={(e) => setTelephone(e)}
               value={telephone}
-              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 text-md border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
-              style={{
-                WebkitAppearance: 'none',
-                MozAppearance: 'textfield',
-              }}
-              placeholder="+212 XXX XXX XXX"
+              required 
+              autoCompleteType="tel"
+              keyboardType="phone-pad"
+              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-1 py-2 text-md border outline-none border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
+              placeholder="enter your phone"
             />
           </div>
 
@@ -125,7 +132,7 @@ export default function Formulair(props) {
               required
               onChange={(e) => setSubject(e.target.value)}
               value={subject}
-              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 text-md border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
+              className="w-[250px] outline-none sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 text-md border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
               placeholder="subject"
             />
           </div>
@@ -140,11 +147,11 @@ export default function Formulair(props) {
             required
             onChange={(e) => setMessage(e.target.value)}
             value={message}
-            className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 text-md border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
+            className="w-[250px] outline-none sm:w-[320px] md:w-[400px] lg:w-full px-4 py-2 text-md border border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
             placeholder="Your message here..."
           ></textarea>
+        {invalidPhoneNumber&&<div className=" text-red-500 text-sm mb-0 mt-0">Invalid phone number</div>}
         </div>
-
         <button
           disabled={isLoading}
           type="submit"

@@ -17,7 +17,6 @@ const Loginform = () => {
   const [password, setPassword] = useState('');
   const [noUser, setNoUser] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i;
 
   function switchToRegistrationLoginForm(el) {
     setRegistrationSwitch(el);
@@ -58,11 +57,11 @@ const Loginform = () => {
     }
   }
     return (
-       
+        
              <>
       <NavBarInterface/>
       <div className="bg-yellow-500 w-screen h-screen flex justify-center items-center">
-        <div className="w-96 px-6 pt-6 pb-2 shadow-lg bg-white rounded-md">
+        <div className="w-96 px-3 sm:px-6 pt-6 pb-2 shadow-lg bg-white rounded-md">
           <h1 className="mb-2 text-3xl text-yellow-500 font-semibold text-center">
             {registrationSwitch ? 'Create Account' : 'Login'}
           </h1>
@@ -163,7 +162,7 @@ const Loginform = () => {
               </div>
             </div>
             <hr />
-            <div className="w-full flex justify-between px-11">
+            <div className="w-full flex justify-between sm:px-11">
               <button className="bg-white border hover:bg-gray-200 border-black p-2 px-4 rounded-lg mt-3" onClick={() => signIn('google')}>
                 Google
               </button>

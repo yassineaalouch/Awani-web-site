@@ -33,8 +33,6 @@ const ProductCard = ({ product }) => {
       setAnimation(true)
       clearTimeout(timer);
       setCartProducts(prevItems => [...prevItems, newProduct]);
-
-
     }
   };
   

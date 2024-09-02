@@ -1,6 +1,6 @@
 import Footer from "@/interfaceComponents/Footer";
 import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { CartContext } from "@/components/cartContext";
@@ -26,7 +26,6 @@ export async function getServerSideProps(context) {
 }
 export default function Checkout({Session}){
     const { cartProducts, setCartProducts } = useContext(CartContext);
-    console.log('cartProducts',cartProducts)
     const [ showMessage,setShowMessage] = useState (false)
     const [ isLoading,setIsLoading] = useState (false)
     const [cart,setCart] = useState(cartProducts)
@@ -42,6 +41,21 @@ export default function Checkout({Session}){
         country: "",
         cart
     });
+    useEffect(()=>{
+        axios.get('/api/address',{params:{userId:Session?.user?.id}}).then((response)=>{console.log(response);if(response.data.length>0){setFormData({
+            ...formData,
+            userId:Session?.user?.id||'',
+            firstName: response?.data[0].firstName || "",
+            lastName: response?.data[0].lastName || "",
+            email: response?.data[0].email || "",
+            phone: response?.data[0].phone || "",
+            address: response?.data[0].address || "",
+            city: response?.data[0].city || "",
+            postalCode: response?.data[0].postalCode || "",
+            country: response?.data[0].country || "",
+            
+        })}})
+    },[])
 
     const handleChange = (e) => {
         setFormData({
@@ -56,7 +70,7 @@ export default function Checkout({Session}){
         if(formData.cart.length > 0 && formData.userId === Session?.user?.id){
             setIsLoading(true)
             
-            await axios.post('/api/purchaseRequest', formData);
+            await axios.post('/api/purchaseRequest', {...formData});
             setFormData({
                 userId:'',
                 firstName: "",
@@ -108,7 +122,7 @@ export default function Checkout({Session}){
                             value={formData.firstName}
                             disabled={!Session}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500"
+                            className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                             required
                         />
                         </div>
@@ -124,7 +138,7 @@ export default function Checkout({Session}){
                             disabled={!Session}
                             value={formData.lastName}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500"
+                            className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                             required
                         />
                         </div>
@@ -141,7 +155,7 @@ export default function Checkout({Session}){
                         disabled={!Session}
                         value={formData.email}
                         onChange={handleChange}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500"
+                        className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                         required
                         />
                     </div>
@@ -157,7 +171,7 @@ export default function Checkout({Session}){
                         disabled={!Session}
                         value={formData.phone}
                         onChange={handleChange}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500"
+                        className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                         required
                         />
                     </div>
@@ -173,7 +187,7 @@ export default function Checkout({Session}){
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500"
+                        className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                         required
                         />
                     </div>
@@ -190,7 +204,7 @@ export default function Checkout({Session}){
                             disabled={!Session}
                             value={formData.city}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500"
+                            className={`mt-1 block w-full ${!Session? 'cursor-not-allowed':'cursor-default'} border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                             required
                         />
                         </div>
@@ -206,7 +220,7 @@ export default function Checkout({Session}){
                             name="postalCode"
                             value={formData.postalCode}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500"
+                            className={`mt-1 block w-full ${!Session? 'cursor-not-allowed':'cursor-default'} border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                             required
                         />
                         </div>
@@ -222,7 +236,7 @@ export default function Checkout({Session}){
                             disabled={!Session}
                             value={formData.country}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500"
+                            className={`mt-1 block w-full ${!Session? 'cursor-not-allowed':'cursor-default'}  border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                             required
                         />
                         </div>
@@ -231,9 +245,9 @@ export default function Checkout({Session}){
                     <button
                         type="submit"
                         disabled={!Session||isLoading}
-                        className="mt-6 w-full bg-yellow-500 text-white py-3 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
+                        className={`mt-2 block w-full ${!Session? 'cursor-not-allowed':'cursor-default'}  bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400`}
                     >
-                        Place Order
+                    {isLoading? 'Sending ....':'Place Order'}
                     </button>
                     </form>
 

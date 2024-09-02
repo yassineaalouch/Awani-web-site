@@ -12,7 +12,7 @@ export async function getServerSideProps(context) {
       return {
         redirect: {
           destination: '/Login',
-          permanent: false,
+          permanent: false, 
         },
       };
     }
@@ -81,11 +81,11 @@ function ImportFilterValues(number) {
 
     return (
         <UserAccount>
-            <div className="overflow-x-auto w-screen lg:max-w-4xl">
-        <div className="w-[100%]">
+            <div className="overflow-x-auto lg:max-w-4xl">
+        <div className="md:w-[100%] ">
           <OrderFilterBar ImportFilterValues={ImportFilterValues} className={" !bg-yellow-500"} />
         </div>
-        <div className="overflow-x-auto ">
+        <div className="overflow-x-auto">
 
         <table className="bg-white w-full max-w-6xl border border-green-200 rounded-lg shadow-md">
           <thead>
