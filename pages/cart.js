@@ -187,7 +187,7 @@ export default function CartPage() {
                                             />
                                         </div>
                                         <div className="flex-1">
-                                            <h2 className="text-lg font-medium">{item.title}</h2>
+                                            <h2 className="text-lg line-clamp-2 font-medium">{item.title}</h2>
                                             <p className="text-sm text-gray-600">${item.totalPrice}</p>
                                             <div className="flex items-center mt-2">
                                                 <button
