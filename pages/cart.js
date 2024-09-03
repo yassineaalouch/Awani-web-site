@@ -1,16 +1,133 @@
-import Footer from "@/interfaceComponents/Footer";
-import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
-import { useContext,useEffect } from "react";
+// "use client";
+// import Footer from "@/interfaceComponents/Footer";
+// import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
+// import { useContext,useEffect } from "react";
+// import { CartContext } from "@/components/cartContext";
+// import Image from "next/image";
+// import { RiDeleteBin6Fill } from "react-icons/ri";
+// import { IoAddSharp } from "react-icons/io5";
+// import { IoRemove } from "react-icons/io5";
+// import Link from "next/link";
+
+// export default function CartPage() {
+//     const { cartProducts, setCartProducts } = useContext(CartContext);
+//     const handleQuantityChange = (id, delta) => {
+//         setCartProducts((prevItems) =>
+//             prevItems.map((item) =>
+//                 item.id === id
+//                     ? { 
+//                         ...item,
+//                         quantity: Math.max(1, item.quantity + delta),
+//                         totalPrice: (Math.max(1, item.quantity + delta)) * item.price // Mise à jour du prix total
+//                     }
+//                     : item
+//             )
+//         );
+//     };
+//     console.log("deleteList",cartProducts)
+//     const handleRemoveItem = (id) => {
+//         let newCart = cartProducts.filter((item) => item.id !== id);
+//         console.log("deleteList",newCart)
+//         setCartProducts(newCart);
+//         console.log("deleteList",cartProducts)
+
+//     };
+//     const totalPrice = cartProducts?.reduce((acc, item) => acc + item.totalPrice, 0);
+//     return (
+//         <>
+//             <NavBarInterface /> 
+//             <div className={cartProducts?.length>0?"lg:flex justify-between md:justify-around min-h-screen pt-14 bg-gray-100 p-6":' justify-between md:justify-around min-h-screen pt-14 bg-gray-100 p-6"'}>
+//                 <div className="">
+//                     <div className="max-w-4xl mx-auto mb-4 lg:mb-4 bg-white p-4 shadow-md rounded-lg">
+//                         <h1 className="text-2xl font-semibold mb-6">Your Cart</h1>
+//                         {cartProducts?.length > 0 ? (
+//                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+//                                 {cartProducts.map((item) => (
+//                                     <div
+//                                         key={item.id}
+//                                         className="flex items-center bg-gray-200 p-4 md:w- rounded-lg shadow-sm"
+//                                     >
+//                                         <div className={`w-28 h-28 mr-4 overflow-hidden ${!item.image&&`border border-stone-300 rounded-md `} flex justify-center items-cente`}>
+//                                             <Image 
+//                                                 src={item.image ||"/No_Image_Available.jpg"}
+//                                                 alt={item.title}
+//                                                 width={100}
+//                                                 height={100}
+//                                                 quality={10}
+//                                                 className=" border rounded-md "
+//                                             />
+//                                         </div>
+//                                         <div className="flex-1">
+//                                             <h2 className="text-lg font-medium line-clamp-2">{item.title}</h2>
+//                                             <p className="text-sm text-gray-600">${item.totalPrice}</p>
+//                                             <div className="flex items-center mt-2">
+//                                                 <button
+//                                                     onClick={() => handleQuantityChange(item.id, -1)}
+//                                                     className="px-2 py-1  font-bold bg-gray-200 rounded-md hover:bg-gray-300"
+//                                                     disabled={item.quantity === 1}
+//                                                 >
+//                                                     <IoRemove size={20}/>
+//                                                 </button>
+//                                                 <span className="px-4">{item.quantity}</span>
+//                                                 <button
+//                                                     onClick={() => handleQuantityChange(item.id, 1)}
+//                                                     className="px-2 py-1 font-bold bg-gray-200 rounded-md hover:bg-gray-300"
+//                                                 >
+//                                                     <IoAddSharp size={20} />
+//                                                 </button>
+//                                             </div>
+                                            
+//                                         </div>
+//                                         <button
+//                                             onClick={() => handleRemoveItem(item.id)}
+//                                             className="ml-4 text-sm text-red-500 hover:text-red-700"
+//                                         >
+//                                             <RiDeleteBin6Fill size={25}/>
+//                                         </button>
+//                                     </div>
+//                                 ))}
+//                             </div>
+//                         ) : (
+//                             <div >
+//                                 <p className="text-gray-600 mb-4 min-w-full mt-10">Your cart is empty.</p>
+//                                 <Link href={'/shope'} className="bg-yellow-300 p-2 rounded-lg hover:bg-yellow-500">Visit Our Store</Link>
+//                             </div>
+
+//                         )}
+//                     </div>
+//                     {cartProducts?.length > 0 &&
+//                         <div className="max-h-60 flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
+//                             <Link href={'/Checkout'} className="bg-yellow-300 p-2 rounded-lg hover:bg-yellow-500">
+//                                 Continue to checkout
+//                             </Link>
+//                             <div className="flex justify-end">
+//                                 Total Price: ${totalPrice.toFixed(2)}
+//                             </div>
+//                         </div>
+//                     }
+//                 </div>
+
+
+//             </div>
+//             <Footer />
+//         </>
+//     );
+// }
+'use client'; // Utiliser le mode client pour l'accès au localStorage
+
+import { useContext,useEffect, useState } from "react";
 import { CartContext } from "@/components/cartContext";
 import Image from "next/image";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import { IoAddSharp } from "react-icons/io5";
-import { IoRemove } from "react-icons/io5";
+import { IoAddSharp, IoRemove } from "react-icons/io5";
 import Link from "next/link";
+import Footer from "@/interfaceComponents/Footer";
+import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
+
 
 export default function CartPage() {
     const { cartProducts, setCartProducts } = useContext(CartContext);
-    console.log('cartDelete',cartProducts)
+
     const handleQuantityChange = (id, delta) => {
         setCartProducts((prevItems) =>
             prevItems.map((item) =>
@@ -24,45 +141,61 @@ export default function CartPage() {
             )
         );
     };
+    const [deletePermission,setDeletePermission] = useState(false)
+    useEffect(() => {
+        if(cartProducts.length >0 ||deletePermission){
+            console.log('cartProducts',cartProducts)
+            localStorage.setItem('cart', JSON.stringify(cartProducts));
+            setDeletePermission(false)
+
+        }
+        
+    }, [cartProducts]);
+    
 
     const handleRemoveItem = (id) => {
-        setCartProducts((prevItems) => {prevItems.filter((item) => item.id !== id)});
+        setCartProducts((prevItems) => {
+            const updatedCart = prevItems.filter((item) => item.id !== id);
+            return updatedCart;
+        });
+        setDeletePermission(true)
     };
-    const totalPrice = cartProducts?.reduce((acc, item) => acc + item.totalPrice, 0);
+
+    const totalPrice = cartProducts.reduce((acc, item) => acc + item.totalPrice, 0);
+
     return (
         <>
-            <NavBarInterface /> 
-            <div className={cartProducts?.length>0?"lg:flex justify-between md:justify-around min-h-screen pt-14 bg-gray-100 p-6":' justify-between md:justify-around min-h-screen pt-14 bg-gray-100 p-6"'}>
-                <div className="">
-                    <div className="max-w-4xl mx-auto mb-4 lg:mb-4 bg-white p-4 shadow-md rounded-lg">
-                        <h1 className="text-2xl font-semibold mb-6">Your Cart</h1>
-                        {cartProducts?.length > 0 ? (
+            <NavBarInterface />
+            <div className="min-h-screen pt-14 bg-gray-100 p-6">
+                <div className="max-w-4xl mx-auto bg-white p-4 shadow-md rounded-lg">
+                    <h1 className="text-2xl font-semibold mb-6">Your Cart</h1>
+                    {cartProducts.length > 0 ? (
+                        <>
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                 {cartProducts.map((item) => (
                                     <div
                                         key={item.id}
-                                        className="flex items-center bg-gray-200 p-4 md:w- rounded-lg shadow-sm"
+                                        className="flex items-center bg-gray-200 p-4 rounded-lg shadow-sm"
                                     >
-                                        <div className={`w-28 h-28 mr-4 overflow-hidden ${!item.image&&`border border-stone-300 rounded-md `} flex justify-center items-cente`}>
+                                        <div className="w-28 h-28 mr-4">
                                             <Image 
-                                                src={item.image ||"/No_Image_Available.jpg"}
+                                                src={item.image || "/No_Image_Available.jpg"}
                                                 alt={item.title}
                                                 width={100}
                                                 height={100}
-                                                quality={10}
-                                                className=" border rounded-md "
+                                                className="border rounded-md"
                                             />
                                         </div>
                                         <div className="flex-1">
-                                            <h2 className="text-lg font-medium line-clamp-2">{item.title}</h2>
+                                            <h2 className="text-lg font-medium">{item.title}</h2>
                                             <p className="text-sm text-gray-600">${item.totalPrice}</p>
                                             <div className="flex items-center mt-2">
                                                 <button
                                                     onClick={() => handleQuantityChange(item.id, -1)}
-                                                    className="px-2 py-1  font-bold bg-gray-200 rounded-md hover:bg-gray-300"
+                                                    className="px-2 py-1 font-bold bg-gray-200 rounded-md hover:bg-gray-300"
                                                     disabled={item.quantity === 1}
                                                 >
-                                                    <IoRemove size={20}/>
+                                                    <IoRemove size={20} />
                                                 </button>
                                                 <span className="px-4">{item.quantity}</span>
                                                 <button
@@ -72,38 +205,34 @@ export default function CartPage() {
                                                     <IoAddSharp size={20} />
                                                 </button>
                                             </div>
-                                            
                                         </div>
                                         <button
                                             onClick={() => handleRemoveItem(item.id)}
                                             className="ml-4 text-sm text-red-500 hover:text-red-700"
                                         >
-                                            <RiDeleteBin6Fill size={25}/>
+                                            <RiDeleteBin6Fill size={25} />
                                         </button>
                                     </div>
                                 ))}
                             </div>
-                        ) : (
-                            <div >
-                                <p className="text-gray-600 mb-4 min-w-full mt-10">Your cart is empty.</p>
-                                <Link href={'/shope'} className="bg-yellow-300 p-2 rounded-lg hover:bg-yellow-500">Visit Our Store</Link>
+                            <div className="flex justify-between items-center mt-6">
+                                <Link href="/Checkout" className="bg-yellow-300 p-2 rounded-lg hover:bg-yellow-500">
+                                    Continue to checkout
+                                </Link>
+                                <div className="text-lg font-semibold">
+                                    Total Price: ${totalPrice.toFixed(2)}
+                                </div>
                             </div>
-
-                        )}
-                    </div>
-                    {cartProducts?.length > 0 &&
-                        <div className="max-h-60 flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
-                            <Link href={'/Checkout'} className="bg-yellow-300 p-2 rounded-lg hover:bg-yellow-500">
-                                Continue to checkout
+                        </>
+                    ) : (
+                        <div>
+                            <p className="text-gray-600 mb-4">Your cart is empty.</p>
+                            <Link href="/shope" className="bg-yellow-300 p-2 rounded-lg hover:bg-yellow-500">
+                                Visit Our Store
                             </Link>
-                            <div className="flex justify-end">
-                                Total Price: ${totalPrice.toFixed(2)}
-                            </div>
                         </div>
-                    }
+                    )}
                 </div>
-
-
             </div>
             <Footer />
         </>

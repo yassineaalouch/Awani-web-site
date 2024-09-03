@@ -66,6 +66,13 @@ export default function ProductPage({Session,product}) {
   useEffect(()=>{
     fetchData()
   },[update])
+
+  useEffect(() => {
+        const storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+            setCartProducts(JSON.parse(storedCart));
+        }
+    }, []);
  
   async function fetchData() {
     try {
@@ -162,13 +169,13 @@ export default function ProductPage({Session,product}) {
 
     }
   }
-  const existingProductIndex = cartProducts.filter(item => item.id === product._id)
+  const existingProductIndex = cartProducts.find((item) => item.id === product._id)
   const addToCart = (product) => {
-    if (existingProductIndex.length>0) {
-      console.log(existingProductIndex)
+  const existingProductIndex = cartProducts.find((item) => item.id === product._id)
+
+    if (existingProductIndex) {
 
     } else {
-      console.log(existingProductIndex)
       // Si le produit n'existe pas dans le panier, ajoutez-le
       const newProduct = {
         id: product._id,
@@ -180,7 +187,11 @@ export default function ProductPage({Session,product}) {
       };
       setCartProducts(prevItems => [...prevItems, newProduct]);
     }
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(cartProducts));
+  }
   };
+
 
   const handleQuantityChange = (id, delta) => {
       setCartProducts((prevItems) =>
@@ -195,6 +206,9 @@ export default function ProductPage({Session,product}) {
           )
       );
       console.log('cart',cartProducts)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('cart', JSON.stringify(cartProducts));
+    }
   };
 
 
@@ -260,7 +274,7 @@ export default function ProductPage({Session,product}) {
               >
                   Add To Cart <FaCartShopping size={25}/>
               </button> */}
-            {existingProductIndex?           
+            {!existingProductIndex?           
                <button
                 className="mt-4 w-1/2 bg-yellow-500 flex justify-center gap-3 items-center text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
                 onClick={() => addToCart(product)}

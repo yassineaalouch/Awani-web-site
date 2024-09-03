@@ -1,3 +1,4 @@
+"use client"
 import { CartContext } from '@/components/cartContext';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,13 +13,8 @@ const ProductCard = ({ product }) => {
   }, 1000);
 
   const addToCart = (product) => {
-    
-  
-    const existingProductIndex = cartProducts.findIndex(item => item.id === product._id);
-    
-    
-    if (existingProductIndex >= 0) {
-
+    const existingProductIndex = cartProducts.find((item) =>item.id === product._id);
+    if (existingProductIndex ) {
     } else {
       // Si le produit n'existe pas dans le panier, ajoutez-le
       const newProduct = {
@@ -28,11 +24,13 @@ const ProductCard = ({ product }) => {
         image: product.images[0],
         totalPrice: product.price,
         quantity: 1,  // Commencez avec une quantité de 1
-        
       };
       setAnimation(true)
       clearTimeout(timer);
-      setCartProducts(prevItems => [...prevItems, newProduct]);
+      setCartProducts([...cartProducts, newProduct]);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('cart', JSON.stringify(cartProducts));
+    }
     }
   };
   

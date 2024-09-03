@@ -24,7 +24,7 @@ export async function getServerSideProps() {
 }
 
 export default function Shop({ productList }) {
-    const {cartProducts} = useContext(CartContext)
+    const {cartProducts,setCartProducts} = useContext(CartContext)
     const [categories,setCategories] = useState([])
     const [productListFilter,setProductListFilter] = useState (productList)
     useEffect(()=>{
