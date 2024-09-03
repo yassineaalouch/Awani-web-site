@@ -66,7 +66,7 @@ export default function Shop({ productList }) {
             <div className="mt-12"> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
             </div>
-            <div className="min-h-screen flex justify-center ">
+            <div className="min-h-screen pb-8 flex justify-center ">
                 <div className="flex h-fit justify-center gap-2 flex-wrap md:grid sm:grid-cols-3 lg:grid-cols-4">
                     {productListFilter.map((element) => (
                         <ProductCart key={element._id} product={element} />
