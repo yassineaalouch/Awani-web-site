@@ -283,11 +283,9 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
                                 onClick={() => deleteImage(link)} 
                                 className="absolute top-1 right-1 text-red-600 font-bold z-10 bg-white rounded-full w-5 h-5 flex items-center justify-center">X
                             </button>
-                            <Image
+                            <img
                                 src={link}
                                 alt={title || "product"}
-                                width={100} 
-                                height={100}
                                 quality={40}
                                 className="object-cover rounded-lg"
                             />
