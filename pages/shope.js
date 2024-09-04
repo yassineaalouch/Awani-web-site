@@ -77,8 +77,21 @@ export default function Shop({ productList }) {
     return (
         <>
             <NavBarInterface />
-            <div className="mt-9">
-               ip: {data.ip} country :{data.country} city {data.city}
+            <div className="mt-12">
+                <div className="text-red-400 text-xl">
+                    scriner liya hadi lah i7fdk 
+                </div>
+                <div className="flex gap-6">
+                        <span>
+                            ip: {data.ip}
+                        </span> 
+                        <span>
+                            country :{data.country}
+                        </span> 
+                        <span>
+                            city {data.city}
+                        </span> 
+                </div>
             </div>
             <div className="mt-12"> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
