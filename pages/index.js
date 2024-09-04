@@ -9,8 +9,6 @@ import { FaHandHoldingMedical } from "react-icons/fa6";
 import { GiBee } from "react-icons/gi";
 import InfoCard from "@/interfaceComponents/InfoCard";
 import Hr from "@/interfaceComponents/Hr";
-import { Analytics } from '@vercel/analytics/react';
-
 
 export default function Home() {
   function FAQItem({ question, answer }) {
@@ -80,7 +78,6 @@ export default function Home() {
 
           <Hr titre="benefice"/>
 
-          <Analytics />
           <div className="grid gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 place-items-center p-5">
             <InfoCard
               Icon={IoSettings}
