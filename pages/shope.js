@@ -81,9 +81,6 @@ export default function Shop({ productList }) {
         <>
             <NavBarInterface />
             <div className="mt-12">
-                <div className="text-red-400 text-xl">
-                    scriner liya hadi lah i7fdk 
-                </div>
                 <div className="flex gap-6">
                         <span>
                             ip: {data.ip}
