@@ -65,7 +65,7 @@ export default function Shop({ productList }) {
         try {
             const response = await axios.get(`/api/getGeolocation`);
             const setData = response.data; // Extract the data from the response
-            console.log('Geolocation data:', response);
+            console.log('Geolocation data:', response.data);
 
             return setData; // Return the geolocation data
         } catch (error) {
@@ -78,7 +78,7 @@ export default function Shop({ productList }) {
         <>
             <NavBarInterface />
             <div className="mt-9">
-               ip: {data.ip} country :{data.country}
+               ip: {data.ip} country :{data.country} city {data.city}
             </div>
             <div className="mt-12"> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
