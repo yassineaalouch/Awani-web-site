@@ -74,6 +74,9 @@ export default function Shop({ productList }) {
         }
     }
 
+
+
+
     return (
         <>
             <NavBarInterface />

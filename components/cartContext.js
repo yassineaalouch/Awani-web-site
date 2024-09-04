@@ -36,7 +36,6 @@ export function CartContextProvider({ children }) {
     const [cartProducts, setCartProducts] = useState([]);
     
     useEffect(() => {
-        console.log('cartProduc555ts',cartProducts)
         if (typeof window !== 'undefined') {
             const storedCart = localStorage.getItem('cart');
             if (storedCart) {
