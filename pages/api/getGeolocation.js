@@ -1,6 +1,6 @@
 // pages/api/geolocation.js
 import axios from 'axios';
-
+import { NextResponse } from 'next/server';
 // Remplacez par votre propre token IPinfo
 
 export default async function handler(req, res) {
@@ -10,9 +10,14 @@ export default async function handler(req, res) {
 
     // Faire la requête à IPinfo
     const response = await axios.get(url);
-
+    if (!response.ok) {
+        throw new Error('Erreur de récupération des données de géolocalisation');
+    }
     // Transmettre la réponse au client
-    res.status(200).json(response.data);
+    
+    const data = await response.json();
+    return NextResponse.json(data);
+    // res.status(200).json(response.data);
   } catch (error) {
         console.error('Error details:', {
             message: error.message,
