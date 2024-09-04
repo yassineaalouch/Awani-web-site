@@ -64,7 +64,7 @@ export default function Shop({ productList }) {
     async function getGeolocation() {
         try {
             const response = await axios.get(`/api/getGeolocation`);
-            const setData = response; // Extract the data from the response
+            const setData = response.data; // Extract the data from the response
             console.log('Geolocation data:', response);
 
             return setData; // Return the geolocation data
