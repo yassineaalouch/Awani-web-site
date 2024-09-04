@@ -1,3 +1,4 @@
+"use client"
 import Footer from "@/interfaceComponents/Footer";
 import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
 import { useContext, useEffect, useState } from "react";
@@ -64,6 +65,17 @@ export default function Checkout({Session}){
         });
     };
 
+    const [deletePermission,setDeletePermission] = useState(false)
+    useEffect(() => {
+        if(cartProducts.length >0 ||deletePermission){
+            console.log('cartProducts',cartProducts)
+            localStorage.setItem('cart', JSON.stringify(cartProducts));
+            setDeletePermission(false)
+
+        }
+        
+    }, [cartProducts]);
+
     async function handleSubmit(e) {
         e.preventDefault();
         console.log('formData',formData)
@@ -83,6 +95,7 @@ export default function Checkout({Session}){
                 country: "",
                 cart:[]
             });
+            setDeletePermission(true)
             setCartProducts([])
             setShowMessage(true)
             setTimeout(()=>setShowMessage(false)

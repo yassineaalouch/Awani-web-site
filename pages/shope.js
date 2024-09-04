@@ -29,6 +29,7 @@ export default function Shop({ productList }) {
     const [productListFilter,setProductListFilter] = useState (productList)
     useEffect(()=>{
         fitchData()
+        getGeolocation()
     },[])
     
     function ImportFilterValues(number){
@@ -59,10 +60,26 @@ export default function Shop({ productList }) {
     async function fitchData(){
         const response = await axios.get('/api/categories').then((response)=>{setCategories(response.data.map((ele)=>(ele.name)))})
     }
+    const [data,setData] = useState({})
+    async function getGeolocation() {
+        try {
+            const response = await axios.get(`https://ipinfo.io?token=${process.env.NEXT_PUBLIC_TOKEN_LOCATION_IP_INFO}`);
+            const setData = response.data; // Extract the data from the response
+            console.log('Geolocation data:', setData);
+
+            return setData; // Return the geolocation data
+        } catch (error) {
+            console.error('Error fetching geolocation:', error);
+            return null; // Return null if there’s an error
+        }
+    }
+
     return (
         <>
             <NavBarInterface />
-
+            <div className="mt-9">
+               ip: {data.ip} country :{data.country}
+            </div>
             <div className="mt-12"> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
             </div>

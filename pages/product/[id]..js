@@ -15,7 +15,7 @@ import { CartContext } from '@/components/cartContext';
 import { useContext  } from 'react'; 
 import { IoAddSharp } from "react-icons/io5";
 import { IoRemove } from "react-icons/io5";
-
+import formatCurrency from '@/components/formatCurrency';
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -255,7 +255,7 @@ export default function ProductPage({Session,product}) {
             </div>
             <div>
               <h1 className="text-3xl font-semibold text-gray-800">{product?.title}</h1>
-              <p className="text-xl font-bold text-yellow-500 mt-2">${product?.price}</p>
+              <p className="text-xl font-bold text-yellow-500 mt-2">{formatCurrency(product?.price)}</p>
               <div className=" space-y-3">
                 <div className="mt-4 flex items-center">
                   <div className="flex items-center">

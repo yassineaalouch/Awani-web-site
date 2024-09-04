@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useState  } from 'react'; 
 import { FaCartShopping } from "react-icons/fa6";
+import formatCurrency from '@/components/formatCurrency';
+
 
 const ProductCard = ({ product }) => {
   const {setCartProducts , cartProducts} = useContext(CartContext)
@@ -66,13 +68,13 @@ const ProductCard = ({ product }) => {
           <h3 className="text-lg font-semibold line-clamp-2 text-gray-800">{product?.title}</h3>
         </Link>
         <div className='flex gap-2 items-end '>
-            <p className="text-gray-950 mt-2">${product?.price}</p>
+            <p className="text-gray-950 mt-2">{formatCurrency(product?.price)}</p>
             {product?.discountPrice&&
             <p 
                 className="text-gray-500 mb-[2.5px] line-through text-xs mt-2 relative inline-block" 
                 style={{ width: 'fit-content', textDecorationThickness: '1.5px', textDecorationOffset: '2px' }}
               >
-                ${product?.discountPrice}
+                {formatCurrency(product?.discountPrice)}
             </p>  
             } 
         </div>
