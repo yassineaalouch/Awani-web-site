@@ -104,9 +104,9 @@ export default function NavBarInterface() {
 
                 </ul>
                 <div className="flex items-center gap-2 md:gap-4">
-                    <button onClick={ShowConverterCurrencyFunction}  className="flex px-1 items-center py-1 group relative hover:bg-yellow-600 bg-white   rounded-full">
-                    <MdOutlineCurrencyExchange size={20} className=" text-slate-600 hover:text-white" />
-                    <span className="text-xs text-slate-600">-{currencyWanted||'MAD'}</span>
+                    <button onClick={ShowConverterCurrencyFunction}  className="flex group-[]: px-1 items-center py-1 group relative hover:bg-yellow-600 bg-white   rounded-full">
+                    <MdOutlineCurrencyExchange size={20} className=" text-slate-600 group-hover:text-white" />
+                    <span className="text-xs group-hover:text-white text-slate-600">_{currencyWanted||'MAD'}</span>
                     </button>
                     <div onClick={ShowConverterCurrencyFunction} className={showConverterCurrency? 'block absolute inset-0  w-screen h-screen ': "hidden" }>
                         <div className={`absolute top-12 right-2`}>

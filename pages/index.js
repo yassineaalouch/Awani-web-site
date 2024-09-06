@@ -198,8 +198,8 @@ export default function Home() {
           
 
           <div className="w-full mt-10 grid grid-cols-1 place-items-center gap-10 md:grid-cols-2 ">
-              <div className="flex justify-start pl-8 py-3  w-5/6 md:w-full lg:hidden h-fit md:ml-72 rounded-l-3xl bg-yellow-500">
-                <img className="max-h-40" src="capteurs-de-couvain-pour-ruche-3-removebg-preview.png" alt="capteurs-de-couvain-pour-ruche-3" />
+              <div className="flex justify-start ml-24 pl-8 py-3  w-5/6 md:w-full md:hidden h-fit md:ml-72 rounded-l-3xl bg-yellow-500">
+                <img className="max-h-40 sm:max-h-60" src="capteurs-de-couvain-pour-ruche-3-removebg-preview.png" alt="capteurs-de-couvain-pour-ruche-3" />
               </div>
             <div className="w-full pl-3 h-full max-w-lg rounded-xl">
               <div className="flex gap-2 ">
@@ -220,7 +220,7 @@ export default function Home() {
                 </ul>
               </div>
             </div>
-            <div className="hidden pl-12 p-5 lg:flex w-full h-fit rounded-l-3xl justify-start bg-yellow-500">
+            <div className="hidden pl-12 p-5 md:flex w-full h-fit rounded-l-3xl justify-start bg-yellow-500">
                   <img className="max-h-[22rem]" src="capteurs-de-couvain-pour-ruche-3-removebg-preview.png" alt="capteurs-de-couvain-pour-ruche-3" />
             </div>
           </div>
