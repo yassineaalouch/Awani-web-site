@@ -29,6 +29,8 @@ export default function Products() {
     },[]);
     return(
         <Layout>
+            <div className="max-w-[65.2rem]">
+
             <Link className="btn-primary" href={'/products/new'}>Add new product</Link>
             
           
@@ -62,6 +64,7 @@ export default function Products() {
                     ))}
                 </tbody>
             </table>
+            </div>
         </Layout>
     );
 

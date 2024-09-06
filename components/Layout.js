@@ -25,7 +25,7 @@ export default function Layout({ children }) {
     return null;
   }
     return (
-          <div className="lg:bg-green-500 min-h-screen pt-8 flex">
+          <div className="lg:bg-slate-700 min-h-screen pt-8 flex">
           <Nav/> {/*le menu dans le gauche dans le admine dashbord */}
           <div className="bg-white flex-grow mt-2 mr-2 mb-2 rounded-lg p-4">
               {children}{/*cette element doit se changer a chaque fois on clique sur un element dans le menu dans le dashbord : c'est lelement ou s'affiche le info ... */}

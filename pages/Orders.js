@@ -98,15 +98,15 @@ export default function Orders(){
 
   return (
     <Layout>
-      <div className="overflow-x-auto w-screen lg:max-w-4xl">
+      <div className="overflow-x-auto w-screen lg:max-w-[58rem]">
         <div className="w-[100%]">
           <OrderFilterBar ImportFilterValues={ImportFilterValues} className={" !bg-green-500"} />
         </div>
         <div className="overflow-x-auto ">
 
-        <table className="bg-white w-full max-w-6xl border border-green-200 rounded-lg shadow-md">
+        <table className="bg-white w-full max-w-[100rem] border border-gray-200 rounded-lg shadow-md">
           <thead>
-            <tr className="bg-green-200 text-gray-600 uppercase text-sm leading-normal">
+            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
               <th className="py-3 px-6 text-left">Order ID</th>
               <th className="py-3 px-6 text-nowrap text-left">Customer Name</th>
               <th className="py-3 px-6 text-left">Status</th>
@@ -121,7 +121,7 @@ export default function Orders(){
                 <tr
                   key={purchaseRequest._id}
                   onClick={() => changeId(purchaseRequest._id)}
-                  className="border-b border-green-200 hover:bg-green-50 cursor-pointer"
+                  className="border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
                 >
                   <td className="py-3 px-6 text-left whitespace-nowrap">
                     {purchaseRequest._id}

@@ -26,8 +26,10 @@ export default function NewProduct(Session){
 
     return (
     <Layout>
+      <div className="max-w-[65.2rem]">
         <h1 className="this">Add product</h1>
         <ProductForm />
+      </div>
     </Layout>
     );
 }

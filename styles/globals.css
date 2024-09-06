@@ -13,17 +13,17 @@ img{
 }
 
 input.this, textarea.this ,select.this{
-    @apply border border-gray-300 rounded-md p-1 w-full;
+    @apply border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500 rounded-md p-1 w-full;
     @apply mb-2;
 }
 input.this:focus, textarea.this:focus, select.this:focus{
-    @apply border-blue-900;
+    @apply border-gray-100;
 }
 h1.this{
-    @apply text-blue-900 mb-10 text-xl ;
+    @apply text-gray-900 mb-10 text-xl ;
 }
 label.this{
-    @apply text-blue-900;
+    @apply text-gray-900;
 }
 .btn-primary{
     @apply bg-green-500 hover:bg-green-600 text-white px-4 rounded-md py-1;
@@ -32,10 +32,13 @@ table.basic{
     @apply w-full mt-4;
 }
 table.basic thead tr td{
-    @apply bg-green-200;
+    @apply bg-gray-200;
 }
 table.basic tr td{
-    @apply border border-green-200 p-1;
+    @apply p-1;
+}
+table.basic td{
+  @apply p-1;
 }
 .btn-red,.btn-default{
     @apply px-4 py-1 rounded-md ;

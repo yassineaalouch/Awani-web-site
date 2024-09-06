@@ -98,7 +98,7 @@ export default function Properties(){
                         type="text"
                         value={propName}
                         onChange={(e) => setPropName(e.target.value)}
-                        className={!error? "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" : "w-full px-4 py-2 border rounded-lg border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"}
+                        className={!error? "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500" : "w-full px-4 py-2 border rounded-lg border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"}
                         placeholder="color,size..."
                     />
                     </div>
@@ -112,7 +112,7 @@ export default function Properties(){
                         value={propValue}
                         required
                         onChange={(e) => setPropValue(e.target.value)}
-                        className={!error? "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" : "w-full px-4 py-2 border rounded-lg border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"}
+                        className={!error? "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500" : "w-full px-4 py-2 border rounded-lg border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"}
                         placeholder="red,green,black..."
                     />
                     </div>

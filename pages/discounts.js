@@ -99,7 +99,7 @@ export default function Properties(){
                         value={titre}
                         required
                         onChange={(e) => setTitre(e.target.value)}
-                        className={!error? "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" : "w-full px-4 py-2 border rounded-lg border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"}
+                        className={!error? "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500" : "w-full px-4 py-2 border rounded-lg border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"}
                         placeholder="halloween discount"
                     />
                     </div>
@@ -113,7 +113,7 @@ export default function Properties(){
                         value={quantity}
                         required
                         onChange={(e) => setQuantity(e.target.value)}
-                        className={!error? "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" : "w-full px-4 py-2 border rounded-lg border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"}
+                        className={!error? "w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-500" : "w-full px-4 py-2 border rounded-lg border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"}
                         placeholder="15"
                     />
                     </div>
