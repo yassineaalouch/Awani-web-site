@@ -112,7 +112,7 @@ export default function Formulair(props) {
           <div className="block">
             <label htmlFor="Telephone" className="block text-md font-semibold text-gray-700 mb-2">Telephone *</label>
             <PhoneInput
-              defaultCountry={'US'}
+              defaultCountry={'MA'}
               id="Telephone"
               name="Telephone"
               onChange={(e) => setTelephone(e)}
@@ -120,7 +120,7 @@ export default function Formulair(props) {
               required 
               autoCompleteType="tel"
               keyboardType="phone-pad"
-              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-1 py-2 text-md border outline-none border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
+              className="w-[250px] sm:w-[320px] md:w-[400px] lg:w-full px-2 py-2 text-md border outline-none border-gray-300 rounded-md focus:ring-yellow-500 focus:border-yellow-500"
               placeholder="enter your phone"
             />
           </div>
