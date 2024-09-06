@@ -109,7 +109,7 @@ export default function NavBarInterface() {
                     <span className="text-xs group-hover:text-white text-slate-600">_{currencyWanted||'MAD'}</span>
                     </button>
                     <div onClick={ShowConverterCurrencyFunction} className={showConverterCurrency? 'block absolute inset-0  w-screen h-screen ': "hidden" }>
-                        <div className={`absolute top-12 right-2`}>
+                        <div className={`absolute top-12 right-2`} onClick={(e)=>{e.stopPropagation()}}>
                             <LanguageCurrencySettings/>
                         </div>
                     </div>
