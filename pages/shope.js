@@ -11,7 +11,7 @@ import ProductFilterBar from "@/components/Filter";
 import { useEffect,useState } from "react";
 import { Category } from "@/models/Category";
 import axios from "axios";
-
+import { converterCurrency } from "@/components/currencyConverter";
 export async function getServerSideProps() {
     await mongooseConnect()
     const productList = await Product.find({}).populate('category').lean();
@@ -27,16 +27,21 @@ export default function Shop({ productList }) {
     const {cartProducts,setCartProducts} = useContext(CartContext)
     const [categories,setCategories] = useState([])
     const [productListFilter,setProductListFilter] = useState (productList)
+    const {conversionRate,currencyWanted,} = useContext(converterCurrency)
+    const [rateOfChange,setRateOfChange] = useState(null)
+    useEffect(()=>{
+        setRateOfChange(conversionRate[currencyWanted])
+    },[currencyWanted])
     useEffect(()=>{
         fitchData()
-        getGeolocation()
+        // getGeolocation()
     },[])
     
     function ImportFilterValues(number){
         const list = productList.filter(product => {
             return (
               (number.category=='All'||number.category===''||product?.category?.name === number.category)&&
-              (!number.priceRange||product.price <= number.priceRange)&&
+              (!number.priceRange||(rateOfChange? product.price*rateOfChange:product.price) <= number.priceRange)&&
               (!number.rating||product?.rating >= number.rating)
 
             )
@@ -60,19 +65,18 @@ export default function Shop({ productList }) {
     async function fitchData(){
         const response = await axios.get('/api/categories').then((response)=>{setCategories(response.data.map((ele)=>(ele.name)))})
     }
-    const [data,setData] = useState({})
-    async function getGeolocation() {
-        try {
-            const response = await axios.get(`/api/getGeolocation`);
-            setData(response.data) ; // Extract the data from the response
-            console.log('Geolocation data:', response.data);
-            console.log(`ip: ${data.ip} country :${data.country} city ${data.city}`)
-            return setData; // Return the geolocation data
-        } catch (error) {
-            console.error('Error fetching geolocatio4n:', error);
-            return null; // Return null if there’s an error
-        }
-    }
+    // const [data,setData] = useState({})
+    // async function getGeolocation() {
+    //     try {
+    //         const response = await axios.get(`/api/getGeolocation`);
+    //         setData(response.data) ; // Extract the data from the response
+    //         console.log(`ip: ${data.ip} country :${data.country} city ${data.city}`)
+    //         return setData; // Return the geolocation data
+    //     } catch (error) {
+    //         console.error('Error fetching geolocatio4n:', error);
+    //         return null; // Return null if there’s an error
+    //     }
+    // }
 
 
 
@@ -80,7 +84,7 @@ export default function Shop({ productList }) {
     return (
         <>
             <NavBarInterface />
-            <div className="mt-12">
+            {/* <div className="mt-12">
                 <div className="flex gap-6">
                         <span>
                             ip: {data.ip}
@@ -92,14 +96,14 @@ export default function Shop({ productList }) {
                             city {data.city}
                         </span> 
                 </div>
-            </div>
+            </div> */}
             <div className="mt-12"> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
             </div>
             <div className="min-h-screen pb-8 flex justify-center ">
                 <div className="flex h-fit justify-center gap-2 flex-wrap md:grid sm:grid-cols-3 lg:grid-cols-4">
                     {productListFilter.map((element) => (
-                        <ProductCart key={element._id} product={element} />
+                        <ProductCart key={element._id} currencyWanted={currencyWanted} exchangeRate={rateOfChange} product={element} />
                     ))}
                 </div>
             </div>

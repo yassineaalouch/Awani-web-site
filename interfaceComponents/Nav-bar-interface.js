@@ -1,18 +1,56 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { FaUserAlt } from "react-icons/fa";
 import { signOut } from "next-auth/react";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { MdOutlineAccountBox } from "react-icons/md";
-import { TbWorldCog } from "react-icons/tb";
 import LanguageCurrencySettings from "@/components/SettingsLangCurr";
+import { useContext } from "react";
+import { converterCurrency } from "@/components/currencyConverter";
+import axios from "axios";
+import { MdOutlineCurrencyExchange } from "react-icons/md";
 
 
 export default function NavBarInterface() {
+    const {conversionRate,currencyWanted,setCurrencyWanted,setConversionRate} = useContext(converterCurrency)
     const router = useRouter();
     const  {data:session} = useSession()
+    useEffect(() => {
+        const dateOfLastUpdate = new Date(localStorage.getItem("DateOfLastConversionRate"));
+        const newDate = new Date();
+
+        if (dateOfLastUpdate) {
+            const lastUpdateDate = new Date(dateOfLastUpdate);
+            const dateDifference = (newDate - lastUpdateDate) / (1000 * 60 * 60 * 24); 
+            if (dateDifference > 1) {
+                axios.get('https://api.exchangerate-api.com/v4/latest/MAD').then((response) => {
+                    const rates = response.data.rates;
+                    setConversionRate(rates);
+                    localStorage.setItem('DateOfLastConversionRate', newDate.toISOString());
+                    localStorage.setItem('conversionRate', JSON.stringify(rates));
+                }).catch(error => {
+                    console.error('Error fetching conversion rates:', error);
+                });
+            } else {
+                const storedRates = localStorage.getItem('conversionRate');
+                if (storedRates) {
+                    setConversionRate(JSON.parse(storedRates));
+                }
+            }
+        } else {
+            axios.get('https://api.exchangerate-api.com/v4/latest/MAD').then((response) => {
+                const rates = response.data.rates;
+                setConversionRate(rates);
+                localStorage.setItem('DateOfLastConversionRate', newDate.toISOString());
+                localStorage.setItem('conversionRate', JSON.stringify(rates));
+            }).catch(error => {
+                console.error('Error fetching conversion rates:', error);
+            });
+        }
+    }, []);
+
 
     const [menuIsShow,setMenuIsShow]=useState(false)
     const [showUserMenu , setShowUserMenu]=useState(false)
@@ -66,11 +104,14 @@ export default function NavBarInterface() {
 
                 </ul>
                 <div className="flex items-center gap-2 md:gap-4">
-                    <button onClick={ShowConverterCurrencyFunction}  className="group relative hover:bg-yellow-600 bg-white  rounded-full">
-                    <TbWorldCog size={25} className=" text-slate-600 hover:text-white" />
+                    <button onClick={ShowConverterCurrencyFunction}  className="flex px-1 items-center py-1 group relative hover:bg-yellow-600 bg-white   rounded-full">
+                    <MdOutlineCurrencyExchange size={20} className=" text-slate-600 hover:text-white" />
+                    <span className="text-xs text-slate-600">-{currencyWanted||'MAD'}</span>
                     </button>
-                    <div className={`${showConverterCurrency? 'block': "hidden"} absolute top-12 right-0`}>
-                        <LanguageCurrencySettings/>
+                    <div onClick={ShowConverterCurrencyFunction} className={showConverterCurrency? 'block absolute inset-0  w-screen h-screen ': "hidden" }>
+                        <div className={`absolute top-12 right-2`}>
+                            <LanguageCurrencySettings/>
+                        </div>
                     </div>
                     {!session?
                         <button onClick={goToLoginPage} className={"bg-yellow-600 rounded-xl px-3 py-1  border-yellow-50 border-[1.2px] text-white font-semibold hover:bg-white hover:text-yellow-900"}>
@@ -82,9 +123,10 @@ export default function NavBarInterface() {
                             <span className=" text-sm p-2 relative"><FaUserAlt/></span>
                         </button>
                         {showUserMenu&&
-                            <div className=" absolute top-12 right-3 md:right-14 lg:right-20 text-black font-bold flex flex-col rounded-lg  justify-start bg-zinc-50 border-x-2 border-yellow-500 border-t-2">
-                                <h1 className="text-center border-b-2 border-yellow-400 p-1">Hi,{session?.user?.image}{session?.user?.name}</h1>
-                                <button className="border-b-2 border-yellow-400 p-2 hover:bg-zinc-200 "  onClick={() => signOut({ callbackUrl: '/' })}>
+                        <div onClick={()=>setShowUserMenu(!showUserMenu)} className={showUserMenu? 'block absolute inset-0  w-screen h-screen ': "hidden" }>
+                            <div className=" absolute top-12 right-3 md:right-14 lg:right-20 text-black flex flex-col rounded-lg  justify-start bg-white border-x-2 border-slate-300 border-t-2">
+                                <h1 className="text-center border-b-2 border-slate-300 p-1">Hi,{session?.user?.image}<span className="font-semibold">{session?.user?.name}</span></h1>
+                                <button className="border-b-2 border-slate-300 p-2 hover:bg-zinc-200 "  onClick={() => signOut({ callbackUrl: '/' })}>
                                     <span className="flex gap-3 items-center justify-between">
                                         Logout
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -93,19 +135,20 @@ export default function NavBarInterface() {
                                     </span>
                                 </button>
                           {session.user.role==='admin'&&
-                               <Link className="border-b-2 border-yellow-400 p-2 hover:bg-zinc-200 " href={'/dashbordAdmine'}>
+                               <Link className="border-b-2 border-slate-300 p-2 hover:bg-zinc-200 " href={'/dashbordAdmine'}>
                                     <span className="flex gap-3 items-center justify-between">
                                         Dashboard
                                         <RiDashboardHorizontalLine size={25} />
                                     </span>
                                 </Link>}
-                                <Link className="border-b-2 rounded-b-lg border-yellow-400 p-2 hover:bg-zinc-200 " href={'/account'}>
+                                <Link className="border-b-2 rounded-b-lg border-slate-300 p-2 hover:bg-zinc-200 " href={'/account'}>
                                     <span className="flex gap-3 items-center justify-between">
                                         Account
                                         <MdOutlineAccountBox size={25} />
                                     </span>
                                 </Link>
                             </div>
+                        </div>
                         }
                   </div>
                     }

@@ -43,7 +43,7 @@ export async function getServerSideProps(context) {
 
 export default function ProductPage({Session,product}) {
   const [mainImage, setMainImage] = useState(product?.images[0]||"/No_Image_Available.jpg");
-  const {setCartProducts , cartProducts} = useContext(CartContext)
+  const {setCartProducts, cartProducts} = useContext(CartContext)
 
   const ImageChange = (src) => {
     setMainImage(src);
@@ -61,6 +61,8 @@ export default function ProductPage({Session,product}) {
   const [customerReview,setCustomerReview] = useState('')
   const [permissionList,setPermissionList] = useState([])
   const [timeLimit,setTimeLimit] = useState(null)
+
+
 
 
   useEffect(()=>{
@@ -205,7 +207,6 @@ export default function ProductPage({Session,product}) {
                   : item
           )
       );
-      console.log('cart',cartProducts)
       if (typeof window !== 'undefined') {
         localStorage.setItem('cart', JSON.stringify(cartProducts));
     }

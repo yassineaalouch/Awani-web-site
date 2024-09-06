@@ -7,7 +7,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import formatCurrency from '@/components/formatCurrency';
 
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
   const {setCartProducts , cartProducts} = useContext(CartContext)
   const [animation ,setAnimation] = useState(false)
   const timer = setTimeout(() => {
@@ -68,7 +68,7 @@ const ProductCard = ({ product }) => {
           <h3 className="text-lg font-semibold line-clamp-2 text-gray-800">{product?.title}</h3>
         </Link>
         <div className='flex gap-2 items-end '>
-            <p className="text-gray-950 mt-2">{formatCurrency(product?.price)}</p>
+            <p className="text-gray-950 mt-2">{formatCurrency({number:exchangeRate !=null ? product?.price*exchangeRate:product?.price,currencySymbol:currencyWanted})}</p>
             {product?.discountPrice&&
             <p 
                 className="text-gray-500 mb-[2.5px] line-through text-xs mt-2 relative inline-block" 
