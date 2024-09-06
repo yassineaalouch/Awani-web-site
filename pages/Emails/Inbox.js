@@ -32,7 +32,10 @@ export default function Inbox(props){
     },[]);
 
     async function getEmails(){
-        await axios.get('/api/usersEmailsHandler').then(result=>{
+        await axios.get('/api/usersEmailsHandler',{
+            headers: {
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`,
+            },}).then(result=>{
             const list =result.data
             setEmailsList(list.reverse())
         });
@@ -41,7 +44,10 @@ export default function Inbox(props){
 
     async function deleteEmail(email) {
         try {
-          await axios.delete(`/api/usersEmailsHandler`, { data: { id: email._id } });
+          await axios.delete(`/api/usersEmailsHandler`, { data: { id: email._id } ,
+            headers: {
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`,
+            },});
           getEmails();
         } catch (error) {
           console.error('Error deleting email:', error);
@@ -57,7 +63,14 @@ export default function Inbox(props){
     async function showEmail(email){
         setIsShow(email._id)
         getEmails();
-        await axios.put(`/api/usersEmailsHandler`, { id: email._id})
+        await axios.put(`/api/usersEmailsHandler`, 
+            { id: email._id }, // Les données que vous envoyez dans le corps de la requête
+            {
+              headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+              }
+            }
+          );
     }
 
     function hideEmail(){

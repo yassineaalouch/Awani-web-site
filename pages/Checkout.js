@@ -43,7 +43,9 @@ export default function Checkout({Session}){
         cart
     });
     useEffect(()=>{
-        axios.get('/api/address',{params:{userId:Session?.user?.id}}).then((response)=>{console.log(response);if(response.data.length>0){setFormData({
+        axios.get('/api/address',{params:{userId:Session?.user?.id}, headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }}).then((response)=>{console.log(response);if(response.data.length>0){setFormData({
             ...formData,
             userId:Session?.user?.id||'',
             firstName: response?.data[0].firstName || "",
@@ -82,7 +84,9 @@ export default function Checkout({Session}){
         if(formData.cart.length > 0 && formData.userId === Session?.user?.id){
             setIsLoading(true)
             
-            await axios.post('/api/purchaseRequest', {...formData});
+            await axios.post('/api/purchaseRequest', {...formData},{ headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+              }});
             setFormData({
                 userId:'',
                 firstName: "",

@@ -43,7 +43,11 @@ export default function Send() {
         if(emailRegex.test(destination)){
           const data = { subject, toEmail: destination, message, forAllOrNO:"form some users"};
             try {
-          await axios.post('/api/emailHandler', data);
+          await axios.post('/api/emailHandler', data,
+            {
+                headers: {
+                  'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                }});
           setSubject('');
           setDestination('');
           setMessage('');
@@ -54,10 +58,18 @@ export default function Send() {
         }
   
     }else{
-      const users = await axios.get('/api/UserHandler')
+      const users = await axios.get('/api/UserHandler',
+        {
+            headers: {
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+            }})
       const userEmailsList = users.data.map(user => user.email);
       const data = {subject, toEmail:userEmailsList.join(', '), message, forAllOrNO:"to all users" };
-      await axios.post('/api/emailHandler', data);
+      await axios.post('/api/emailHandler', data,
+        {
+            headers: {
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+            }});
           setIsChecked(false)
           setSubject('');
           setDestination('');

@@ -32,7 +32,9 @@ export default function Orders(){
   },[]);
 
   async function fetchPurchaseRequest() {
-    axios.get('/api/purchaseRequest')
+    axios.get('/api/purchaseRequest',{ headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    }})
       .then(result => {
         setPurchaseRequest(result.data.reverse());
         setPurchaseRequestFilter(result.data.reverse())
@@ -76,11 +78,15 @@ export default function Orders(){
   }
 
   async function ChangeStatus(cart,_id,e,userId) {
-    axios.put('/api/purchaseRequest',{status:e.target.value,_id}).then(()=>{
+    axios.put('/api/purchaseRequest',{status:e.target.value,_id},{ headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    }}).then(()=>{
       fetchPurchaseRequest()
     })
     if(e.target.value==='Validate'){
-      axios.get('/api/UserHandler',{params:{_id:userId}}).then((response)=>{
+      axios.get('/api/UserHandler',{params:{_id:userId}, headers: {
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+      }}).then((response)=>{
         let productsIds = cart.map((ele)=>(ele.id))
         console.log('response.data.timerRating',response.data.timerRating)
         const listRatingProduct =response.data.timerRating.map((ele)=>(ele.productId))
@@ -88,7 +94,9 @@ export default function Orders(){
         const existingTest= productsIds.every(element =>listRatingProduct.includes(element))
         console.log('existingTest',existingTest)
         if(!existingTest){
-          axios.put('/api/UserHandler',{productsIds,_id:userId})
+          axios.put('/api/UserHandler',{productsIds,_id:userId},{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }})
         }
 
       }

@@ -14,7 +14,9 @@ export default function ContactUs(){
       },[])
     
       function fetchBlackList() {
-        axios.get('/api/BlackList')
+        axios.get('/api/BlackList',{ headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }})
           .then(result => {
             const list = result.data.map((ele)=>(ele.email))
             setBlackList(list);

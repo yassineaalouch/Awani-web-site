@@ -36,7 +36,12 @@ export default function Q_A_Admin(){
     },[]);
 
     async function getQuestions(){
-        await axios.get('/api/Question_Answer').then(result=>{
+        await axios.get('/api/Question_Answer',
+            {
+                headers: {
+                  'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                }}
+        ).then(result=>{
             const list =result.data
             setQ_A_List(list.reverse())
         });
@@ -57,20 +62,41 @@ export default function Q_A_Admin(){
         getQuestions() 
     }
     
-    async function sendAnswer(e){
-        e.preventDefault()
-        await axios.put('/api/Question_Answer',{id:isShow,answer})
-        setAnswer('')
+    async function sendAnswer(e) {
+        e.preventDefault();
+        
+        try {
+            await axios.put(
+                '/api/Question_Answer',
+                { id: isShow, answer }, // Données envoyées dans le corps de la requête
+                {
+                    headers: {
+                        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoi de la clé API dans les headers
+                    }
+                }
+            );
+            setAnswer(''); // Réinitialisation de la réponse
+        } catch (error) {
+            console.error('Erreur lors de l’envoi de la réponse:', error);
+        }
     }
     
     async function deleteQA(QA) {
-        await axios.delete(`/api/Question_Answer`, { data: { id: QA._id } });
+        await axios.delete(`/api/Question_Answer`, { data: { id: QA._id },
+            
+                headers: {
+                  'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                }});
         getQuestions();
     }
 
     async function AddNewQA(e) {
         e.preventDefault()
-        await axios.post('/api/Question_Answer',{question:addQuestion,answer:addAnswer})
+        await axios.post('/api/Question_Answer',{question:addQuestion,answer:addAnswer},
+            {
+                headers: {
+                  'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                }})
         setAddAnswer('')
         setAddQuestion('')
         getQuestions()

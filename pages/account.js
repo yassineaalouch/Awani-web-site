@@ -55,7 +55,9 @@ export default function UserAccount({ children }) {
       setMessage('Please fill in both fields.');
     } else {
 
-      await axios.put('/api/passwordChanger',{password,_id:session?.user?.id})
+      await axios.put('/api/passwordChanger',{password,_id:session?.user?.id},{ headers: {
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+      }})
       setPasswordIsUpdated(true)
       setTimeout(()=>setPasswordIsUpdated(false)
       ,1000)
@@ -68,7 +70,9 @@ export default function UserAccount({ children }) {
 
   useEffect(()=>{
     if(session){
-      axios.get('/api/address',{params:{userId:session?.user?.id}}).then((response)=>{setFormData(response.data[0]||{
+      axios.get('/api/address',{params:{userId:session?.user?.id}, headers: {
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+      }}).then((response)=>{setFormData(response.data[0]||{
         userId:session?.user?.id||'',
         firstName: "",
         lastName: "",
@@ -94,9 +98,13 @@ async function handleSubmit(e) {
     try{
         setIsLoading(true)
         if(putOrPost==='PUT'){
-          await axios.put('/api/address', {...formData,_id});
+          await axios.put('/api/address', {...formData,_id},{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }});
         }else{
-          await axios.post('/api/address', formData);
+          await axios.post('/api/address', formData,{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }});
         }
         setShowMessage(true)
         setTimeout(()=>setShowMessage(false)

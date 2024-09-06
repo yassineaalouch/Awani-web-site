@@ -37,7 +37,9 @@ export default function Home(){
         getThemes() 
     },[]);
     async function getThemes(){
-        await axios.get('/api/code').then(result=>{
+        await axios.get('/api/code',{ headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }}).then(result=>{
             setList(result.data)
         });
     }
@@ -45,7 +47,9 @@ export default function Home(){
     async function makeTheme(ev){
         ev.preventDefault()
         setIsLoading(true)
-        await axios.post('/api/code',{title:titleCode,code})
+        await axios.post('/api/code',{title:titleCode,code},{ headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }})
         .then(()=>{
             setCode('')
             setTitleCode('')

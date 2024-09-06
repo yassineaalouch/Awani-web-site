@@ -3,11 +3,12 @@ import {Category} from "@/models/Category";
 
 export default async function handle(req,res){
     const {method}= req;
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(' ')[1]; // Extraire le token "Bearer ..."
+
+    if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
     await mongooseConnect();
 
-
-    
-    
     if(method === 'GET'){
         res.json(await Category.find().populate('children').populate('parent'));
     }
@@ -97,7 +98,7 @@ export default async function handle(req,res){
         updateFunction(child)
         const categoryDoc = await Category.deleteOne({_id});
         res.json(categoryDoc);
-    }
+    }}
 } 
 
 async function updateFunction(child) {

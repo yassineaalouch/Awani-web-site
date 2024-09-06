@@ -3,6 +3,10 @@ import { AdminUsers } from "@/models/Admine_Users";
 
 export default async function handle(req, res) {
   const { method } = req;
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.split(' ')[1]; // Extraire le token "Bearer ..."
+
+  if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
   await mongooseConnect();
 
   if (method === 'GET') {
@@ -45,5 +49,5 @@ export default async function handle(req, res) {
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
-  }
+  }}
 }

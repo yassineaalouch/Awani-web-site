@@ -25,7 +25,9 @@ export default function Properties(){
 
     async function fetchProperties() {
         
-            axios.get('/api/properties').then(result => {
+            axios.get('/api/properties',{ headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+              }}).then(result => {
                 setProperties(result.data);
             });
     }    
@@ -67,14 +69,18 @@ export default function Properties(){
         const namesList = properties.map(ele => (ele.name));
         if((name.trim()!='' && isListNull(values))){
             if(!editingMode && !namesList.includes(name)){
-                await axios.post('/api/properties', data);
+                await axios.post('/api/properties', data,{ headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                  }});
                 setPropName('');
                 setPropValue('');
                 setUpdate(!update)
                 setEditingMode(false)
                 setError(false)
             }else if (editingMode) {
-                await axios.put('/api/properties', { ...data, _id:property_id});
+                await axios.put('/api/properties', { ...data, _id:property_id},{ headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                  }});
                 setPropName('');
                 setPropValue('');
                 setUpdate(!update)

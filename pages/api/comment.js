@@ -5,6 +5,10 @@ import { Comments } from "@/models/comments";
 
 export default async function handle(req, res) {
     const { method } = req;
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(' ')[1]; // Extraire le token "Bearer ..."
+
+    if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
     await mongooseConnect();
     let listId =[] ;
 
@@ -94,7 +98,7 @@ export default async function handle(req, res) {
         } else {
             res.json({ success: false, message: 'No comments found to delete' });
         }
-    }
+    }}
     
 
 }

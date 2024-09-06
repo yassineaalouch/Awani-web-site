@@ -11,7 +11,9 @@ export default function DeleteProductPage(){
         if(!id){
             return;
         }
-        axios.get('/api/products?id='+id)
+        axios.get('/api/products?id='+id,{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }})
         .then((response=>{setProductInfo(response.data);}));
     },[id]);
 
@@ -20,7 +22,9 @@ export default function DeleteProductPage(){
     }
 
     async function deleteProduct(){
-        await axios.delete('/api/products?id='+id);
+        await axios.delete('/api/products?id='+id,{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }});
         goBack();
     }
 

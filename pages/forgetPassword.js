@@ -36,7 +36,9 @@ export default function ForgetPassword() {
     }
 
     try {
-      const response = await axios.post('/api/request-reset-password', { email });
+      const response = await axios.post('/api/request-reset-password', { email },{ headers: {
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+      }});
       setMessage('Password reset link sent to your email address.');
       setError('');
     } catch (error) {

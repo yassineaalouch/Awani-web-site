@@ -21,7 +21,9 @@ const AddComment = ({session,fetchData,review,cancelForm,id}) => {
             comment: message,
             replyTo: review._id
           }
-          await axios.post('/api/comment',data)
+          await axios.post('/api/comment',data,{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }})
           setMessage('')
           fetchData()
         }else{

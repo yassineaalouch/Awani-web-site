@@ -7,6 +7,10 @@ import { sendMail } from "@/service/mailService";
 export default async function handle(req, res) {
   const { method } = req;
   await mongooseConnect();
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.split(' ')[1]; // Extraire le token "Bearer ..."
+
+  if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
 
   async function UpdateTimerRating(timerRating, _id) {
     const OldTimerRatingFull = await Users.findOne({ _id }).select('timerRating');
@@ -86,7 +90,7 @@ export default async function handle(req, res) {
     const deletedUser = await Users.deleteOne({ _id });
     res.json(deletedUser);
 }
-
+  }
 }
 
 

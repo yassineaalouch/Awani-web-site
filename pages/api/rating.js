@@ -6,6 +6,10 @@ import { Ratings } from "@/models/rating";
 export default async function handle(req, res) {
 
           const { method } = req;
+          const authHeader = req.headers.authorization;
+          const token = authHeader?.split(' ')[1]; // Extraire le token "Bearer ..."
+      
+          if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
           await mongooseConnect();
           let list = [];
       
@@ -87,6 +91,6 @@ export default async function handle(req, res) {
               const { _id } = req.body;
               const deletedRating = await Ratings.deleteOne({ _id });
               res.json(deletedRating);
-          }
+          }}
 }
 

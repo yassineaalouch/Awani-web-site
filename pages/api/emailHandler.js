@@ -5,6 +5,10 @@ import mongooseConnect from "@/lib/mongoose";
 const handler = async (req, res) => {
   try {
     const { method } = req;
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(' ')[1]; // Extraire le token "Bearer ..."
+
+    if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
     await mongooseConnect();
 
     if (method === "POST") {
@@ -24,7 +28,7 @@ const handler = async (req, res) => {
     } else {
       res.setHeader("Allow", ["POST", "GET","DELETE"]);
       res.status(405).end(`Method ${method} Not Allowed`);
-    }
+    }}
   } catch (err) {
     res.status(400).json({
       error_code: "api_one",

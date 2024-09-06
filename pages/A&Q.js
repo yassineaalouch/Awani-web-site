@@ -12,7 +12,9 @@ export default function Q_and_A() {
         getQuestions() 
     },[]);
     async function getQuestions(){
-        await axios.get('/api/Question_Answer').then(result=>{
+        await axios.get('/api/Question_Answer',{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }}).then(result=>{
             const list =result.data
             setQ_A_List(list.filter(element=>element.isAnswered===true).reverse())
         });

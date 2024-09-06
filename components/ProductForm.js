@@ -59,11 +59,21 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
         initializeProperties()
     },[])
     useEffect(()=>{
-        const request1 = axios.get('/api/categories');
-        const request2 = axios.get('/api/properties');
-        const request3 = axios.get('/api/products');
-        const request4 = axios.get('/api/discount');
-        const request5 = axios.get('/api/comment', { params: { id:_id} })
+        const request1 = axios.get('/api/categories',{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }});
+        const request2 = axios.get('/api/properties',{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }});
+        const request3 = axios.get('/api/products',{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }});
+        const request4 = axios.get('/api/discount',{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }});
+        const request5 = axios.get('/api/comment', { params: { id:_id}, headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          } })
 
         
         axios.all([request1, request2, request3,request4,request5])
@@ -82,7 +92,9 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
     },[update])
 
     useEffect(()=>{
-        const request5 = axios.get('/api/comment', { params: { id:_id} })
+        const request5 = axios.get('/api/comment', { params: { id:_id}, headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          } })
         axios.all([request5])
           .then(axios.spread((response5) => {
             setCommentsList(response5.data);
@@ -97,9 +109,13 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
         const data = {title, description, price,promotionsOrDiscounts:discountListToSend ,discountPrice, comments,images, category,properties:litOfPropertiesToValidate,purchasePrice,supplier,stockQuantity,dimensions,countryOfProduction,deliveryTime,SKU,barcode,careInstructions,expirationDate,recyclingInformation,returnAndWarrantyConditions};
         if(title.trim()!=""){
             if(_id){
-                await axios.put('/api/products',{...data,_id});
+                await axios.put('/api/products',{...data,_id},{ headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                  }});
             }else{
-                await axios.post('/api/products', data);
+                await axios.post('/api/products', data,{ headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                  }});
             }
             setGoToProducts(true);
             setErrorTitle(false);
@@ -122,7 +138,9 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
             for (const file of files) {
                 data.append('file',file);
             }
-            const res = await axios.post('/api/upload',data)
+            const res = await axios.post('/api/upload',data,{ headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+              }})
             setImages(oldImages => {
                 setListOfNewImage(listOfNewImage=>[...listOfNewImage,...res.data.links])
                 return [...oldImages, ...res.data.links];
@@ -175,7 +193,9 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
             productID:_id,
             comment: message
           }
-          await axios.post('/api/comment',data)
+          await axios.post('/api/comment',data,{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }})
           setMessage('')
           setUpdate(!update)
         }else{

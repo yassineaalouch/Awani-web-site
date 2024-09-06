@@ -13,7 +13,9 @@ export default function Emails({children}){
 
 
     async function getEmails(){
-        await axios.get('/api/usersEmailsHandler').then(result=>{
+        await axios.get('/api/usersEmailsHandler',{ headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }}).then(result=>{
             const list =result.data
             setEmailsList(list.reverse())
         });

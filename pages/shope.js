@@ -63,7 +63,9 @@ export default function Shop({ productList }) {
     }
     
     async function fitchData(){
-        const response = await axios.get('/api/categories').then((response)=>{setCategories(response.data.map((ele)=>(ele.name)))})
+        const response = await axios.get('/api/categories',{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }}).then((response)=>{setCategories(response.data.map((ele)=>(ele.name)))})
     }
     // const [data,setData] = useState({})
     // async function getGeolocation() {

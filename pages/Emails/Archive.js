@@ -31,13 +31,21 @@ export default function Sent(){
     },[]);
 
     async function getEmails(){
-        await axios.get('/api/emailHandler').then(result=>{setEmailsList(result.data)});
+        await axios.get('/api/emailHandler', {
+            headers: {
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION_API_KEY_PROTECTION}`,
+            },
+          }).then(result=>{setEmailsList(result.data)});
         
     }
 
     async function deleteEmail(email) {
         try {
-          await axios.delete(`/api/emailHandler`, { data: { id: email._id } });
+          await axios.delete(`/api/emailHandler`, { data: { id: email._id }, 
+            headers: {
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION_API_KEY_PROTECTION}`,
+            },
+           });
           getEmails();
         } catch (error) {
           console.error('Error deleting email:', error);

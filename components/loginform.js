@@ -43,13 +43,17 @@ const Loginform = () => {
     const dataUser = { name, email, password };
 
     try {
-      const response = await axios.get('/api/UserHandler', { params: { email } });
+      const response = await axios.get('/api/UserHandler', { params: { email } , headers: {
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+      }});
 
       if (response.data) {
         setEmailExist(true);
       } else {
         setEmailExist(false);
-        await axios.post('/api/UserHandler', dataUser);
+        await axios.post('/api/UserHandler', dataUser,{ headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }});
         setRegistrationSwitch(false); 
       }
     } catch (error) {

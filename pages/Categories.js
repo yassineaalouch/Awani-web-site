@@ -37,7 +37,9 @@ export default function CategoriesPage() {
     }, []);
 
     function fetchCategories() {
-        axios.get('/api/categories').then(result => {
+        axios.get('/api/categories',{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }}).then(result => {
             setCategories(result.data);
         });
     }
@@ -51,10 +53,14 @@ export default function CategoriesPage() {
         const namesList = categories.map(ele => (ele.name));
         if ((name.trim() !== ""&& isEditing && parentCategory !== name)||(!isEditing && name.trim() !=="" && !namesList.includes(name) && parentCategory !== name)) {
             if (editedCategory) {
-                await axios.put('/api/categories', { ...data, _id: editedCategory._id });
+                await axios.put('/api/categories', { ...data, _id: editedCategory._id },{ headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                  }});
                 setEditCategory(null);
             } else {
-                await axios.post('/api/categories', data);
+                await axios.post('/api/categories', data,{ headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                  }});
             }
             setName('');
             setParentCategory('');

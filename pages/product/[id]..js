@@ -79,10 +79,20 @@ export default function ProductPage({Session,product}) {
   async function fetchData() {
     try {
       const [commentsResponse, ratingResponse,ratingCarts,listRatingProduct] = await Promise.all([
-        axios.get('/api/comment', { params: { id:product?._id} }),
-        axios.get('/api/rating', { params: { id:product?._id} }),
-        axios.get('/api/rating', { params: { id:product?._id,limit:20} }),
-        axios.get('/api/UserHandler',{params:{_id:Session?.user?.id,productId:product?._id}}),
+        axios.get('/api/comment', { params: { id:product?._id},
+          
+              headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+              }}),
+        axios.get('/api/rating', { params: { id:product?._id}, headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        } }),
+        axios.get('/api/rating', { params: { id:product?._id,limit:20}, headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        } }),
+        axios.get('/api/UserHandler',{params:{_id:Session?.user?.id,productId:product?._id}, headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }}),
       ]);
       setPermissionList(listRatingProduct.data.timerRating.map((ele)=>(ele.productId)))
       setListOfRatingCarts(ratingCarts)
@@ -128,7 +138,11 @@ export default function ProductPage({Session,product}) {
         productID:product?._id,
         comment: message
       }
-      await axios.post('/api/comment',data)
+      await axios.post('/api/comment',data,
+        {
+            headers: {
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+            }})
       setMessage('')
       setUpdate(!update)
     }else{
@@ -144,7 +158,11 @@ export default function ProductPage({Session,product}) {
   async function sentStars (e) {
     e.preventDefault()
     if(Session&& permissionList?.includes(product?._id)){
-      const response = await axios.get('/api/products',{params:{ id:product?._id,rating:'rating'}})
+      const response = await axios.get('/api/products',{params:{ id:product?._id,rating:'rating'},
+        
+            headers: {
+              'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+            }})
       let list = response.data.IdOfRatingUsers|| [];
       const data = {
           name:Session?.user?.name,
@@ -156,12 +174,20 @@ export default function ProductPage({Session,product}) {
         }
       setDejaRating(true)
       if(list.includes(Session.user?.id)){
-        await axios.put('/api/rating',data)
+        await axios.put('/api/rating',data,
+          {
+              headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+              }})
         setTimeout(() => {
           setDejaRating(false);
         }, 1000);
       }else{
-        await axios.post('/api/rating',data)
+        await axios.post('/api/rating',data,
+          {
+              headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+              }})
         setTimeout(() => {
           setDejaRating(false);
         }, 1000);

@@ -28,7 +28,9 @@ export default function CommentBlock({review, session, fetchData,id}) {
       }
 
       try {
-        await axios.put('/api/comment', { _id: review._id, likes: review.likes });
+        await axios.put('/api/comment', { _id: review._id, likes: review.likes },{ headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }});
       } catch (error) {
         // In case of an error, revert the state
         setIsLiked(previousLikes.includes(Id));
@@ -58,7 +60,9 @@ export default function CommentBlock({review, session, fetchData,id}) {
 
   async function Delete() {
     try {
-      await axios.delete('/api/comment', { data: { _id: review._id}}).then(()=>{
+      await axios.delete('/api/comment', { data: { _id: review._id}, headers: {
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+      }}).then(()=>{
         fetchData();
       })
     } catch (error) {

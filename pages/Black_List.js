@@ -30,7 +30,9 @@ export default function AdminPage() {
   }, []);
 
   function fetchAdmins() {
-    axios.get('/api/BlackList')
+    axios.get('/api/BlackList',{ headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    }})
       .then(result => {
         setAdminList(result.data);
       })
@@ -39,7 +41,9 @@ export default function AdminPage() {
 
   function addAdmin(ev) {
     ev.preventDefault();
-    axios.post('/api/BlackList', { email })
+    axios.post('/api/BlackList', { email },{ headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    }})
       .then(result => {
         setAdminList([...adminList, result.data]);
         setEmail('');
@@ -54,7 +58,9 @@ export default function AdminPage() {
 
   function editAdmin(ev) {
     ev.preventDefault();
-    axios.put('/api/BlackList', { email: editingEmail, newEmail: email })
+    axios.put('/api/BlackList', { email: editingEmail, newEmail: email },{ headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    }})
       .then(result => {
         setAdminList(adminList.map(admin => admin.email === editingEmail ? result.data : admin));
         setEmail('');
@@ -64,7 +70,9 @@ export default function AdminPage() {
   }
 
   function deleteAdmin(email) {
-    axios.delete('/api/BlackList', { data: { email } })
+    axios.delete('/api/BlackList', { data: { email }, headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    } })
       .then(() => {
         setAdminList(adminList.filter(admin => admin.email !== email));
       })

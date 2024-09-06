@@ -24,7 +24,11 @@ export async function getServerSideProps(context) {
 const Delete = ({Session}) => {
     console.log(Session)
     async function deleteAccount(){
-        axios.delete('/api/UserHandler',{data:{_id:Session?.user?.id}}).then(()=>{signOut({ callbackUrl: '/Login' })})
+        axios.delete('/api/UserHandler',{data:{_id:Session?.user?.id},
+          headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`,
+          },})
+        .then(()=>{signOut({ callbackUrl: '/Login' })})
 
     }
     return (

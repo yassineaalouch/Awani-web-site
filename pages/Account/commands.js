@@ -34,7 +34,11 @@ export default function Commands({Session}){
       },[])
 
  async function fetchPurchaseRequest() {
-    axios.get('/api/purchaseRequest',{params:{userId:Session?.user?.id}})
+    axios.get('/api/purchaseRequest',{params:{userId:Session?.user?.id},
+      headers: {
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`,
+      },
+    })
       .then(result => {
         setPurchaseRequest(result.data.reverse());
         setPurchaseRequestFilter(result.data.reverse())

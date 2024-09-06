@@ -53,7 +53,9 @@ export default function Formulair(props) {
     const messageData = { email, company_Name, telephone, subject, message };
     
     if (!props.blacklist.includes(email)) {
-      await axios.post('/api/usersEmailsHandler', messageData);
+      await axios.post('/api/usersEmailsHandler', messageData,{ headers: {
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+      }});
       const newCount = emailCount + 1;
       setEmailCount(newCount);
       localStorage.setItem('emailCount', newCount);

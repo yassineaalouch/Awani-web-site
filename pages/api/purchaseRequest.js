@@ -6,7 +6,10 @@ import { sendMail } from "@/service/mailService";
 export default async function handle(req,res){
     const {method}= req;
     await mongooseConnect();
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(' ')[1]; // Extraire le token "Bearer ..."
 
+    if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
     if(method === 'GET'){
         const {userId} = req.query;
         if(userId){
@@ -42,4 +45,5 @@ export default async function handle(req,res){
         const purchaseRequestDoc = await purchaseRequest.deleteOne({_id});
         res.json(purchaseRequestDoc);
     }
+}
 } 

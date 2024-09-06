@@ -22,7 +22,9 @@ export default function Properties(){
     },[update])
     async function fetchDiscounts() {
         
-            axios.get('/api/discount').then(result => {
+            axios.get('/api/discount',{ headers: {
+                'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+              }}).then(result => {
                 setDiscounts(result.data);
             });
 
@@ -64,7 +66,9 @@ export default function Properties(){
         console.log(namesList.includes(title))
         if((title.trim()!='' && price_.toString().trim()!='' && quantity_.toString().trim()!='' )){
             if (editingMode) {
-                await axios.put('/api/discount', { ...data, _id:discount_id});
+                await axios.put('/api/discount', { ...data, _id:discount_id},{ headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                  }});
                 setTitre('')
                 setQuantity('')
                 setPrice('')
@@ -72,7 +76,9 @@ export default function Properties(){
                 setEditingMode(false)
                 setError(false)
             } else if(!editingMode && !namesList.includes(title)) {
-                await axios.post('/api/discount', data);
+                await axios.post('/api/discount', data,{ headers: {
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+                  }});
                 setTitre('')
                 setQuantity('')
                 setPrice('')

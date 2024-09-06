@@ -23,7 +23,9 @@ export async function getServerSideProps(context) {
 export default function Products() {
     const [products,setProducts]=useState([]);
     useEffect(()=>{
-        axios.get('/api/products').then(response => {
+        axios.get('/api/products',{ headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }}).then(response => {
             setProducts(response.data);
         });
     },[]);

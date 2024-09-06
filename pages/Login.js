@@ -10,7 +10,7 @@ export default function LoginForm({ children }) {
   useEffect(() => {
     if (status === "authenticated") {
       if (session.user.role === 'admin') {
-        router.push('/dashbordAdmine');
+        router.push('/');
       } else if (session.user.role === 'user') {
         router.push('/account');
       }
@@ -18,7 +18,7 @@ export default function LoginForm({ children }) {
   }, [session, status, router]);
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <p className='h-screen w-screen flex justify-center items-center text-3xl font-bold'>Loading...</p>;
   }
 
   if (status === "authenticated") {

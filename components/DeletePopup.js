@@ -5,7 +5,9 @@ export default function DeletePopup({link,_id,cancelCode,fetchCategories}){
         cancelCode();
     }
     async function Delete(){
-        await axios.delete(link, { data: { _id } });
+        await axios.delete(link, { data: { _id }, headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          } });
         fetchCategories();
         cancelCode();
     };
