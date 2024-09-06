@@ -144,7 +144,6 @@ export default function CartPage() {
     const [deletePermission,setDeletePermission] = useState(false)
     useEffect(() => {
         if(cartProducts.length >0 ||deletePermission){
-            console.log('cartProducts',cartProducts)
             localStorage.setItem('cart', JSON.stringify(cartProducts));
             setDeletePermission(false)
 

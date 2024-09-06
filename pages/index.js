@@ -197,58 +197,58 @@ export default function Home() {
         <Hr titre="Brood Sensor"/>
           
 
-          <div className="w-full grid grid-cols-1 place-items-center gap-10 lg:grid-cols-2  p-3 ">
-            <div className="flex lg:hidden w-full h-fit ml-72 rounded-l-3xl justify-start py-3 bg-yellow-500">
-              <img className="max-h-48" src="brood-sensor-beehive.png" alt="Brood Sensor" />
-            </div>
-            <div className="w-full place-self-start pr-28 max-w-lg rounded-xl">
+          <div className="w-full mt-10 grid grid-cols-1 place-items-center gap-10 md:grid-cols-2 ">
+              <div className="flex justify-start pl-8 py-3  w-5/6 md:w-full lg:hidden h-fit md:ml-72 rounded-l-3xl bg-yellow-500">
+                <img className="max-h-40" src="capteurs-de-couvain-pour-ruche-3-removebg-preview.png" alt="capteurs-de-couvain-pour-ruche-3" />
+              </div>
+            <div className="w-full pl-3 h-full max-w-lg rounded-xl">
               <div className="flex gap-2 ">
-                    <div className="h-14 translate-y-1 w-2 mb-7 bg-yellow-500"></div>
-                    <span>
-                      <h1 className="before-side-bar font-bold text-2xl">Brood Sensor</h1>
-                      <div className="font-semibold text-lg py-1 pb-6">Temperature & Humidity of Brood</div>
+                    <span className=" border-l-yellow-500 pl-2 border-l-8 h-fit mb-5">
+                      <h1 className="before-side-bar font-bold text-2xl md:text-3xl">Brood Sensor</h1>
+                      <div className="font-semibold text-lg py-1 ">Temperature & Humidity of Brood</div>
                     </span>
 
-                </div>
-              <div className="translate-x-3 text-gray-600">
+              </div>
+              <div className="pl-2 border-l-8 border-white ">
                 Closely monitor the living conditions of your colonies, ensure their comfort and well-being. Our innovative sensor allows you to delve into the heart of your beehive by accurately measuring the temperature and humidity inside the hive.
               </div>
-              <div className="mt-7 translate-x-3">
-                <ul className="flex-col space-y-3 ">
+              <div className="mt-7 pl-3 md:pl-7 border-l-8 border-white">
+                <ul className="flex-col flex gap-2 text-sm text-gray-500  ">
                   <li>Measures the temperature and humidity of the brood.</li>
                   <li>Remote Data Transmission (1 Message/Hour)</li>
                   <li>Colony Health and Queen Activity</li>
                 </ul>
               </div>
             </div>
-            <div className="hidden lg:flex w-full h-fit max-h-90 rounded-l-3xl justify-start pr-5 py-3 bg-yellow-500">
-              <img className="" src="brood-sensor-beehive.png" alt="Brood Sensor" />
+            <div className="hidden pl-12 p-5 lg:flex w-full h-fit rounded-l-3xl justify-start bg-yellow-500">
+                  <img className="max-h-[22rem]" src="capteurs-de-couvain-pour-ruche-3-removebg-preview.png" alt="capteurs-de-couvain-pour-ruche-3" />
             </div>
           </div>
 
           <Hr titre="Your interface online"/>
 
-          <div className=" w-full grid lg:flex gap-10 mt-10 h-auto"> 
-              <div className="max-w-2xl mr-36 p-12 max-h-80 rounded-r-3xl flex justify-end pr-5 py-3 bg-yellow-500">
-                  <img src="interface.webp"></img>
+          <div className=" w-screen grid grid-cols-1 gap-8 md:grid-cols-2  mt-10 h-auto"> 
+              <div className="md:w-full w-5/6 min-w-60 md:min-h-96 md:min-w-fit md:pl-0 md:ml-0 mr-36 p-12 max-h-80 rounded-r-3xl flex justify-end pr-5 py-3 bg-yellow-500">
+                  <img className="" src="interface.webp"></img>
               </div>
-              <div className="ml-36">
-                <div className="flex gap-2 ">
-                    <div className="h-14 mb-7 translate-y-1 w-2 bg-yellow-500"></div>
-                    <h1 className="before-side-bar font-bold text-2xl">Features designed to achieve energy autonomy</h1>
+              <div className="flex justify-end">
+                <div className="md:ml-4 pl-3 md:w-full flex flex-col">
+                  <div className="flex gap-2 ">
+                      <h1 className="before-side-bar h-fit border-l-yellow-500 pl-2 border-l-8 font-bold text-2xl md:text-3xl mb-5">Features designed to achieve energy autonomy</h1>
+                  </div>
+            
+                  <div className="pl-2 border-l-8 border-white ">
+                    <ul className="flex-col space-y-3 ">
+                      <li>Data monitoring</li>
+                      <li>Performance analysis</li>
+                      <li>Portfolio overview</li>
+                      <li>Reporting and data export</li>
+                      <li>Anomaly detection</li>
+                      <li>Custom dashboards</li>
+                    </ul>
+                  </div>
+                    
                 </div>
-          
-                <div className="translate-x-3">
-                  <ul className="flex-col space-y-3 ">
-                    <li>Data monitoring</li>
-                    <li>Performance analysis</li>
-                    <li>Portfolio overview</li>
-                    <li>Reporting and data export</li>
-                    <li>Anomaly detection</li>
-                    <li>Custom dashboards</li>
-                  </ul>
-                </div>
-                  
               </div>
             
           </div>

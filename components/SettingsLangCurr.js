@@ -12,17 +12,10 @@ export default function LanguageCurrencySettings() {
 
   useEffect(() => {
     // Only proceed if conversionRate exists and has data
-      console.log('conversionRate',conversionRate)
       const list = Object.keys(conversionRate);
       setCurrenciesSymbol(list);
     
   }, [conversionRate]); // Trigger useEffect when conversionRate changes
-
-
-  useEffect(() => {
-    console.log('currenciesSymbol:', currenciesSymbol);
-    console.log('conversionRate:', conversionRate);
-  }, [currenciesSymbol, conversionRate]);
 
   return (
       <div className="bg-white p-6 rounded-lg shadow-lg w-48 border border-slate-100 md:w-64">
@@ -32,7 +25,7 @@ export default function LanguageCurrencySettings() {
             value={{value:currencyWanted,label:currencyWanted}}
             defaultValue={{value:'MAD',label:'MAD'}}
             options={currenciesSymbol.map((ele)=>({value:ele,label:ele}))}
-            onChange={(e) => {setCurrencyWanted(e.value),console.log(currencyWanted)}}
+            onChange={(e) => {setCurrencyWanted(e.value)}}
             className="w-full border-gray-300 rounded"
           />
           
