@@ -5,6 +5,9 @@ subject: {type: String, require:true} ,
 destination: {type:String , require:true},
 message:{type: String,require:true},
 forAllOrNO:String,
+},
+{
+    timestamps: true 
 });
 
 export const Email = models.Email || model('Email',EmailsSchema);
