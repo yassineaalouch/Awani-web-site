@@ -37,8 +37,8 @@ table.basic thead tr td{
 table.basic tr td{
     @apply p-1;
 }
-table.basic td{
-  @apply p-1;
+table.basic tr{
+  @apply p-1 border-2;
 }
 .btn-red,.btn-default{
     @apply px-4 py-1 rounded-md ;
@@ -166,4 +166,8 @@ table.basic td{
   }
   .scrollBarNon{
     scrollbar-width: none;
+  }
+
+  .centreAbsolute{
+  transform: translate(-50%, -50%)
   }

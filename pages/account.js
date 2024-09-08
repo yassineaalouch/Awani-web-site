@@ -122,13 +122,13 @@ async function handleSubmit(e) {
   return (
     <>
       <NavBarInterface />
-      <div className="min-h-screen block md:flex justify-start pr-2 pb-2 mt-14">
-        <div className="px-4 h-auto mb-10">
+      <div className="min-h-screen block md:grid md:grid-cols-12 justify-start pr-2 pb-2 mt-14">
+        <div className="px-4 col-span-2 h-auto mb-10">
           <SideBarUserAccount session={session}/>
         </div>
-        <div className="flex-grow  bg-white border-2">
+        <div className="flex-grow col-span-10 bg-white border-2">
 
-          <div className={`mt-2 md:p-6 p-2  w-fu`}>
+          <div className={`mt-2  md:p-6 p-2 w-full`}>
               {children? children:
               <div>
                 <div className=" pt-6 px-6 flex justify-between">

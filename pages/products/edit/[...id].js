@@ -31,7 +31,9 @@ export default function EditProductPage(){
         if(!id){
             return;
         }
-        axios.get('/api/products?id='+id)
+        axios.get('/api/products?id='+id,{headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }})
         .then(response=>{
             setProductInfo(response.data)
         });

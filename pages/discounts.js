@@ -62,8 +62,6 @@ export default function Properties(){
         const price_ = data.price
         const namesList = discounts.map(ele => (ele.titre));
         
-        console.log(namesList)
-        console.log(namesList.includes(title))
         if((title.trim()!='' && price_.toString().trim()!='' && quantity_.toString().trim()!='' )){
             if (editingMode) {
                 await axios.put('/api/discount', { ...data, _id:discount_id},{ headers: {
@@ -149,19 +147,19 @@ export default function Properties(){
                 <table className="basic">
                     <thead>
                         <tr>
-                            <td><b> Title</b></td>
-                            <td><b> Quantity</b></td>
-                            <td><b> Percentage discount %</b></td>
-                            <td><b> Edit </b></td>
+                            <td className=""><b> Title</b></td>
+                            <td className="text-center"d><b> Quantity</b></td>
+                            <td className="text-center"><b> Percentage discount %</b></td>
+                            <td className="text-center"><b> Edit </b></td>
                         </tr>
                     </thead>
                     <tbody>
                         {discounts.length > 0 && discounts.map(discount => (
                             <tr key={discount.titre}>
-                                <td>{discount.titre}</td>
-                                <td>{discount.quantity}</td>
-                                <td>{discount.price}%</td>
-                                <td className="flex gap-2">
+                                <td className="">{discount.titre}</td>
+                                <td className="text-center">{discount.quantity}</td>
+                                <td className="text-center">{discount.price}%</td>
+                                <td className="flex justify-center gap-2">
                                     <button className="edit-btn" onClick={() => editDiscount(discount)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" size-5">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />

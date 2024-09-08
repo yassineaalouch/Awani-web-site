@@ -22,7 +22,6 @@ export async function getServerSideProps(context) {
 }
 
 const Delete = ({Session}) => {
-    console.log(Session)
     async function deleteAccount(){
         axios.delete('/api/UserHandler',{data:{_id:Session?.user?.id},
           headers: {

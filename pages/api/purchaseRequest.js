@@ -35,7 +35,6 @@ export default async function handle(req,res){
 
     if(method === 'PUT'){
         const {status,_id} =req.body;
-        console.log('status',status)
         const purchaseRequestDoc = await purchaseRequest.updateOne({_id},{status});
         res.json(purchaseRequestDoc);
     }

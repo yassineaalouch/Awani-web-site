@@ -26,7 +26,7 @@ export default function Dashboard() {
     return <p>Loading...</p>;
   }
   return (
-    <Layout>
+    <Layout> 
       <div className="text-blue-900 ">
         <div className="flex justify-between">
             <h2>

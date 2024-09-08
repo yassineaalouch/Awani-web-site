@@ -6,10 +6,14 @@ import axios from "axios";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { ImBlocked } from "react-icons/im";
+import { FaArrowLeft ,FaArrowRight} from "react-icons/fa";
 
-export default function Nav(){
-    const inactiveLink = 'flex justify-between gap-1 p-1';
-    const activeLink = inactiveLink+' bg-white text-black rounded-l-lg ';
+
+
+export default function Nav({extendNavBarFunction}){
+
+    const inactiveLink = 'flex justify-between gap-2 p-1';
+    const activeLink = inactiveLink+' bg-white text-slate-700 rounded-l-lg p-1';
     const inactiveLinkBurger = 'flex justify-between text-white/50 hover:text-white/80 hover:border-l-[10px]  gap-1 p-1';
     const activeLinkBurger = inactiveLink+' bg-white/30 text-white rounded-l-lg ';
 
@@ -20,7 +24,6 @@ export default function Nav(){
     const [menuIsShow,setMenuIsShow]=useState(false)
 
     useEffect(() => {  
-        console.log(pathname)
         getEmails() 
     },[pathname]);
 
@@ -39,17 +42,28 @@ export default function Nav(){
         
     }
     const emailsToRead = emailsList.filter(email => !email.isChecked).length;
-    
+    const [translate,setTranslate] = useState(false)
+    function translateNavBar(){
+        setTranslate(!translate)
+    }
  
 
     return(
         <>
         
-        <aside className={`text-white ${pathname.includes('/Setting')?"w-[16.5rem]":'w-48'} hidden lg:block bg-slate-700 p-4 pr-0`}>  
-        <div className="">
+        <aside className={`text-white w-60 hidden lg:block p-4 pt-0 r-0`}>  
+        
+        <div className={`fixed -left-[12%] hover:left-0 group pl-2 transition-all h-screen duration-500 py-2 bg-slate-700`}>
             
-            <nav className="hidden lg:flex flex-col gap-2">
+            <nav className="hidden lg:flex relative flex-col gap-1">
                
+                <div className={`centreAbsolute absolute duration-300 transition-all group-hover:left-[100%] top-[50%] left-[100%]`}>
+                    <button  onMouseMove={()=>translateNavBar()} className="bg-white border-slate-400 border size-8 rounded-full flex justify-center items-center">
+                        <FaArrowLeft size={20} className={`text-slate-700 transition-all group-hover:-rotate-0 duration-300 rotate-180`} />
+                    </button>
+                </div>
+
+<hr className="w-40 opacity-0"/>
                 <Link className={pathname === '/dashbordAdmine' ? activeLink : inactiveLink}  href={'/dashbordAdmine'}>
                     <div className="flex gap-1 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -67,7 +81,7 @@ export default function Nav(){
                         Orders 
                     </div>
                 </Link>
-<hr className="w-40"/>
+<hr className="w-36 my-3"/>
                 <Link className={(pathname.includes('/Products')||pathname.includes('/products/new'))? activeLink : inactiveLink}  href={'/Products'}>
                     <div className="flex gap-1 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -103,7 +117,7 @@ export default function Nav(){
 
                 
 
-<hr className="w-40"/>
+<hr className="w-36 my-3"/>
 
                 <Link className={pathname.includes('/Emails') ? activeLink : inactiveLink}  href={'/Emails/Send'}>
                     <div className="flex gap-1 items-center">
@@ -121,7 +135,7 @@ export default function Nav(){
                         Black list 
                     </div>
                 </Link>
-<hr className="w-40"/>
+<hr className="w-36 my-3"/>
                 <Link className={pathname.includes('/Admine')? activeLink : inactiveLink}  href={'/Admine'}>
                     <div className="flex gap-1 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -146,6 +160,7 @@ export default function Nav(){
                         Website
                     </div>
                 </Link>
+                <hr className="w-40 opacity-0"/>
             </nav>
 
         </div>

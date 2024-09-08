@@ -85,7 +85,7 @@ function ImportFilterValues(number) {
 
     return (
         <UserAccount>
-            <div className="overflow-x-auto lg:max-w-4xl">
+            <div className="overflow-x-auto">
         <div className="md:w-[100%] ">
           <OrderFilterBar ImportFilterValues={ImportFilterValues} className={" !bg-yellow-500"} />
         </div>

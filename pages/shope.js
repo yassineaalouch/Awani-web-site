@@ -67,22 +67,7 @@ export default function Shop({ productList }) {
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
           }}).then((response)=>{setCategories(response.data.map((ele)=>(ele.name)))})
     }
-    // const [data,setData] = useState({})
-    // async function getGeolocation() {
-    //     try {
-    //         const response = await axios.get(`/api/getGeolocation`);
-    //         setData(response.data) ; // Extract the data from the response
-    //         console.log(`ip: ${data.ip} country :${data.country} city ${data.city}`)
-    //         return setData; // Return the geolocation data
-    //     } catch (error) {
-    //         console.error('Error fetching geolocatio4n:', error);
-    //         return null; // Return null if there’s an error
-    //     }
-    // }
-
-
-
-
+    
     return (
         <>
             <NavBarInterface />

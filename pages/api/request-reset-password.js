@@ -32,7 +32,6 @@ export default async function handler(req, res) {
     const resetUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/resetPassword/${resetToken}`
     await user.save();
 
-    console.log(resetUrl)
     const subject = 'Reset Password Request';
     const message = `You requested a password reset. Click here ${resetUrl} to reset your password.`;
     await sendMail(subject, email, message)

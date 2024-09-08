@@ -18,7 +18,7 @@ export default function LoginForm({ children }) {
   }, [session, status, router]);
 
   if (status === "loading") {
-    return <p className='h-screen w-screen flex justify-center items-center text-3xl font-bold'>Loading...</p>;
+    return <p className='h-screen w-screen flex justify-center items-center text-xl font-bold'>Loading...</p>;
   }
 
   if (status === "authenticated") {

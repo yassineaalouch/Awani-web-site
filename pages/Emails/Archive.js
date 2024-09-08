@@ -63,7 +63,7 @@ export default function Sent(){
 
     return <Emails>
         <div>
-        <table className="basic max-w-4xl">
+        <table className="basic ">
                 <thead>
                     <tr>
                         <td><b>Emails</b> </td>

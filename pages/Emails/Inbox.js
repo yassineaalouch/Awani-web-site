@@ -80,7 +80,7 @@ export default function Inbox(props){
 
     return <Emails >
         <div>
-        <table className="basic max-w-4xl">
+        <table className="basic">
                 <thead>
                     <tr>
                         <td >

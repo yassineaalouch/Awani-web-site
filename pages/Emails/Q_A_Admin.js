@@ -112,7 +112,7 @@ export default function Q_A_Admin(){
            <table className="w-full">
                 <thead className="w-full text-left mb-1">
                     <tr>
-                        <th className="p-1 pr-2 bg-green-200 ">
+                        <th className="p-1 pr-2 bg-gray-200 ">
                             <div className="flex justify-between items-center">
                                 Q_A
                                 <FaPlus className=" cursor-pointer" onClick={()=>AddNew()}/>

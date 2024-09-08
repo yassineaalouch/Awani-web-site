@@ -32,6 +32,8 @@ export default function CategoriesPage() {
     // const [properties, setProperties] = useState([]);
     const [isEditing,setIsEditing] = useState(false);
     const [loopError,setLoopError] = useState(false)
+    const [wait,setWait] = useState(false)
+
     useEffect(() => {
         fetchCategories();
     }, []);
@@ -52,6 +54,7 @@ export default function CategoriesPage() {
         };
         const namesList = categories.map(ele => (ele.name));
         if ((name.trim() !== ""&& isEditing && parentCategory !== name)||(!isEditing && name.trim() !=="" && !namesList.includes(name) && parentCategory !== name)) {
+            setWait(true)
             if (editedCategory) {
                 await axios.put('/api/categories', { ...data, _id: editedCategory._id },{ headers: {
                     'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
@@ -66,6 +69,7 @@ export default function CategoriesPage() {
             setParentCategory('');
             fetchCategories();
             setError(false);
+            setWait(false)
         } else {
             setError(true);
         }
@@ -104,19 +108,6 @@ export default function CategoriesPage() {
         return parentNames.join(' > ');
     }
 
-
-    // function ParentsCategory(category){
-    //     let list =[category]
-    //     let listNames = ParentsCategoryName(category).split(' > ');
-    //     for(let i = 0; i < listNames.length; i++){
-    //         const filteredCategories = categories.filter(cat =>{if(cat.name === listNames[i]){return true}else{return false}});
-    //         list = list.concat(filteredCategories);
-    //     }
-    //     return list;
-    // }
-
-
-
     return (
         <Layout>
             <h1 className="this">Categories</h1>
@@ -149,7 +140,7 @@ export default function CategoriesPage() {
 
                 </div>
 
-                <button type="submit" className="btn btn-primary py-1">Save</button>
+                <button disabled={wait} type="submit" className="btn btn-primary py-1">{wait?"Saving ...":"Save"}</button>
                 {editedCategory && <button type="button" onClick={() => { setEditCategory(''); setName(''); setParentCategory(''); {/*setProperties([])*/} }} className="bg-gray-300 hover:bg-gray-400 px-2 py-1 rounded-lg ml-3">Cancel</button>}
             </form>
 
@@ -157,18 +148,19 @@ export default function CategoriesPage() {
                 <table className="basic">
                     <thead>
                         <tr>
-                            <td><b>Category name</b></td>
-                            <td><b>Parent category</b></td>
+                            <td className=""><b>Category name</b></td>
+                            <td className=""><b>Parent category</b></td>
+                            <td className="text-center"><b>Edit/Delete</b></td>
                         </tr>
                     </thead>
                     <tbody>
-                        {categories.length > 0 && categories.map(category => (
-                            <tr key={category.name}>
+                        {categories.length > 0 && categories.map((category,index) => (
+                            <tr key={index}>
                                 <td>{category.name}</td>
                                 <td>{ParentsCategoryName(category)}</td>
 
 
-                                <td className="flex gap-2">
+                                <td className="flex justify-center gap-2">
                                     <button className="edit-btn" onClick={() => editCategory(category)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" size-5">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />

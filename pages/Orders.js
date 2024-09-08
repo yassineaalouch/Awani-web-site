@@ -88,11 +88,8 @@ export default function Orders(){
         'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
       }}).then((response)=>{
         let productsIds = cart.map((ele)=>(ele.id))
-        console.log('response.data.timerRating',response.data.timerRating)
         const listRatingProduct =response.data.timerRating.map((ele)=>(ele.productId))
-        console.log('listRatingProduct',listRatingProduct)
         const existingTest= productsIds.every(element =>listRatingProduct.includes(element))
-        console.log('existingTest',existingTest)
         if(!existingTest){
           axios.put('/api/UserHandler',{productsIds,_id:userId},{ headers: {
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
@@ -106,7 +103,7 @@ export default function Orders(){
 
   return (
     <Layout>
-      <div className="overflow-x-auto w-screen lg:max-w-[58rem]">
+      <div className="overflow-x-auto w-fit">
         <div className="w-[100%]">
           <OrderFilterBar ImportFilterValues={ImportFilterValues} className={" !bg-green-500"} />
         </div>

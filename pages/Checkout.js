@@ -45,7 +45,7 @@ export default function Checkout({Session}){
     useEffect(()=>{
         axios.get('/api/address',{params:{userId:Session?.user?.id}, headers: {
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
-          }}).then((response)=>{console.log(response);if(response.data.length>0){setFormData({
+          }}).then((response)=>{if(response.data.length>0){setFormData({
             ...formData,
             userId:Session?.user?.id||'',
             firstName: response?.data[0].firstName || "",
@@ -70,7 +70,6 @@ export default function Checkout({Session}){
     const [deletePermission,setDeletePermission] = useState(false)
     useEffect(() => {
         if(cartProducts.length >0 ||deletePermission){
-            console.log('cartProducts',cartProducts)
             localStorage.setItem('cart', JSON.stringify(cartProducts));
             setDeletePermission(false)
 
@@ -80,7 +79,6 @@ export default function Checkout({Session}){
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log('formData',formData)
         if(formData.cart.length > 0 && formData.userId === Session?.user?.id){
             setIsLoading(true)
             

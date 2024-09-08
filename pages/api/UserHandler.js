@@ -16,7 +16,6 @@ export default async function handle(req, res) {
     const OldTimerRatingFull = await Users.findOne({ _id }).select('timerRating');
     const OldTimerRating = OldTimerRatingFull.timerRating || [];
     
-    console.log('OldTimerRating', OldTimerRating);
     const timerRatingMap = new Map();
     timerRating.forEach(entry => {
       timerRatingMap.set(entry.productId.toString(), entry);
@@ -32,7 +31,6 @@ export default async function handle(req, res) {
 
     });
     const NewTimerRating = Array.from(timerRatingMap.values());
-    console.log('NewTimerRating', NewTimerRating);
     return NewTimerRating;
   }
   
@@ -72,7 +70,6 @@ export default async function handle(req, res) {
                                                   productId: ele,
                                                   purchaseDate: new Date()
                                                 }));
-    console.log('timerRating created from productsIds', timerRating);
   
     const updatedTimerRating = await UpdateTimerRating(timerRating, _id);
   
