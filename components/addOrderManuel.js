@@ -37,7 +37,7 @@ const AddOrderManuel = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <div className="mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6">Add New Order</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">

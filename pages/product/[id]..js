@@ -16,6 +16,10 @@ import { useContext  } from 'react';
 import { IoAddSharp } from "react-icons/io5";
 import { IoRemove } from "react-icons/io5";
 import formatCurrency from '@/components/formatCurrency';
+import { FaFacebook,FaWhatsappSquare  } from "react-icons/fa";
+import { FaXTwitter,FaSquareInstagram  } from "react-icons/fa6";
+import SideDropDownCart from '@/components/SideDropDownCart';
+
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -61,7 +65,7 @@ export default function ProductPage({Session,product}) {
   const [customerReview,setCustomerReview] = useState('')
   const [permissionList,setPermissionList] = useState([])
   const [timeLimit,setTimeLimit] = useState(null)
-
+  const [currentUrl, setCurrentUrl] = useState('');
 
 
 
@@ -70,12 +74,33 @@ export default function ProductPage({Session,product}) {
   },[update])
 
   useEffect(() => {
+        if (typeof window !== "undefined") {
+          setCurrentUrl(window.location.href); // Accéder à window seulement côté client
+        }
         const storedCart = localStorage.getItem('cart');
         if (storedCart) {
             setCartProducts(JSON.parse(storedCart));
         }
     }, []);
- 
+    const shareOnFacebook = () => {
+      const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
+      console.log(facebookShareUrl)
+      window.open(facebookShareUrl, '_blank');
+    };
+  
+    const shareOnTwitter = () => {
+      const twitterShareUrl = `https://twitter.com/intent/tweet?url=${currentUrl}&text=Check out this product: ${product.name}`;
+      window.open(twitterShareUrl, '_blank');
+    };
+  
+    const shareOnWhatsApp = () => {
+      const whatsappShareUrl = `https://api.whatsapp.com/send?text=Check out this product: ${product.name} ${currentUrl}`;
+      window.open(whatsappShareUrl, '_blank');
+    };
+
+
+
+
   async function fetchData() {
     try {
       const [commentsResponse, ratingResponse,ratingCarts,listRatingProduct] = await Promise.all([
@@ -295,12 +320,7 @@ export default function ProductPage({Session,product}) {
                 <p className="text-gray-600">{product?.description}</p>
               </div> 
               <div className='mt-10'>
-              {/* <button
-                className="mt-4 w-1/2 bg-yellow-500 flex justify-center gap-3 items-center text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
-                onClick={() => addToCart(product)}
-              >
-                  Add To Cart <FaCartShopping size={25}/>
-              </button> */}
+
             {!existingProductIndex?           
                <button
                 className="mt-4 w-1/2 bg-yellow-500 flex justify-center gap-3 items-center text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
@@ -310,25 +330,49 @@ export default function ProductPage({Session,product}) {
               </button>
               :
               <div>
-                  <div className="flex items-center mt-2">
+                  <div className="flex bg-yellow-400 w-fit gap-6 p-2 rounded-md items-center mt-2">
                       <button
                           onClick={() => handleQuantityChange(product._id, -1)}
-                          className="px-2 py-1  font-bold bg-gray-200 rounded-md hover:bg-gray-300"
+                          className="px-2 py-1  font-bold bg-yellow-500 rounded-md hover:bg-gray-300"
                       >
                           <IoRemove size={20}/>
                       </button>
-                      <span className="px-4">{cartProducts?.filter((item) => item.id == product._id)[0]?.quantity}</span>
+                      <span className="px-4 bg-yellow-50 rounded-md font-semibold text-xl">{cartProducts?.filter((item) => item.id == product._id)[0]?.quantity}</span>
                       <button
                           onClick={() => handleQuantityChange(product._id, 1)}
-                          className="px-2 py-1 font-bold bg-gray-200 rounded-md hover:bg-gray-300"
+                          className="px-2 py-1 font-bold bg-yellow-500 rounded-md hover:bg-gray-300"
                       >
                           <IoAddSharp size={20} />
                       </button>
                   </div>
               </div>
               }
+              <div className=' rounded-lg'>
+                      
+                      <div className="flex">
+
+                        <button
+                          onClick={shareOnFacebook}
+                          className=" py-2 text-blue-700 rounded-lg hover:scale-110"
+                        >
+                        <FaFacebook size={25} />
+                        </button>
+                        <button
+                          onClick={shareOnTwitter}
+                          className="px-4 py-2  rounded-lg hover:scale-110"
+                        >
+                        <FaXTwitter size={25}/>
+                        </button>
+                        <button
+                          onClick={shareOnWhatsApp}
+                          className="px-4 py-2 text-green-500 rounded-lg hover:scale-110"
+                        >
+                        <FaWhatsappSquare size={25} />
+                        </button>
+                      </div>
+                  </div>
               </div>
-                <div className="mt-8">
+                <div className="mt-2">
                   {product?.properties?.length>0&&
                   <div className="mt-4 rounded-lg">
                     <h3 className="text-xl font-semibold text-gray-700">properties</h3>
@@ -527,7 +571,9 @@ export default function ProductPage({Session,product}) {
         </div>
 
       </div>
-    
+      <div>
+        <SideDropDownCart/>
+      </div>
       <Footer/>
     </div>
 
