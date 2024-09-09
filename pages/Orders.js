@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import OrderFilterBar from "@/components/FilterOrders";
 import React from "react";
+import AddOrderManuel from "@/components/addOrderManuel";
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -107,31 +108,10 @@ export default function Orders(){
         <div className="w-[100%]">
           <OrderFilterBar ImportFilterValues={ImportFilterValues} className={" !bg-green-500"} />
         </div>
-        <div className="overflow-x-auto ">
-        <div className="my-1">
-            <table className="bg-white w-full max-w-[100rem] border border-gray-200 rounded-lg shadow-md">
-              <thead>
-                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                  <th className="py-3 px-6 text-left">Order ID</th>
-                  <th className="py-3 px-6 text-nowrap text-left">Customer Name</th>
-                  <th className="py-3 px-6 text-left">Status</th>
-                  <th className="py-3 px-6 text-left">Country</th>
-                  <th className="py-3 px-6 text-left">Date</th>
-                  <th className="py-3 px-6 text-nowrap text-right">Total ($)</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-600 text-sm font-light">
-                <tr className=" text-gray-600 uppercase text-sm leading-normal">
-                  <th className="py-3 px-6 text-left">Order ID</th>
-                  <th className="py-3 px-6 text-nowrap text-left">Customer Name</th>
-                  <th className="py-3 px-6 text-left">Status</th>
-                  <th className="py-3 px-6 text-left">Country</th>
-                  <th className="py-3 px-6 text-left">Date</th>
-                  <th className="py-3 px-6 text-nowrap text-right">Total ($)</th>
-                </tr>
-              </tbody>
-            </table>
+        <div>
+          <AddOrderManuel/>
         </div>
+        <div className="overflow-x-auto ">
         <table className="bg-white w-full max-w-[100rem] border border-gray-200 rounded-lg shadow-md">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
