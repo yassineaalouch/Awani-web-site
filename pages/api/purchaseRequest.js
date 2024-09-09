@@ -11,9 +11,12 @@ export default async function handle(req,res){
 
     if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
     if(method === 'GET'){
-        const {userId} = req.query;
+        const {userId,role} = req.query;
         if(userId){
             res.json(await purchaseRequest.find({userId}));
+        }else if(role==="statistics"){
+            const purchases = await purchaseRequest.find().select('createdAt cart status country');
+            res.json(purchases);
         }
         else{
             res.json(await purchaseRequest.find());
@@ -37,7 +40,7 @@ export default async function handle(req,res){
         const {status,_id} =req.body;
         const purchaseRequestDoc = await purchaseRequest.updateOne({_id},{status});
         res.json(purchaseRequestDoc);
-    }
+    } 
                                     
     if(method === 'DELETE'){
         const {_id} =req.body;

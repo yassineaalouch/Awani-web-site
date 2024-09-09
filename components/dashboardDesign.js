@@ -1,7 +1,92 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomBarChart,{CustomBarChartCercle,Cercle} from './graph';
+import axios from 'axios';
 
 export default function DashboardDesign() {
+const [usersList,setUsersList] = useState([])
+const [productsList,setProductsList] = useState([])
+const [purchasesListCountries,setPurchasesListCountries] = useState([])
+const [purchasesListStatus,setPurchasesListStatus] = useState([])
+
+
+const aggregateList = (list) => {
+  return list.reduce((acc, current) => {
+    const existingEntry = acc.find(entry => entry.name === current.name);
+
+    if (existingEntry) {
+      // Si la date existe déjà, on augmente le nombre de répétitions (pu)
+      existingEntry.pu += 1;
+    } else {
+      // Si c'est une nouvelle date, on ajoute un nouvel objet avec un compteur pu = 1
+      acc.push({
+        name: current.name,
+        pu: 1
+      });
+    }
+
+    return acc;
+  }, []);
+};
+
+  useEffect(()=>{
+
+    //fech Data from database
+    const request1 = axios.get('/api/UserHandler',{params:{role:'statistics'}, headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    }});
+  const request2 = axios.get('/api/purchaseRequest',{params:{role:'statistics'}, headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    }}).catch(errors => {alert(errors)
+    });
+  const request3 = axios.get('/api/products',{params:{role:'statistics'}, headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+    }});
+
+  axios.all([request1,request2,request3])
+    .then(axios.spread((response1,response2,response3) => {
+
+      setUsersList(aggregateList(response1.data.map((ele)=>{
+        const date = ele?.createdAt?.split('T')[0];
+        return {name:date?date:'000',pu:1}; 
+      })))
+      
+      console.log('hi',aggregateList(response1.data.map((ele)=>{
+        const date = ele?.createdAt?.split('T')[0];
+        return {name:date?date:'000',pu:1}; 
+      })))
+
+      const countryCounts = response2.data.reduce((acc, item) => {
+        const countryName = item?.country || 'Unknown'; // On s'assure que le pays est défini
+        acc[countryName] = (acc[countryName] || 0) + 1; // Incrémente la valeur ou initialise à 1
+        return acc;
+      }, {});
+      // On convertit l'objet en un tableau de la forme { name: countryName, repetition: count }
+      const formattedList = Object.keys(countryCounts).map((country) => ({
+        name: country,
+        repetition: countryCounts[country]
+      }));
+      console.log(formattedList)
+      setPurchasesListCountries(formattedList)
+      // console.log('response3',response3)
+
+      const Status = response2.data.reduce((acc, item) => {
+        const StatusName = item?.status || 'Unknown'; // On s'assure que le pays est défini
+        acc[StatusName] = (acc[StatusName] || 0) + 1; // Incrémente la valeur ou initialise à 1
+        return acc;
+      }, {});
+      // On convertit l'objet en un tableau de la forme { name: countryName, repetition: count }
+      const formattedListStatusName = Object.keys(Status).map((country) => ({
+        name: country,
+        repetition: Status[country]
+      }));
+      console.log(formattedListStatusName)
+      setPurchasesListStatus(formattedListStatusName)
+
+
+    }))
+    .catch(errors => {
+    });
+  },[])
   const data = [
 
     { name: 'Jan', uv: 4000, pv: 2400, amt: 2400, b: {b:2182 ,color:"#ffbb28"} },
@@ -39,16 +124,16 @@ export default function DashboardDesign() {
       </div>
       <div className='grid mt-10 gap-2 grid-cols-2 md:grid-cols-3'>
         <div className='col-span-3 md:col-span-2 bg-zinc-100'>
-          <Cercle title={'titre 1'} data={data}/>
+          <Cercle title={'countries orders'} data={purchasesListCountries}/>
         </div>
         <div className='bg-zinc-100 col-span-3 md:col-span-1'>
-          <Cercle title={'titre 2'} data={data}/>
+          <Cercle title={'Order status'} data={purchasesListStatus}/>
         </div>
-        <div className='bg-slate-100 col-span-3 p-0 rounded-md'>
+        <div className='bg-slate-100 pb-12 col-span-3 p-0 rounded-md'>
           <CustomBarChart title={'titre 3'} data={data}/>
         </div>
-        <div className='bg-slate-100 col-span-3' >
-          <CustomBarChartCercle title={'titre 4'} data={data}/>
+        <div className='bg-slate-100 pb-12 max-h-96 col-span-3' >
+          <CustomBarChartCercle title={'New users'} data={usersList}/>
         </div>
       </div>
     </div>

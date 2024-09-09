@@ -1,3 +1,4 @@
+'use client'
 import Footer from "@/interfaceComponents/Footer";
 import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
 import SideBarUserAccount from "@/interfaceComponents/sideBarUserAcount";
@@ -7,6 +8,7 @@ import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ThankYouCard from "@/components/ThankYouCard";
+import Select from "react-select";
 
 export async function getServerSideProps(context) {
 
@@ -35,6 +37,44 @@ export default function UserAccount({ children }) {
   const [ showMessage,setShowMessage] = useState (false)
   const [_id,set_Id]=useState('')
   const [passwordIsUpdated,setPasswordIsUpdated] = useState (false)
+  const [dropDownCountriesList,setDropDownCountriesList] = useState([])
+  async function getCountriesList() {
+    // Récupérer le temps de rafraîchissement depuis le localStorage
+    const timeRefresh = localStorage.getItem('refreshTimeDropDownCountriesList');
+    const savedCountriesList = localStorage.getItem('dropDownCountriesList');
+    
+    const currentTime = new Date();
+    const threeMonthsInMilliseconds = 90 * 24 * 60 * 60 * 1000; // 90 jours en millisecondes
+  
+    console.log('localStorage.getItem("refreshTimeDropDownCountriesList")', timeRefresh);
+    console.log('currentTime', currentTime);
+  
+    const lastRefreshTime = timeRefresh ? new Date(timeRefresh) : null;
+  
+    console.log('lastRefreshTime', lastRefreshTime);
+  
+    if (!savedCountriesList || !lastRefreshTime || (currentTime - lastRefreshTime) > threeMonthsInMilliseconds) {
+      try {
+        const response = await axios.get('https://restcountries.com/v3.1/all');
+        const countries = response.data.map((ele) => ({
+          name: ele.name.common,
+          flag: ele.flag,
+        }));
+        
+        setDropDownCountriesList(countries);
+        localStorage.setItem('dropDownCountriesList', JSON.stringify(countries));
+        localStorage.setItem('refreshTimeDropDownCountriesList', currentTime.toISOString());
+        
+        console.log('API appelée et liste mise à jour');
+      } catch (error) {
+        console.error('Erreur lors de la récupération des pays:', error);
+      }
+    } else {
+      // Si la liste est valide, la charger à partir du localStorage
+      setDropDownCountriesList(JSON.parse(savedCountriesList));
+      console.log('Liste chargée à partir du localStorage');
+    }
+  }
 
   const [formData, setFormData] = useState({
     userId:session?.user?.id||'',
@@ -69,6 +109,7 @@ export default function UserAccount({ children }) {
   };
 
   useEffect(()=>{
+    getCountriesList()
     if(session){
       axios.get('/api/address',{params:{userId:session?.user?.id}, headers: {
         'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
@@ -89,12 +130,13 @@ export default function UserAccount({ children }) {
 const handleChangeAddress = (e) => {
     setFormData({
         ...formData,
-        [e.target.name]: e.target.value,
+        [e.target.name]:e.target.value,
     });
 };
 
 async function handleSubmit(e) {
     e.preventDefault();    
+    console.log('formData send',formData)
     try{
         setIsLoading(true)
         if(putOrPost==='PUT'){
@@ -313,15 +355,13 @@ async function handleSubmit(e) {
                         <label htmlFor="country" className="block text-xs sm:text-sm font-medium text-gray-700">
                             Country
                         </label>
-                        <input
-                            type="text"
-                            id="country"
-                            name="country"
-                            disabled={!session}
-                            value={formData.country}
-                            onChange={handleChangeAddress}
-                            className={`mt-1 block w-full ${!session? 'cursor-not-allowed':'cursor-default'} border border-gray-300 outline-none text-slate-400 focus:text-black rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                            required
+                        <Select
+                          disabled={!session}
+                          value={dropDownCountriesList.map((ele)=>({label:ele.flag+' '+ele.name, value:ele.label})).find(country => country.label === formData.country)}
+                          name="country"
+                          className={`${!session? 'cursor-not-allowed':'cursor-default'} mt-1`}
+                          onChange={(e)=>{setFormData({...formData,country:e.label});console.log(formData)}}
+                          options={dropDownCountriesList.map((ele)=>({label:ele.flag+' '+ele.name, value:ele.label}))}
                         />
                         </div>
                     </div>

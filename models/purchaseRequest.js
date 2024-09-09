@@ -17,7 +17,7 @@ const purchaseRequestSchema = new Schema({
         price:{type:Number},
         image:{type:String},
         totalPrice:{type:String},
-        quantity:{type:String}
+        quantity:{type:String} 
     }],
     finalePrice:{type:Number}
 },

@@ -40,6 +40,8 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
     const [categories, setCategories] = useState([]);
     const [properties, setProperties] = useState(existProperties||[]);
     console.log('existProperties',existProperties||'hi2')
+    console.log('properties properties',properties||'hi2')
+
     const [products, setProducts] = useState([]);
     const [discounts, setDiscounts] = useState([]);
     const [discountsList,setDiscountsList] = useState([])
@@ -222,7 +224,7 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
         console.log('lit',list)
         console.log('litOfPropertiesToValidate',litOfPropertiesToValidate)
         console.log('propertiesListglobaaaaal',propertiesList)
-
+        console.log('PropertiesValuesList',propertiesValuesList)
 
 
     };
@@ -363,7 +365,7 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
             value={propertiesList} 
             isMulti={true}
             components={animatedComponents}
-            onChange={ev => {setPropertiesList(ev); console.log(propertiesList)}}
+            onChange={ev => {setPropertiesList(ev); console.log('propertiesListpropertiesList',ev)}}
         />
     {  propertiesList.length > 0 &&  
         <div className="pt-4 ml-1 rounded-bl-lg mb-10 border-l-2">
@@ -373,10 +375,10 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
                     <div>
                         <Select
                             options={ele.values}
-                            value={propertiesValuesList[ele.name] || []} 
+                            value={existProperties? existProperties.find(eleChild=>eleChild.property === ele.label).valuesExist:[]} 
                             isMulti={true}
                             components={animatedComponents}
-                            onChange={ev => handleSelectChange(ele.name, ev)}
+                            onChange={ev => {console.log('propertiesValuesList[ele.name]',propertiesValuesList[ele.name]);handleSelectChange(ele.name, ev)}}
                         />
                     </div>
                 </div>

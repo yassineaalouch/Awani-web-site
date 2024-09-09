@@ -7,6 +7,8 @@ import Link from "next/link";
 import { CartContext } from "@/components/cartContext";
 import ThankYouCard from "@/components/ThankYouCard";
 import { getSession } from "next-auth/react";
+import Select from "react-select";
+
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -30,6 +32,44 @@ export default function Checkout({Session}){
     const [ showMessage,setShowMessage] = useState (false)
     const [ isLoading,setIsLoading] = useState (false)
     const [cart,setCart] = useState(cartProducts)
+    const [dropDownCountriesList,setDropDownCountriesList] = useState([])
+  async function getCountriesList() {
+    // Récupérer le temps de rafraîchissement depuis le localStorage
+    const timeRefresh = localStorage.getItem('refreshTimeDropDownCountriesList');
+    const savedCountriesList = localStorage.getItem('dropDownCountriesList');
+    
+    const currentTime = new Date();
+    const threeMonthsInMilliseconds = 90 * 24 * 60 * 60 * 1000; // 90 jours en millisecondes
+  
+    console.log('localStorage.getItem("refreshTimeDropDownCountriesList")', timeRefresh);
+    console.log('currentTime', currentTime);
+  
+    const lastRefreshTime = timeRefresh ? new Date(timeRefresh) : null;
+  
+    console.log('lastRefreshTime', lastRefreshTime);
+  
+    if (!savedCountriesList || !lastRefreshTime || (currentTime - lastRefreshTime) > threeMonthsInMilliseconds) {
+      try {
+        const response = await axios.get('https://restcountries.com/v3.1/all');
+        const countries = response.data.map((ele) => ({
+          name: ele.name.common,
+          flag: ele.flag,
+        }));
+        
+        setDropDownCountriesList(countries);
+        localStorage.setItem('dropDownCountriesList', JSON.stringify(countries));
+        localStorage.setItem('refreshTimeDropDownCountriesList', currentTime.toISOString());
+        
+        console.log('API appelée et liste mise à jour');
+      } catch (error) {
+        console.error('Erreur lors de la récupération des pays:', error);
+      }
+    } else {
+      // Si la liste est valide, la charger à partir du localStorage
+      setDropDownCountriesList(JSON.parse(savedCountriesList));
+      console.log('Liste chargée à partir du localStorage');
+    }
+  }
     const [formData, setFormData] = useState({
         userId:Session?.user?.id,
         firstName: "",
@@ -43,6 +83,7 @@ export default function Checkout({Session}){
         cart
     });
     useEffect(()=>{
+        getCountriesList()
         axios.get('/api/address',{params:{userId:Session?.user?.id}, headers: {
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
           }}).then((response)=>{if(response.data.length>0){setFormData({
@@ -244,15 +285,13 @@ export default function Checkout({Session}){
                         <label htmlFor="country" className="block text-xs sm:text-sm font-medium text-gray-700">
                             Country
                         </label>
-                        <input
-                            type="text"
-                            id="country"
-                            name="country"
-                            disabled={!Session}
-                            value={formData.country}
-                            onChange={handleChange}
-                            className={`mt-1 block w-full ${!Session? 'cursor-not-allowed':'cursor-default'}  border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                            required
+                        <Select
+                          disabled={!Session}
+                          value={dropDownCountriesList.map((ele)=>({label:ele.flag+' '+ele.name, value:ele.label})).find(country => country.label === formData.country)}
+                          name="country"
+                          className={`${!Session? 'cursor-not-allowed':'cursor-default'} mt-1`}
+                          onChange={(e)=>{setFormData({...formData,country:e.label})}}
+                          options={dropDownCountriesList.map((ele)=>({label:ele.flag+' '+ele.name, value:ele.label}))}
                         />
                         </div>
                     </div>

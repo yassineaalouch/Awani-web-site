@@ -33,10 +33,10 @@ export default async function handle(req, res) {
     const NewTimerRating = Array.from(timerRatingMap.values());
     return NewTimerRating;
   }
-  
+   
 
   if (method === 'GET') {
-    const {_id,email,productId} = req.query;
+    const {_id,email,productId,role} = req.query;
     if (_id) {
       const user = await Users.findOne({ _id }).select('timerRating');
 
@@ -44,7 +44,11 @@ export default async function handle(req, res) {
     }else if (email) {
       const user = await Users.findOne({ email });
       res.json(user);
-    } else {
+    }else if(role==="statistics"){
+      const user = await Users.find().select('createdAt');
+      res.json(user);
+    }
+     else {
       res.json(await Users.find());
     }
   }

@@ -9,7 +9,7 @@ export default async function handle(req, res){
 
     if (authHeader && authHeader.startsWith('Bearer ')&&token === process.env.NEXT_PUBLIC_API_KEY_PROTECTION) {
     await mongooseConnect();
-    if (method === 'GET'){
+    if (method === 'GET'){ 
         if(req.query?.id){
             if(req.query?.rating==='rating'){
                 res.json(await Product.findOne({_id:req.query.id}).select('IdOfRatingUsers'));

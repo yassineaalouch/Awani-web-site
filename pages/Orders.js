@@ -103,12 +103,35 @@ export default function Orders(){
 
   return (
     <Layout>
-      <div className="overflow-x-auto w-fit">
+      <div className="overflow-x-auto ">
         <div className="w-[100%]">
           <OrderFilterBar ImportFilterValues={ImportFilterValues} className={" !bg-green-500"} />
         </div>
         <div className="overflow-x-auto ">
-
+        <div className="my-1">
+            <table className="bg-white w-full max-w-[100rem] border border-gray-200 rounded-lg shadow-md">
+              <thead>
+                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                  <th className="py-3 px-6 text-left">Order ID</th>
+                  <th className="py-3 px-6 text-nowrap text-left">Customer Name</th>
+                  <th className="py-3 px-6 text-left">Status</th>
+                  <th className="py-3 px-6 text-left">Country</th>
+                  <th className="py-3 px-6 text-left">Date</th>
+                  <th className="py-3 px-6 text-nowrap text-right">Total ($)</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-600 text-sm font-light">
+                <tr className=" text-gray-600 uppercase text-sm leading-normal">
+                  <th className="py-3 px-6 text-left">Order ID</th>
+                  <th className="py-3 px-6 text-nowrap text-left">Customer Name</th>
+                  <th className="py-3 px-6 text-left">Status</th>
+                  <th className="py-3 px-6 text-left">Country</th>
+                  <th className="py-3 px-6 text-left">Date</th>
+                  <th className="py-3 px-6 text-nowrap text-right">Total ($)</th>
+                </tr>
+              </tbody>
+            </table>
+        </div>
         <table className="bg-white w-full max-w-[100rem] border border-gray-200 rounded-lg shadow-md">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

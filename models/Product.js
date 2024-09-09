@@ -62,5 +62,5 @@ productFAQ: [{type:Schema.Types.ObjectId,ref:'ProductFAQ'}],
   timestamps: true 
 }
 );
-
+ 
 export const Product = models.Product || model('Product',ProductSchema);

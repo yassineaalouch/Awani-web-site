@@ -12,6 +12,7 @@ import { useEffect,useState } from "react";
 import { Category } from "@/models/Category";
 import axios from "axios";
 import { converterCurrency } from "@/components/currencyConverter";
+
 export async function getServerSideProps() {
     await mongooseConnect()
     const productList = await Product.find({}).populate('category').lean();
@@ -71,19 +72,6 @@ export default function Shop({ productList }) {
     return (
         <>
             <NavBarInterface />
-            {/* <div className="mt-12">
-                <div className="flex gap-6">
-                        <span>
-                            ip: {data.ip}
-                        </span> 
-                        <span>
-                            country :{data.country}
-                        </span> 
-                        <span>
-                            city {data.city}
-                        </span> 
-                </div>
-            </div> */}
             <div className="mt-12"> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
             </div>
