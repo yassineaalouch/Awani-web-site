@@ -330,17 +330,17 @@ export default function ProductPage({Session,product}) {
               </button>
               :
               <div>
-                  <div className="flex bg-yellow-400 w-fit gap-6 p-2 rounded-md items-center mt-2">
+                  <div className="flex border-2 w-fit gap-6 p-2 rounded-md items-center mt-2">
                       <button
                           onClick={() => handleQuantityChange(product._id, -1)}
-                          className="px-2 py-1  font-bold bg-yellow-500 rounded-md hover:bg-gray-300"
+                          className="px-2 py-1 font-bold bg-yellow-300 border-2 rounded-md hover:bg-gray-300"
                       >
                           <IoRemove size={20}/>
                       </button>
                       <span className="px-4 bg-yellow-50 rounded-md font-semibold text-xl">{cartProducts?.filter((item) => item.id == product._id)[0]?.quantity}</span>
                       <button
                           onClick={() => handleQuantityChange(product._id, 1)}
-                          className="px-2 py-1 font-bold bg-yellow-500 rounded-md hover:bg-gray-300"
+                          className="px-2 py-1 font-bold bg-yellow-300 border-2 rounded-md hover:bg-gray-300"
                       >
                           <IoAddSharp size={20} />
                       </button>
@@ -402,9 +402,9 @@ export default function ProductPage({Session,product}) {
                       {product.promotionsOrDiscounts.length>0&&product.promotionsOrDiscounts.map((ele)=>(
                           <div className='border w-fit px-2 py-1 rounded-lg border-black hover:bg-slate-100 hover:border-yellow-500 hover:border-2' key={ele.titre}>
                             <div>
-                                <div>discount <span className='font-bold'>{ele.titre}</span>:</div>
+                                <div> <span className='font-bold'>{ele?.titre} discount</span>:</div>
                                 <div>
-                                  Save <span className='text-red-400 font-semibold'>{ele.percentage}%</span> on the final price <span className='text-gray-500'>(minimum order: <span className='text-black'>{ele.quantity}</span> )</span>                         
+                                  <span className='text-red-500 text-2xl font-extrabold'>-{ele.percentage}%</span>  <span className='text-gray-500 text-xs'>(minimum order: <span className='text-black'>{ele.quantity}</span> )</span>                         
                                 </div>
                             </div>
                           </div>

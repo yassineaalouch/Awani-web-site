@@ -402,9 +402,8 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
             <Select
             options={discounts}
             value={discountsList} 
-            isMulti={true}
             components={animatedComponents}
-            onChange={ev => {setDiscountsList(ev);setDiscountsListToSend(ev.map((ele)=>({titre:ele.titre,percentage:ele.price,quantity:ele.quantity}))) ;console.log('discountListToSend',ev.map((ele)=>({titre:ele.titre,percentage:ele.price,quantity:ele.quantity})))}}
+            onChange={ev => {setDiscountsList(ev);setDiscountsListToSend([{titre:ev.titre,percentage:ev.price,quantity:ev.quantity}])}}
             />
 
             <label className="this">Purchase Price (USD)</label>
