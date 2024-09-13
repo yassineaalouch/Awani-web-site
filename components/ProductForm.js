@@ -1,3 +1,5 @@
+"use client"
+
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
@@ -11,6 +13,7 @@ import { useSession } from "next-auth/react";
 import Hr from "@/interfaceComponents/Hr";
 import Select from "react-select";
 import makeAnimated from 'react-select/animated';
+
 
 export default function ProductForm({_id,rating,properties:existProperties,comments:existingComments, ratingDistribution,title: existingTitle, discountPrice:existingDiscountPrice, description: existingDescription, price: existingPrice, images: existingImages, category: existingCategory, purchasePrice: existingPurchasePrice, supplier: existingSupplier, stockQuantity: existingStockQuantity, dimensions: existingDimensions, countryOfProduction: existingCountryOfProduction, deliveryTime: existingDeliveryTime, SKU: existingSKU, barcode: existingBarcode, customerReviews: existingCustomerReviews, materials: existingMaterials, careInstructions: existingCareInstructions, allergens: existingAllergens, expirationDate: existingExpirationDate, certificatesAndLabels: existingCertificatesAndLabels, recyclingInformation: existingRecyclingInformation, returnAndWarrantyConditions: existingReturnAndWarrantyConditions, promotionsOrDiscounts: existingPromotionsOrDiscounts, complementaryProducts: existingComplementaryProducts, productFAQ: existingProductFAQ }){
     const {data:session}=useSession()
@@ -375,10 +378,10 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
                     <div>
                         <Select
                             options={ele.values}
-                            value={existProperties? existProperties.find(eleChild=>eleChild.property === ele.label).valuesExist:[]} 
+                            value={''} 
                             isMulti={true}
                             components={animatedComponents}
-                            onChange={ev => {console.log('propertiesValuesList[ele.name]',propertiesValuesList[ele.name]);handleSelectChange(ele.name, ev)}}
+                            onChange={ev => {console.log('propertiesValuesList[ele.name]',propertiesValuesList[ele.name])}}
                         />
                     </div>
                 </div>
@@ -405,7 +408,7 @@ export default function ProductForm({_id,rating,properties:existProperties,comme
             components={animatedComponents}
             onChange={ev => {setDiscountsList(ev);setDiscountsListToSend([{titre:ev.titre,percentage:ev.price,quantity:ev.quantity}])}}
             />
-
+ 
             <label className="this">Purchase Price (USD)</label>
             <input
                 className="this"

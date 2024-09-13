@@ -11,6 +11,7 @@ const purchaseRequestSchema = new Schema({
     postalCode: {type: String, require:false},
     country: {type: String, require:false},
     status:{type: String, require:false,default:'Under Review'},
+    comesFromOutSide:{type:Boolean,default:false},
     cart:[{
         id:{type:String},
         title:{type:String},

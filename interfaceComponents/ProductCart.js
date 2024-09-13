@@ -25,6 +25,8 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
         price: product.price,
         image: product.images[0],
         totalPrice: product.price,
+        discountPercentage:product?.promotionsOrDiscounts[0]?.percentage ||0,
+        discountQuantity:product?.promotionsOrDiscounts[0]?.quantity || 0,
         quantity: 1,  // Commencez avec une quantité de 1
       };
       setAnimation(true)
@@ -74,7 +76,7 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
                 className="text-gray-500 mb-[2.5px] line-through text-xs mt-2 relative inline-block" 
                 style={{ width: 'fit-content', textDecorationThickness: '1.5px', textDecorationOffset: '2px' }}
               >
-                {formatCurrency(product?.discountPrice)}
+                {formatCurrency({number:exchangeRate !=null ? product?.discountPrice*exchangeRate:product?.discountPrice,currencySymbol:currencyWanted})}
             </p>  
             } 
         </div>

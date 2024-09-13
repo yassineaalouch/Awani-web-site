@@ -9,16 +9,17 @@ import axios from 'axios';
 import { getSession } from "next-auth/react";
 import Link from 'next/link';
 import { Product } from '@/models/Product';
-import { FaCartShopping } from "react-icons/fa6";
+import { FaCartShopping, FaTag } from "react-icons/fa6";
 import mongooseConnect from "@/lib/mongoose";
 import { CartContext } from '@/components/cartContext';
 import { useContext  } from 'react'; 
 import { IoAddSharp } from "react-icons/io5";
 import { IoRemove } from "react-icons/io5";
 import formatCurrency from '@/components/formatCurrency';
-import { FaFacebook,FaWhatsappSquare  } from "react-icons/fa";
+import { FaFacebook,FaShoppingCart,FaWhatsappSquare  } from "react-icons/fa";
 import { FaXTwitter,FaSquareInstagram  } from "react-icons/fa6";
 import SideDropDownCart from '@/components/SideDropDownCart';
+import { converterCurrency } from "@/components/currencyConverter";
 
 
 export async function getServerSideProps(context) {
@@ -48,6 +49,8 @@ export async function getServerSideProps(context) {
 export default function ProductPage({Session,product}) {
   const [mainImage, setMainImage] = useState(product?.images[0]||"/No_Image_Available.jpg");
   const {setCartProducts, cartProducts} = useContext(CartContext)
+  const {conversionRate,currencyWanted,} = useContext(converterCurrency)
+  const [rateOfChange,setRateOfChange] = useState(null)
 
   const ImageChange = (src) => {
     setMainImage(src);
@@ -68,6 +71,9 @@ export default function ProductPage({Session,product}) {
   const [currentUrl, setCurrentUrl] = useState('');
 
 
+  useEffect(()=>{
+    setRateOfChange(conversionRate[currencyWanted])
+  },[currencyWanted])
 
   useEffect(()=>{
     fetchData()
@@ -235,6 +241,8 @@ export default function ProductPage({Session,product}) {
         title: product.title,
         price: product.price,
         image: product.images[0],
+        discountPercentage:product?.promotionsOrDiscounts[0]?.percentage ||0,
+        discountQuantity:product?.promotionsOrDiscounts[0]?.quantity || 0,
         totalPrice: product.price,
         quantity: 1,  // Commencez avec une quantité de 1
       };
@@ -248,15 +256,21 @@ export default function ProductPage({Session,product}) {
 
   const handleQuantityChange = (id, delta) => {
       setCartProducts((prevItems) =>
-          prevItems.map((item) =>
-              item.id === id
-                  ? { 
-                      ...item,
-                      quantity: Math.max(1, item.quantity + delta),
-                      totalPrice: (Math.max(1, item.quantity + delta)) * item.price // Mise à jour du prix total
-                  }
-                  : item
-          )
+          prevItems.map((item) =>{
+            if (item.id === id) {
+              const newQuantity = Math.max(1, item.quantity + delta);
+              const discount = item.discountPercentage > 0 && newQuantity>item.discountQuantity  ? item.discountPercentage / 100 : 0;
+              const discountedPrice = item.price - item.price * discount;
+              const totalPrice = newQuantity * discountedPrice;
+
+              return {
+                  ...item,
+                  quantity: newQuantity,
+                  totalPrice: totalPrice // Mise à jour du prix total
+              };
+          }
+          return item;
+  })
       );
       if (typeof window !== 'undefined') {
         localStorage.setItem('cart', JSON.stringify(cartProducts));
@@ -307,7 +321,7 @@ export default function ProductPage({Session,product}) {
             </div>
             <div>
               <h1 className="text-3xl font-semibold text-gray-800">{product?.title}</h1>
-              <p className="text-xl font-bold text-yellow-500 mt-2">{formatCurrency(product?.price)}</p>
+              <p className="text-xl font-bold text-yellow-500 mt-2">{formatCurrency({number:rateOfChange !=null ? product?.price*rateOfChange:product?.price,currencySymbol:currencyWanted})}</p>
               <div className=" space-y-3">
                 <div className="mt-4 flex items-center">
                   <div className="flex items-center">
@@ -320,6 +334,11 @@ export default function ProductPage({Session,product}) {
                 <p className="text-gray-600">{product?.description}</p>
               </div> 
               <div className='mt-10'>
+              <div className={`flex items-center ${product?.stockQuantity < 25 ? "animate-pulse text-red-500":''} space-x-1 text-sm text-gray-700 bg-yellow-100 p-2 rounded-md`}>
+                <span>Just</span>
+                <span className="font-bold text-yellow-600 underline">{product?.stockQuantity}</span>
+                <span>left in stock</span>
+              </div>
 
             {!existingProductIndex?           
                <button
@@ -400,14 +419,28 @@ export default function ProductPage({Session,product}) {
                     <hr className='border-black mb-3 mt-1'></hr>
                     <div className='mb-6 flex flex-col gap-3'>
                       {product.promotionsOrDiscounts.length>0&&product.promotionsOrDiscounts.map((ele)=>(
-                          <div className='border w-fit px-2 py-1 rounded-lg border-black hover:bg-slate-100 hover:border-yellow-500 hover:border-2' key={ele.titre}>
-                            <div>
-                                <div> <span className='font-bold'>{ele?.titre} discount</span>:</div>
-                                <div>
-                                  <span className='text-red-500 text-2xl font-extrabold'>-{ele.percentage}%</span>  <span className='text-gray-500 text-xs'>(minimum order: <span className='text-black'>{ele.quantity}</span> )</span>                         
-                                </div>
+                        <div key={ele.titre} className='w-full text-white py-1 overflow-hidden text-sm flex justify-center  bg-red-500'>
+                          {[1,2,3,4,5,6,7,8,9].map((el)=>(
+                          <div key={el} className='flex flex-col justify-center items-center'>
+                            <div className='flex items-center text-xs gap-1'>
+                              <span>with </span>
+                              <span className='text-sm font-semibold'>{ele.titre} discount</span>
+                            </div>
+
+                            <div className='flex items-center'>
+                              <span className='inline-block -rotate-90 font-extrabold text-2xl'>Save</span> 
+                              <span className='text-white text-6xl font-extrabold'>{ele.percentage}%</span>
+                            </div>
+
+                            <div className='text-xs'>
+                              <span>min order :</span>
+                              <span>{ele.quantity}</span>
                             </div>
                           </div>
+                          ))}
+                          
+                        </div>
+
                       ))}
                     </div>
                   </div>}
