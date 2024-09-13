@@ -40,11 +40,11 @@ export default function ContactUs(){
                         </p>
                         <p className="text-white text-sm md:text-lg mb-4">
                         <strong>Phone:</strong><br />
-                        <span className="text-black text-xs md:text-sm  pl-5">(+212) 456-7890</span>
+                        <span className="text-black text-xs md:text-sm  pl-5">(+212) xxxxxxx</span>
                         </p>
                         <p className="text-gray-700 mb-4">
                         <strong className="text-white text-sm md:text-lg mb-4">Email:</strong><br />
-                        <span className="text-black text-xs md:text-sm sm:text-nowrap pl-0 sm:pl-5">Revofeed.Revofeed@gmail.com</span>
+                        <span className="text-black text-xs md:text-sm sm:text-nowrap pl-0 sm:pl-5">exemple@gmail.com</span>
                         </p>
                     </div>
                 </div>
