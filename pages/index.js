@@ -9,34 +9,69 @@ import { FaHandHoldingMedical } from "react-icons/fa6";
 import { GiBee } from "react-icons/gi";
 import InfoCard from "@/interfaceComponents/InfoCard";
 import Hr from "@/interfaceComponents/Hr";
+import BlackBarTop from "@/components/blackBarTop";
+import NavBarTajrProject from "@/components/NavBarTajrProject";
+import SlidesOfDiscountHomePage from "@/components/SlidesOfDiscountHomePage";
+import QualiteCarts from "@/components/QualiteCarts";
+import CategoriesHomePageSection from "@/components/CategoriesHomePageSection";
+import ProductsHomePageSection from "@/components/ProductsHomePageSection copy";
+import mongooseConnect from "@/lib/mongoose";
+import { Product } from "@/models/Product";
+import { Category } from "@/models/Category";
+import { useState } from "react";
+import PlaceOfAdvertisingBar from "@/components/PlaceOfAdvertisingBar";
+import LastPlaceOfAdvertisingBar from "@/components/LastPlaceOfAdvertisingBar";
+import MapLocation from "@/components/MapLocation";
 
-export default function Home() {
-  function FAQItem({ question, answer }) {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return (
-        <div className="mb-4 border-b pb-4 border-yellow-950">
-            <div 
-                className="flex justify-between items-center cursor-pointer"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                <h2 className="md:text-xl text-base font-semibold text-yellow-950">{question}</h2>
-                <span className={`transform transition-transform ${isOpen ? 'rotate-0' : 'rotate-180'}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                </span>
-            </div>
-            {isOpen && <p className="text-xs md:text-base mt-4 pl-5 text-yellow-950">{answer}</p>}
-        </div>
-    );
+export async function getServerSideProps() {
+  await mongooseConnect()
+  const productList = await Product.find({}).populate('category').lean();
+  console.log("productList in server component", productList);  return {
+      props: {
+          productList: JSON.parse(JSON.stringify(productList.reverse())),
+      },
+  };
 }
+export default function Home({productList}) {
+  const[productListClientSide,setProductListClientSide]=useState(productList)
+  console.log("productList in Home component", productList);
+
+//   function FAQItem({ question, answer }) {
+//     const [isOpen, setIsOpen] = useState(false);
+
+//     return (
+//         <div className="mb-4 border-b pb-4 border-yellow-950">
+//             <div 
+//                 className="flex justify-between items-center cursor-pointer"
+//                 onClick={() => setIsOpen(!isOpen)}
+//             >
+//                 <h2 className="md:text-xl text-base font-semibold text-yellow-950">{question}</h2>
+//                 <span className={`transform transition-transform ${isOpen ? 'rotate-0' : 'rotate-180'}`}>
+//                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+//                     </svg>
+//                 </span>
+//             </div>
+//             {isOpen && <p className="text-xs md:text-base mt-4 pl-5 text-yellow-950">{answer}</p>}
+//         </div>
+//     );
+// }
 
   return (
     <>
- 
-      <Nav_bar_interface />
-{true &&
+      <BlackBarTop/>
+      <NavBarTajrProject/>
+      <SlidesOfDiscountHomePage/>
+      <QualiteCarts/>
+      <CategoriesHomePageSection/>
+      <ProductsHomePageSection productList={productListClientSide}/>
+      <PlaceOfAdvertisingBar/>
+      <ProductsHomePageSection productList={productListClientSide}/>
+      <ProductsHomePageSection productList={productListClientSide}/>
+      <LastPlaceOfAdvertisingBar/>
+
+      {/* <Nav_bar_interface /> */}
+{/* {true &&
   <div className="max-w-screen-2xl mx-auto overflow-hidden">
         <div className="">
           <div className="bg-fixed min-w-full bg-center h-[80vh] lg:h-screen bg-[url('/miel_bg_1.webp')]">
@@ -255,10 +290,9 @@ export default function Home() {
 
         </div>
       </div>
-}
+} */}
       
   <Footer className="mt-5"></Footer>
-
     
     </>
   );

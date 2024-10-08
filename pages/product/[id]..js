@@ -110,11 +110,9 @@ export default function ProductPage({Session,product}) {
   async function fetchData() {
     try {
       const [commentsResponse, ratingResponse,ratingCarts,listRatingProduct] = await Promise.all([
-        axios.get('/api/comment', { params: { id:product?._id},
-          
-              headers: {
+        axios.get('/api/comment', { params: { id:product?._id},headers: {
                 'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
-              }}),
+        } }),
         axios.get('/api/rating', { params: { id:product?._id}, headers: {
           'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
         } }),
@@ -325,11 +323,11 @@ export default function ProductPage({Session,product}) {
               <div className=" space-y-3">
                 <div className="mt-4 flex items-center">
                   <div className="flex items-center">
-
-                       <Etoiles number={totalRating.averageRating} />
+                        
+                       <Etoiles number={product?.rating} />
 
                   </div>
-                  <p className="text-gray-600 ml-2">({totalRating.numberRating?totalRating.numberRating:0} reviews)</p>
+                  <p className="text-gray-600 ml-2">({totalRating.numberRating?totalRating.numberRating:0})</p>
                 </div>
                 <p className="text-gray-600">{product?.description}</p>
               </div> 
@@ -465,7 +463,7 @@ export default function ProductPage({Session,product}) {
                   <div className='border-2 w-full border-gray-300 rounded-lg bg-white mx-auto px-6 pt-6 pb-1 shadow-lg max-w-md'>
                     
                     
-                    {!dejaRating?
+                    {!true?
                       <form onSubmit={(e)=>sentStars(e)}>
                           <h1 className='text-xl font-semibold text-gray-800'>Did you use our product before?</h1>
                           <p className='text-gray-600 text-sm'>Share your feedback. </p>

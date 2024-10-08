@@ -1,6 +1,7 @@
 import { FaFacebook } from "react-icons/fa";
 import { TiSocialInstagram } from "react-icons/ti";
 import { FaXTwitter } from "react-icons/fa6";
+import MapLocation from "@/components/MapLocation";
 export default function Footer(props){
     return(
         <>
@@ -69,6 +70,10 @@ export default function Footer(props){
           </div>
         </div>
       </div>
+      <div className="px-5">
+        <MapLocation/>
+      </div>
+
     </footer>
         </>
     );

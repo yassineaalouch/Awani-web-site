@@ -5,9 +5,25 @@ import Link from 'next/link';
 import { useContext, useState  } from 'react'; 
 import { FaCartShopping } from "react-icons/fa6";
 import formatCurrency from '@/components/formatCurrency';
+import Etoiles from '@/components/rating';
 
 
 const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
+
+
+  const totalRating = TotalRatingCalculator(product?.ratingDistribution);
+
+  // cette fonction katrj3 lik l3adad dyal nass li rataw lproduit o ta lmoyenne dyal rating
+  function TotalRatingCalculator(object) {
+    const sommeRating = object?.un * 1 + object?.deux * 2 + object?.trois * 3 + object?.quatre * 4 + object?.cinque * 5;
+    const numberRating = object?.un + object?.deux + object?.trois + object?.quatre + object?.cinque;
+    if (numberRating === 0) {
+        return { averageRating: 0, numberRating: 0 };
+    }
+    const averageRating = sommeRating / numberRating;
+        return { averageRating, numberRating };
+    }
+
   const {setCartProducts , cartProducts} = useContext(CartContext)
   const [animation ,setAnimation] = useState(false)
   const timer = setTimeout(() => {
@@ -50,8 +66,9 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
                 quality={70}
                 width={100}
                 height={50}
-              className={"cover w-auto h-auto rounded-t-lg"}
+                className={"cover w-auto h-auto rounded-t-lg"}
               />
+
               <Image
                 src={product?.images[0]?product?.images[0]:'/No_Image_Available.jpg'}
                 alt={product?.title}
@@ -67,9 +84,9 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
 
       <div className="mt-4">
         <Link href={'/product/'+product._id}>
-          <h3 className="text-lg font-semibold line-clamp-2 text-gray-800">{product?.title}</h3>
+          <h3 className="text-lg text-right font-semibold line-clamp-2 text-gray-800">{product?.title}</h3>
         </Link>
-        <div className='flex gap-2 items-end '>
+        <div className='flex justify-end gap-2 items-end '>
             <p className="text-gray-950 mt-2">{formatCurrency({number:exchangeRate !=null ? product?.price*exchangeRate:product?.price,currencySymbol:currencyWanted})}</p>
             {product?.discountPrice&&
             <p 
@@ -80,6 +97,12 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
             </p>  
             } 
         </div>
+
+        <div className='w-full flex items-center gap-3 justify-end'>
+          <Etoiles number={product.rating}/>
+          <p className='text-lg text-slate-500'>({totalRating.numberRating?totalRating.numberRating:0})</p>
+        </div>
+
         <button
           className="mt-4 w-full bg-yellow-500 flex justify-around items-center text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
           onClick={() => addToCart(product)}
