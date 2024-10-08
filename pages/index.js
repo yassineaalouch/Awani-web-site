@@ -1,14 +1,14 @@
 import Footer from "@/interfaceComponents/Footer";
-import Nav_bar_interface from "@/interfaceComponents/Nav-bar-interface";
-import { FaFacebook } from "react-icons/fa";
-import { TiSocialInstagram } from "react-icons/ti";
-import { FaXTwitter } from "react-icons/fa6";
-import { IoSettings } from "react-icons/io5";
-import { BsGraphUpArrow } from "react-icons/bs";
-import { FaHandHoldingMedical } from "react-icons/fa6";
-import { GiBee } from "react-icons/gi";
-import InfoCard from "@/interfaceComponents/InfoCard";
-import Hr from "@/interfaceComponents/Hr";
+// import Nav_bar_interface from "@/interfaceComponents/Nav-bar-interface";
+// import { FaFacebook } from "react-icons/fa";
+// import { TiSocialInstagram } from "react-icons/ti";
+// import { FaXTwitter } from "react-icons/fa6";
+// import { IoSettings } from "react-icons/io5";
+// import { BsGraphUpArrow } from "react-icons/bs";
+// import { FaHandHoldingMedical } from "react-icons/fa6";
+// import { GiBee } from "react-icons/gi";
+// import InfoCard from "@/interfaceComponents/InfoCard";
+// import Hr from "@/interfaceComponents/Hr";
 import BlackBarTop from "@/components/blackBarTop";
 import NavBarTajrProject from "@/components/NavBarTajrProject";
 import SlidesOfDiscountHomePage from "@/components/SlidesOfDiscountHomePage";
@@ -21,7 +21,6 @@ import { Category } from "@/models/Category";
 import { useState } from "react";
 import PlaceOfAdvertisingBar from "@/components/PlaceOfAdvertisingBar";
 import LastPlaceOfAdvertisingBar from "@/components/LastPlaceOfAdvertisingBar";
-import MapLocation from "@/components/MapLocation";
 
 export async function getServerSideProps() {
   await mongooseConnect()
@@ -34,7 +33,6 @@ export async function getServerSideProps() {
 }
 export default function Home({productList}) {
   const[productListClientSide,setProductListClientSide]=useState(productList)
-  console.log("productList in Home component", productList);
 
 //   function FAQItem({ question, answer }) {
 //     const [isOpen, setIsOpen] = useState(false);
