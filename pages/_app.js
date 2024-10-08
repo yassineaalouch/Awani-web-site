@@ -14,8 +14,6 @@ export default function App({Component, pageProps: { session, ...pageProps }}) {
       <ConverterCurrencyProvider>
         <SessionProvider session={session}>
           <Component {...pageProps}/>
-          <SpeedInsights/>
-          <Analytics />
         </SessionProvider>
       </ConverterCurrencyProvider>
     </CartContextProvider>
