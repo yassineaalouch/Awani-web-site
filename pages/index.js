@@ -29,6 +29,7 @@ export default function Home({productList}) {
   return (
     <>
     <Head>
+      <title>Awani Abdo</title>
       <googleAnalytics/>
     </Head>
       <BlackBarTop/>
