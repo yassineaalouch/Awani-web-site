@@ -27,7 +27,7 @@ export default function Home({productList}) {
   return (
     <>
     <Head>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.Next_PUBLIC_GOOGLE_ANALYTICS}`}/>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}/>
         <script
         dangerouslySetInnerHTML={{
           _html:`
