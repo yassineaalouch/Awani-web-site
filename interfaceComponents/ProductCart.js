@@ -66,6 +66,7 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
                 quality={70}
                 width={100}
                 height={50}
+                loading='lazy'
                 className={"cover w-auto h-auto rounded-t-lg"}
               />
 
@@ -76,6 +77,7 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
                 quality={70}
                 width={100}
                 height={50}
+                loading='lazy'
                 className={animation?"cover z-50 absolute bg-cover inset-0 rounded-t-lg animated":"cover z-30 hidden absolute inset-0 rounded-t-lg" }
               />
             </div>

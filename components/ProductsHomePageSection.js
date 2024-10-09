@@ -52,7 +52,7 @@ import React, { useRef } from "react";
 import ProductCard from "@/interfaceComponents/ProductCart";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
-function ProductsHomePageSection({ productList }) {
+function ProductsHomePageSection({ productList, petitTitre, grandTitre }) {
   // Référence pour accéder à l'élément contenant les produits
   const productsRef = useRef(null);
 
@@ -78,9 +78,11 @@ function ProductsHomePageSection({ productList }) {
       <div className="w-full py-5 mb-2 mt-6 flex justify-end">
         <div className="text-right">
           <div className="border-r-[15px] text-sm pr-2 mb-2 border-black">
-            هذا الشهر
+              {petitTitre} 
           </div>
-          <div className="text-2xl">المنتجات الأكثر مبيعاً</div>
+          <div className="text-2xl"> 
+              {grandTitre}
+          </div>
         </div>
       </div>
 
