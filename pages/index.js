@@ -12,6 +12,8 @@ import { useState } from "react";
 import PlaceOfAdvertisingBar from "@/components/PlaceOfAdvertisingBar";
 import LastPlaceOfAdvertisingBar from "@/components/LastPlaceOfAdvertisingBar";
 import Head from "next/head";
+import googleAnalytics from "@/components/googleAnalytics";
+
 
 export async function getServerSideProps() {
   await mongooseConnect()
@@ -27,17 +29,7 @@ export default function Home({productList}) {
   return (
     <>
     <Head>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}/>
-        <script
-        dangerouslySetInnerHTML={{
-          _html:`
-                window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');`,
-        }}
-        />
+      <googleAnalytics/>
     </Head>
       <BlackBarTop/>
       <NavBarTajrProject/>
