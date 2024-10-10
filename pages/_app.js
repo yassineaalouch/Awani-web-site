@@ -3,6 +3,7 @@ import '../styles/globals.css'
 
 import { SessionProvider } from "next-auth/react"
 import { ConverterCurrencyProvider } from '@/components/currencyConverter'
+import GoogleAnalytics from '../components/GoogleAnalytics'
 
 
 export default function App({Component, pageProps: { session, ...pageProps }}) {
@@ -10,6 +11,7 @@ export default function App({Component, pageProps: { session, ...pageProps }}) {
     <CartContextProvider>
       <ConverterCurrencyProvider>
         <SessionProvider session={session}>
+          <GoogleAnalytics/>
           <Component {...pageProps}/>
         </SessionProvider>
       </ConverterCurrencyProvider>

@@ -11,8 +11,6 @@ import { Category } from "@/models/Category";
 import { useState } from "react";
 import PlaceOfAdvertisingBar from "@/components/PlaceOfAdvertisingBar";
 import LastPlaceOfAdvertisingBar from "@/components/LastPlaceOfAdvertisingBar";
-import Head from "next/head";
-import GoogleAnalytics from "./GoogleAnalytics";
 
 
 export async function getServerSideProps() {
@@ -28,9 +26,6 @@ export default function Home({productList}) {
   const[productListClientSide,setProductListClientSide]=useState(productList)
   return (
     <>
-    <Head>
-      <GoogleAnalytics/>
-    </Head>
       <BlackBarTop/>
       <NavBarTajrProject/>
       <SlidesOfDiscountHomePage/>

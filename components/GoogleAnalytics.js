@@ -1,6 +1,8 @@
+import Head from "next/head"
+
 function GoogleAnalytics() {
   return (
-    <div>
+    <Head>
       <title>Awani Abdo</title>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
       <script
@@ -13,7 +15,7 @@ function GoogleAnalytics() {
           `,
         }}
       />
-    </div>
+    </Head>
   )
 }
 
