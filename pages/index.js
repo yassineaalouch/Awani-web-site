@@ -12,6 +12,7 @@ import { useState } from "react";
 import PlaceOfAdvertisingBar from "@/components/PlaceOfAdvertisingBar";
 import LastPlaceOfAdvertisingBar from "@/components/LastPlaceOfAdvertisingBar";
 import Head from "next/head";
+import GoogleAnalytics from "./GoogleAnalytics";
 
 
 export async function getServerSideProps() {
@@ -28,18 +29,7 @@ export default function Home({productList}) {
   return (
     <>
     <Head>
-      <title>Awani Abdo</title>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
-          `,
-        }}
-      />
+      <GoogleAnalytics/>
     </Head>
       <BlackBarTop/>
       <NavBarTajrProject/>
