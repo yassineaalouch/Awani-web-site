@@ -12,6 +12,7 @@ import { useEffect,useState } from "react";
 import { Category } from "@/models/Category";
 import axios from "axios";
 import { converterCurrency } from "@/components/currencyConverter";
+import BlackBarTop from "@/components/blackBarTop";
 
 export async function getServerSideProps() {
     await mongooseConnect()
@@ -71,7 +72,8 @@ export default function Shop({ productList }) {
     
     return (
         <>
-            <NavBarInterface />
+            <BlackBarTop/>
+            <NavBarInterface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'}/>
             <div className="mt-12"> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
             </div>

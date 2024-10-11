@@ -20,6 +20,7 @@ import { FaFacebook,FaShoppingCart,FaWhatsappSquare  } from "react-icons/fa";
 import { FaXTwitter,FaSquareInstagram  } from "react-icons/fa6";
 import SideDropDownCart from '@/components/SideDropDownCart';
 import { converterCurrency } from "@/components/currencyConverter";
+import BlackBarTop from '@/components/blackBarTop';
 
 
 export async function getServerSideProps(context) {
@@ -279,9 +280,9 @@ export default function ProductPage({Session,product}) {
   return (
     <div>
     <div className=''>
-      <NavBarInterface showLoginMessage={showLoginMessage}/>
-
-      <div className="min-h-screen bg-gray-100 px-2 pt-6">
+      <BlackBarTop/>
+      <NavBarInterface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'}/>
+      <div className="min-h-screen bg-gray-100 px-2">
         <div className="mx-auto mt-8 bg-white p-6 shadow-md rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex place-content-center gap-2 ">

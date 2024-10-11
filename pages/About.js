@@ -3,7 +3,7 @@ import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
 import axios from "axios";
 import { useState , useEffect} from "react";
 
-export default function Q_and_A() {
+export default function About() {
     // const [question ,setQuestion]=useState('')
     // const [isLoading,setIsLoading]=useState(false)
     const [Q_A_List ,setQ_A_List]= useState([])

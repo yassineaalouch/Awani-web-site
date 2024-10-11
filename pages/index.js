@@ -11,7 +11,7 @@ import { Category } from "@/models/Category";
 import { useState } from "react";
 import PlaceOfAdvertisingBar from "@/components/PlaceOfAdvertisingBar";
 import LastPlaceOfAdvertisingBar from "@/components/LastPlaceOfAdvertisingBar";
-
+import Nav_bar_interface from "@/interfaceComponents/Nav-bar-interface";
 
 export async function getServerSideProps() {
   await mongooseConnect()
@@ -27,7 +27,7 @@ export default function Home({productList}) {
   return (
     <>
       <BlackBarTop/>
-      <NavBarTajrProject/>
+      <Nav_bar_interface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'}/>
       <SlidesOfDiscountHomePage/>
       <QualiteCarts/>
       <CategoriesHomePageSection/>
