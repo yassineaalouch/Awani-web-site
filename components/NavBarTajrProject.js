@@ -125,7 +125,7 @@ export default function NavBarTajrProject() {
                         </button>
                         {showUserMenu&&
                         <div onClick={()=>setShowUserMenu(!showUserMenu)} className={showUserMenu? 'block absolute inset-0  w-screen h-screen ': "hidden" }>
-                            <div className=" absolute top-12 right-3 md:right-14 lg:right-20 text-black flex flex-col rounded-lg  justify-start bg-white border-x-2 border-slate-300 border-t-2">
+                            <div className=" absolute top-16 right-3 md:right-14 lg:right-20 text-black flex flex-col rounded-lg  justify-start bg-white border-x-2 border-slate-300 border-t-2 z-50">
                                 <h1 className="text-center border-b-2 border-slate-300 p-1">Hi,{session?.user?.image}<span className="font-semibold">{session?.user?.name}</span></h1>
                                 <button className="border-b-2 border-slate-300 p-2 hover:bg-zinc-200 "  onClick={() => signOut({ callbackUrl: '/' })}>
                                     <span className="flex gap-3 items-center justify-between">

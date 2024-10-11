@@ -107,7 +107,7 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
           className="mt-4 w-full bg-yellow-500 flex justify-around items-center text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
           onClick={() => addToCart(product)}
         >
-          Add To Cart <FaCartShopping size={25}/>
+          Add To Cart <FaCartShopping className={animation?'animate-bounce':''} size={25}/>
         </button>
       </div>
     </div>

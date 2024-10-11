@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import OrderFilterBar from "@/components/FilterOrders";
 import React from "react";
-import AddOrderManuel from "@/components/addOrderManuel";
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -108,17 +107,15 @@ export default function Orders(){
         <div className="w-[100%]">
           <OrderFilterBar ImportFilterValues={ImportFilterValues} className={" !bg-green-500"} />
         </div>
-        <div>
-          <AddOrderManuel/>
-        </div>
         <div className="overflow-x-auto ">
         <table className="bg-white w-full max-w-[100rem] border border-gray-200 rounded-lg shadow-md">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-              <th className="py-3 px-6 text-left">Order ID</th>
+              <th className="py-3 px-6 text-nowrap text-left">Order ID</th>
               <th className="py-3 px-6 text-nowrap text-left">Customer Name</th>
+              <th className="py-3 px-6 text-left">Address</th>
+              <th className="py-3 px-6 text-left">Phone</th>
               <th className="py-3 px-6 text-left">Status</th>
-              <th className="py-3 px-6 text-left">Country</th>
               <th className="py-3 px-6 text-left">Date</th>
               <th className="py-3 px-6 text-nowrap text-right">Total ($)</th>
             </tr>
@@ -131,30 +128,40 @@ export default function Orders(){
                   onClick={() => changeId(purchaseRequest._id)}
                   className="border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
                 >
-                  <td className="py-3 px-6 text-left whitespace-nowrap">
+                  <td title={purchaseRequest._id} className="py-3 truncate max-w-10 px-6 text-left whitespace-nowrap">
                     {purchaseRequest._id}
                   </td>
-                  <td className="py-3 px-6 text-left">
+                  <td className="py-3 px-6 text-nowrap text-left">
                     {purchaseRequest.firstName + ' ' + purchaseRequest.lastName}
                   </td>
+                  <td className="py-3 px-6 text-left text-nowrap ">{purchaseRequest.address}</td>
+                  <td className="py-3 px-6 text-left">{purchaseRequest.phone}</td>
                   <td
                     className={`py-3 px-6 text-left ${
-                      purchaseRequest.status === 'Validate'
-                        ? 'text-green-500'
-                        : purchaseRequest.status === 'Under Review'
-                        ? 'text-yellow-600'
+                      purchaseRequest.status === 'New Order'
+                        ? 'text-blue-500'
+                        : purchaseRequest.status === 'Try 1'
+                        ? 'text-yellow-400'
+                        : purchaseRequest.status === 'Try 2'
+                        ?'text-yellow-600'
+                        : purchaseRequest.status === 'Try 3'
+                        ? 'text-yellow-700'
                         : purchaseRequest.status === 'Rejected'
-                        ?'text-red-600'
+                        ? 'text-red-500 border'
+                        : purchaseRequest.status === 'Validated'
+                        ?'text-green-600'
                         :'text-gray-400'
                     }`}
                   >
                     <select className="text-center" value={purchaseRequest.status} onClick={(e)=>{e.stopPropagation();let _id = purchaseRequest._id;let cart = purchaseRequest.cart;let userId = purchaseRequest.userId  ;ChangeStatus(cart,_id,e,userId)}} >
-                        <option className="text-green-500">Validate</option>
-                        <option className="text-yellow-500">Under Review</option>
+                        <option className="text-blue-500">New Order</option>
+                        <option className="text-yellow-300">Try 1</option>
+                        <option className="text-yellow-500">Try 2</option>
+                        <option className="text-yellow-600">Try 3</option>
+                        <option className="text-green-600">Validated</option>
                         <option className="text-red-500">Rejected</option>
                     </select>
                   </td>
-                  <td className="py-3 px-6 text-left">{purchaseRequest.country}</td>
                   <td className="py-3 px-6 text-left">
                     {purchaseRequest?.createdAt?.split('T')[0]}
                   </td>

@@ -1,53 +1,3 @@
-// import ProductCard from "@/interfaceComponents/ProductCart"
-// import Link from "next/link"
-
-// import { FaArrowLeft } from "react-icons/fa6"
-
-// function ProductsHomePageSection({productList}) {
-//   let list = [1,2,3,4,5,6,7,8,9]
-//   return (
-//     <div className="w-[88%] mb-5 m-auto">
-//       {/* had lblassa fiha ghir l3onwan */}
-//       <div className="w-full py-5 mb-2 mt-6 flex justify-end">
-//           <div className="text-right">
-//             <div className="border-r-[15px] text-sm pr-2 mb-2 border-black">
-//              هذا الشهر 
-//             </div>
-//             <div className="text-2xl">
-//               المنتجات الأكثر مبيعاً 
-//             </div>
-//           </div>
-//       </div>
-
-//     {/* had lblassa fihha les carts dyal les produits */}
-//     <div className="flex justify-between items-center">
-//       {/* had div fiha dak sahm li fjanblisr */}
-//         <div>
-//           <button className="bg-white hover:scale-110 transition-all duration-300 border-slate-400 border size-8 rounded-full flex justify-center items-center">
-//             <FaArrowLeft size={20} className={`text-slate-700 transition-all hover:scale-110 duration-300`} />
-//           </button>
-//         </div>
-//     {/* hna kayn les produits  */}
-//         <div className="w-ful mx-1 overflow-auto gap-10 scrollBarNon flex items-center justify-between">
-//           {productList.map((ele,index)=>(
-//             <div key={index} className=" flex flex-col justify-center items-center gap-3 ">
-//                 <ProductCard product={ele}/>
-//             </div>
-//           ))
-//           }
-//         </div>
-//       {/* had div fiha dak sahm li fjanblisr */}
-//         <div>
-//           <button className="bg-white hover:scale-110 transition-all duration-300 border-slate-400 border size-8 rounded-full flex justify-center items-center">
-//             <FaArrowLeft size={20} className={`text-slate-700 rotate-180 transition-all hover:scale-110 duration-300`} />
-//           </button>
-//         </div>
-//     </div>
-//     </div>
-//   )
-// }
-
-// export default ProductsHomePageSection
 import React, { useRef } from "react";
 import ProductCard from "@/interfaceComponents/ProductCart";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
@@ -77,10 +27,10 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre }) {
       {/* Section du titre */}
       <div className="w-full py-5 mb-2 mt-6 flex justify-end">
         <div className="text-right">
-          <div className="border-r-[15px] text-sm pr-2 mb-2 border-black">
+          <div className="border-r-[15px] text-lg pr-2 mb-2 border-black">
               {petitTitre} 
           </div>
-          <div className="text-2xl"> 
+          <div className="text-3xl"> 
               {grandTitre}
           </div>
         </div>
@@ -107,7 +57,7 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre }) {
           className="w-full mx-1 overflow-auto gap-10 scrollBarNon flex items-center justify-between"
         >
           {productList.map((ele, index) => (
-            <div key={index} className="flex flex-col justify-center items-center gap-3">
+            <div key={index} className="flex flex-col hover:scale-110 transition-all duration-300 py-5 justify-center items-center gap-3">
               <ProductCard product={ele} />
             </div>
           ))}

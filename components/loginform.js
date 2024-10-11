@@ -6,8 +6,7 @@ import axios from 'axios';
 import NavBarInterface from '@/interfaceComponents/Nav-bar-interface';
 import Footer from '@/interfaceComponents/Footer';
 import React from 'react';
-
-const Loginform = () => {
+import { FcGoogle } from "react-icons/fc";const Loginform = () => {
   const router = useRouter();
   const { error } = router.query;
   const [registrationSwitch, setRegistrationSwitch] = useState(false);
@@ -166,12 +165,9 @@ const Loginform = () => {
               </div>
             </div>
             <hr />
-            <div className="w-full flex justify-between sm:px-11">
-              <button className="bg-white border hover:bg-gray-200 border-black p-2 px-4 rounded-lg mt-3" onClick={() => signIn('google')}>
-                Google
-              </button>
-              <button className="bg-white border hover:bg-gray-200 border-black p-2 px-4 rounded-lg mt-3" onClick={() => signIn('facebook')}>
-                Facebook
+            <div className="w-full flex justify-center sm:px-11">
+              <button className="bg-white border flex items-center justify-center gap-2 hover:bg-gray-200 w-full border-black p-2 px-4 rounded-lg mt-3" onClick={() => signIn('google')}>
+              <FcGoogle className='size-8'/>Google
               </button>
             </div>
             <br />

@@ -33,8 +33,8 @@ export default function Home({productList}) {
       <CategoriesHomePageSection/>
       <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"المنتجات الأكثر مبيعاً"}/>
       <PlaceOfAdvertisingBar/>
-      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"المنتجات الأكثر مبيعاً"}/>
-      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"المنتجات الأكثر مبيعاً"}/>
+      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"معدات كهربائية"}/>
+      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"كؤوس"}/>
       <LastPlaceOfAdvertisingBar/>
       <Footer className="mt-5"></Footer>
     

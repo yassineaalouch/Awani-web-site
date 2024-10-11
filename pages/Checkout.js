@@ -154,13 +154,13 @@ export default function Checkout({Session}){
         <>
         <NavBarInterface/>
             <div className="min-h-screen mt-14 p-6">
-                {!Session&&
+                {/* {!Session&&
                     <div className="p-6 max-w-3xl mx-auto mb-3 bg-gray-100 border rounded-lg shadow-md">
                         <h2 className="text-xl font-semibold mb-4">Access Denied</h2>
                         <p className="text-gray-700 mb-4">You must be logged in to view your cart and proceed with checkout.</p>
                         <div className="text-gray-700 gap-1 flex mb-6">Please <Link href={'/Login'} className="text-yellow-500 underline cursor-pointer">log in</Link> or <Link href="/Login"><p className="text-yellow-500 underline">create an account</p></Link> to continue.</div>
                     </div>
-                }
+                } */}
                 {!showMessage?
                     <form onSubmit={handleSubmit}  className="max-w-3xl text-xs sm:text-base mx-auto p-6 bg-white shadow-md border rounded-lg">
                     
@@ -176,9 +176,9 @@ export default function Checkout({Session}){
                             id="firstName"
                             name="firstName"
                             value={formData.firstName}
-                            disabled={!Session}
+                            // disabled={!Session}
                             onChange={handleChange}
-                            className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
+                            className={`mt-1 block w-full border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                             required
                         />
                         </div>
@@ -191,30 +191,15 @@ export default function Checkout({Session}){
                             type="text"
                             id="lastName"
                             name="lastName"
-                            disabled={!Session}
+                            // disabled={!Session}
                             value={formData.lastName}
                             onChange={handleChange}
-                            className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
+                            className={`mt-1 block w-full border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                             required
                         />
                         </div>
                     </div>
                 
-                    <div className="mt-4">
-                        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
-                        Email Address
-                        </label>
-                        <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        disabled={!Session}
-                        value={formData.email}
-                        onChange={handleChange}
-                        className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                        required
-                        />
-                    </div>
                 
                     <div className="mt-4">
                         <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
@@ -224,14 +209,15 @@ export default function Checkout({Session}){
                         type="tel"
                         id="phone"
                         name="phone"
-                        disabled={!Session}
+                        // disabled={!Session}
                         value={formData.phone}
                         onChange={handleChange}
-                        className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
+                        className={`mt-1 block w-full border  border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                         required
                         />
                     </div>
-                
+                    {/* ${!Session? 'cursor-not-allowed':'cursor-default'}
+                     */}
                     <div className="mt-4">
                         <label htmlFor="address" className="block text-xs sm:text-sm font-medium text-gray-700">
                         Address
@@ -239,67 +225,20 @@ export default function Checkout({Session}){
                         <input
                         type="text"
                         id="address"
-                        disabled={!Session}
+                        // disabled={!Session}
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        className={`mt-1 block w-full border ${!Session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
+                        className={`mt-1 block w-full border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                         required
                         />
                     </div>
-                
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-                        <div>
-                        <label htmlFor="city" className="block text-xs sm:text-sm font-medium text-gray-700">
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            id="city"
-                            name="city"
-                            disabled={!Session}
-                            value={formData.city}
-                            onChange={handleChange}
-                            className={`mt-1 block w-full ${!Session? 'cursor-not-allowed':'cursor-default'} border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                            required
-                        />
-                        </div>
-                
-                        <div>
-                        <label htmlFor="postalCode" className="block text-xs sm:text-sm font-medium text-gray-700">
-                            Postal Code
-                        </label>
-                        <input
-                            type="text"
-                            id="postalCode"
-                            disabled={!Session}
-                            name="postalCode"
-                            value={formData.postalCode}
-                            onChange={handleChange}
-                            className={`mt-1 block w-full ${!Session? 'cursor-not-allowed':'cursor-default'} border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                            required
-                        />
-                        </div>
-                
-                        <div>
-                        <label htmlFor="country" className="block text-xs sm:text-sm font-medium text-gray-700">
-                            Country
-                        </label>
-                        <Select
-                          disabled={!Session}
-                          value={dropDownCountriesList.map((ele)=>({label:ele.flag+' '+ele.name, value:ele.label})).find(country => country.label === formData.country)}
-                          name="country"
-                          className={`${!Session? 'cursor-not-allowed':'cursor-default'} mt-1`}
-                          onChange={(e)=>{setFormData({...formData,country:e.label})}}
-                          options={dropDownCountriesList.map((ele)=>({label:ele.flag+' '+ele.name, value:ele.label}))}
-                        />
-                        </div>
-                    </div>
+
                 
                     <button
                         type="submit"
-                        disabled={!Session||isLoading}
-                        className={`mt-2 block w-full ${!Session? 'cursor-not-allowed':'cursor-default'}  bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400`}
+                        disabled={isLoading}
+                        className={`mt-2 block w-full bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400`}
                     >
                     {isLoading? 'Sending ....':'Place Order'}
                     </button>

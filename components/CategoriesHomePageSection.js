@@ -1,78 +1,41 @@
-// import Image from "next/image"
-// import Link from "next/link"
-// import { FaArrowLeft } from "react-icons/fa6"
 
-// function CategoriesHomePageSection() {
-//   let list = [1,2,3,4,5,6,7,8,9]
-//   return (
-//     <div className="w-[88%] mb-5 m-auto">
-//       {/* had lblassa fiha ghir l3onwan */}
-//       <div className="w-full py-5 mb-2 mt-6 flex justify-end">
-//           <div className="text-right">
-//             <div className="border-r-[15px] text-sm pr-2 mb-2 border-black">
-//               الصنف 
-//             </div>
-//             <div className="text-2xl">
-//               تصفح حسب الفئة  
-//             </div>
-//           </div>
-//       </div>
-
-//     {/* had lblassa fihha les carts dyal les categories */}
-//     <div className="flex justify-between items-center">
-//       {/* had div fiha dak sahm li fjanblisr */}
-//         <div>
-//           <button className="bg-white hover:scale-110 transition-all duration-300 border-slate-400 border size-8 rounded-full flex justify-center items-center">
-//             <FaArrowLeft size={20} className={`text-slate-700 transition-all hover:scale-110 duration-300`} />
-//           </button>
-//         </div>
-//     {/* hna kayn les categories  */}
-//         <div className="w-ful mx-1 overflow-auto gap-10 scrollBarNon flex items-center justify-between">
-//           {list.map((ele)=>(
-//             <div key={ele} className="min-w-40 flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5">
-//               <Link href={'/shope'}>
-//                 <Image src='/No_Image_Available.jpg' alt="No_Image_Available" className="w-[100%]" width={100} height={50} quality={60} loading="lazy" />
-//                 <p className="text-center"> title</p>
-//               </Link>
-//             </div>
-//           ))
-//           }
-//         </div>
-//       {/* had div fiha dak sahm li fjanblisr */}
-//         <div>
-//           <button className="bg-white hover:scale-110 transition-all duration-300 border-slate-400 border size-8 rounded-full flex justify-center items-center">
-//             <FaArrowLeft size={20} className={`text-slate-700 rotate-180 transition-all hover:scale-110 duration-300`} />
-//           </button>
-//         </div>
-//     </div>
-//     </div>
-//   )
-// }
-
-// export default CategoriesHomePageSection
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
+import { useRef } from "react";
 
 function CategoriesHomePageSection() {
   const [currentIndex, setCurrentIndex] = useState(0); // L'index du slide actuel
-  const list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const list = [
+    {img:'/categories/3ssara.png',text:'3ssara'},
+    {img:'/categories/3ssara.png',text:'3ssara'},
+    {img:'/categories/3ssara.png',text:'3ssara'},
+    {img:'/categories/3ssara.png',text:'3ssara'},
+    {img:'/categories/3ssara.png',text:'3ssara'},
+    {img:'/categories/3ssara.png',text:'3ssara'},
+    {img:'/categories/3ssara.png',text:'3ssara'},
+    {img:'/categories/3ssara.png',text:'3ssara'}];
   const visibleSlides = 3; // Nombre de slides visibles à la fois
+  const productsRef = useRef(null);
 
+  // Fonction pour faire défiler vers la gauche
+  const scrollLeft = () => {
+    productsRef.current.scrollBy({
+      left: -300, // Défile de 300px vers la gauche
+      behavior: "smooth", // Défilement fluide
+    });
+  };
+
+  // Fonction pour faire défiler vers la droite
+  const scrollRight = () => {
+    productsRef.current.scrollBy({
+      left: 300, // Défile de 300px vers la droite
+      behavior: "smooth", // Défilement fluide
+    });
+  };
   // Fonction pour passer au slide suivant
-  const handleNext = () => {
-    if (currentIndex < list.length - visibleSlides) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
 
-  // Fonction pour passer au slide précédent
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
 
   return (
     <div className="w-[88%] mb-5 m-auto">
@@ -89,7 +52,7 @@ function CategoriesHomePageSection() {
         {/* Bouton précédent */}
         <div>
           <button
-            onClick={handlePrev}
+            onClick={scrollLeft}
             className="bg-white hover:scale-110 transition-all duration-300 border-slate-400 border size-8 rounded-full flex justify-center items-center"
             disabled={currentIndex === 0}
           >
@@ -100,22 +63,22 @@ function CategoriesHomePageSection() {
         {/* Slides des catégories */}
         <div className="w-full mx-1 overflow-hidden relative">
           <div
-            className="flex gap-10 items-center transition-transform duration-300"
-            style={{ transform: `translateX(-${currentIndex * (100 / visibleSlides)}%)` }}
+            ref={productsRef}
+            className="flex gap-10 overflow-auto py-5 scrollBarNon items-center transition-transform duration-300"
           >
-            {list.map((ele) => (
-              <div key={ele} className="min-w-[30%] flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5">
-                <Link href="/shope">
+            {list.map((ele,index) => (
+              <div key={index} className="min-w-[24%] flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5 hover:scale-110 transition-all duration-300">
+                <Link href={"/shope/"+ele.text}>
                   <Image
-                    src="/No_Image_Available.jpg"
+                    src= {ele.img ||"/No_Image_Available.jpg"}
                     alt="No_Image_Available"
-                    className="w-[100%]"
+                    className="w-[100%] "
                     width={100}
                     height={50}
                     quality={60}
                     loading="lazy"
                   />
-                  <p className="text-center">title</p>
+                  <p className="text-center">{ele.text}</p>
                 </Link>
               </div>
             ))}
@@ -125,7 +88,7 @@ function CategoriesHomePageSection() {
         {/* Bouton suivant */}
         <div>
           <button
-            onClick={handleNext}
+            onClick={scrollRight}
             className="bg-white hover:scale-110 transition-all duration-300 border-slate-400 border size-8 rounded-full flex justify-center items-center"
             disabled={currentIndex >= list.length - visibleSlides}
           >

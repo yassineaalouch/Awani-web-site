@@ -271,22 +271,6 @@ async function handleSubmit(e) {
                     </div>
                 
                     <div className="mt-4">
-                        <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
-                        Email Address
-                        </label>
-                        <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        disabled={!session}
-                        value={formData.email}
-                        onChange={handleChangeAddress}
-                        className={`mt-1 block w-full border ${!session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none text-slate-400 focus:text-black rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                        required
-                        />
-                    </div>
-                
-                    <div className="mt-4">
                         <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
                         Phone Number
                         </label>
@@ -316,54 +300,6 @@ async function handleSubmit(e) {
                         className={`mt-1 block w-full border ${!session? 'cursor-not-allowed':'cursor-default'} border-gray-300 outline-none text-slate-400 focus:text-black rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
                         required
                         />
-                    </div>
-                
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-                        <div>
-                        <label htmlFor="city" className="block text-xs sm:text-sm font-medium text-gray-700">
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            id="city"
-                            name="city"
-                            disabled={!session}
-                            value={formData.city}
-                            onChange={handleChangeAddress}
-                            className={`mt-1 block w-full ${!session? 'cursor-not-allowed':'cursor-default'} border border-gray-300 outline-none text-slate-400 focus:text-black rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                            required
-                        />
-                        </div>
-                
-                        <div>
-                        <label htmlFor="postalCode" className="block text-xs sm:text-sm font-medium text-gray-700">
-                            Postal Code
-                        </label>
-                        <input
-                            type="text"
-                            id="postalCode"
-                            disabled={!session}
-                            name="postalCode"
-                            value={formData.postalCode}
-                            onChange={handleChangeAddress}
-                            className={`mt-1 block w-full ${!session? 'cursor-not-allowed':'cursor-default'} border border-gray-300 outline-none text-slate-400 focus:text-black rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                            required
-                        />
-                        </div>
-                
-                        <div>
-                        <label htmlFor="country" className="block text-xs sm:text-sm font-medium text-gray-700">
-                            Country
-                        </label>
-                        <Select
-                          disabled={!session}
-                          value={dropDownCountriesList.map((ele)=>({label:ele.flag+' '+ele.name, value:ele.label})).find(country => country.label === formData.country)}
-                          name="country"
-                          className={`${!session? 'cursor-not-allowed':'cursor-default'} mt-1`}
-                          onChange={(e)=>{setFormData({...formData,country:e.label});console.log(formData)}}
-                          options={dropDownCountriesList.map((ele)=>({label:ele.flag+' '+ele.name, value:ele.label}))}
-                        />
-                        </div>
                     </div>
                 
                     <button
