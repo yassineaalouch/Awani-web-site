@@ -4,6 +4,7 @@ import Nav_bar_interface from "@/interfaceComponents/Nav-bar-interface";
 import { useEffect,useState } from "react";
 import axios from "axios";
 import ContactCard from "@/components/ContactCart";
+import MapLocation from "@/components/MapLocation";
 
 
 export default function ContactUs(){
@@ -25,15 +26,29 @@ export default function ContactUs(){
           .catch(err => console.error("Error fetching admins: ", err));
       }
     return(
-        <div className="bg-gray-950">
+        <div className="bg-slate-50">
         <Nav_bar_interface/>
-        {/* <div className="bg-[url('/miel_bg_1.webp')] bg-bottom bg-fixed md:h-[145vh] md:mt-[-25px] lg:h-[150vh]"> */}
-        <div className="h-screen flex items-center justify-center">
-          <div >    
-            <Formulair blacklist={blacklist} className=""/>
-          </div>
-          <div>
-            <ContactCard/>
+        <div className=" flex flex-col justify-center mt-10 items-center text-2xl">
+          <h1 className="text-4xl border-b-4 border-black m-3 font-extrabold">
+            تواصل معنا
+          </h1>
+          <p className="w-2/3 text-center">
+            زبوننا العزيز، إذا كان لديك أي تساؤلات، استفسارات أو شكاوى، لا تتردد في التواصل معنا. يمكنك مراسلتنا عبر البريد الإلكتروني أو عبر تطبيق واتساب أو استخدام النموذج أدناه. نشكرك جزيلاً على ثقتك بمنتجاتنا وخدماتنا ونتطلع لخدمتك بأفضل ما لدينا.
+          </p>
+        </div>
+        <div className="h-screen flex justify-center items-center ">
+          <div className="flex w-full gap-3 justify-center h-5/6">
+
+              <div className="w-2/5">
+                <MapLocation isContactPage={true}/>
+              </div>
+              <div className="w-1/5">
+                <ContactCard/>
+              </div>
+              <div >    
+                <Formulair blacklist={blacklist} className=" !h-full"/>
+              </div>
+
           </div>
         </div>
         <Footer className="!mt-0"/>
