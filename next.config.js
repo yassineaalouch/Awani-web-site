@@ -9,6 +9,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'revofeed.s3.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'awani.s3.amazonaws.com',
+      },
     ],
   },
 
