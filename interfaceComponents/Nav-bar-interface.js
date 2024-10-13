@@ -228,20 +228,20 @@ export default function Nav_bar_interface({classNameGlobal , classNameMenuUserIc
         setShowConverterCurrency(!showConverterCurrency)
     }
     return (
-        <div className={"w-screen py-1 bg-white border-b border"+classNameGlobal}>
+        <div className={"w-screen bg-white border-b border"+classNameGlobal}>
             <div className="flex justify-between items-center px-2 md:px-4 lg:px-10">
                 <div className="block px-3 pr-5 md:hidden lg:hidden">
-                    <svg onClick={showMenu} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-white font-bold cursor-pointer size-6">
+                    <svg onClick={showMenu} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-black font-bold cursor-pointer size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                     {menuIsShow &&
-                        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-[2.4px] bg-black/70">
+                        <div onClick={showMenu} className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-[2.4px] bg-black/70">
                             <div className=" absolute left-5 z-30 top-3">
                                 <svg onClick={showMenu} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-white cursor-pointer hover:size-[1.6rem] transition-all font-bold">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                                 </svg>
                             </div>
-                            <ul className="grid gap-1 w-full py-6 bg-white/15 backdrop-blur-[2px]">
+                            <ul onClick={(e)=>{e.stopPropagation()}} className="grid gap-1 w-full py-6 bg-white/15 backdrop-blur-[2px]">
                                 <Link href='/'className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">Home</Link>
                                 <Link href="/About" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">About</Link>
                                 <Link href="/Shop" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">Shop</Link>
@@ -253,14 +253,14 @@ export default function Nav_bar_interface({classNameGlobal , classNameMenuUserIc
 
 
                 </div>
-                <div className="bg-yellow-50 p-1 rounded-full font-bold">
-                    <Link href="/"><Image width={50} height={50} src="/logo.png" className="h-8 w-8 !p-0" alt="logo" /></Link>
+                <div className="p-0 rounded-full font-bold">
+                    <Link href="/"><Image width={80} height={80} src="/logo.webp" loading="lazy" className="size-12 !p-0" alt="logo" /></Link>
                 </div>
-                <ul className="hidden md:flex ml-3 md:gap-4 lg:gap-9">
-                    <li><Link href="/" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-1 cursor-pointer">Home</Link></li>
-                    <li><Link href="/About" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-1 cursor-pointer">About</Link></li>
-                    <li><Link href="/Shop" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-1 cursor-pointer">Shop</Link></li>
-                    <li><Link href="/Contact" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-1 cursor-pointer">Contact us</Link></li>
+                <ul className="hidden md:flex ml-3 md:gap-4 lg:gap-9 text-sm">
+                    <li><Link href="/" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Home</Link></li>
+                    <li><Link href="/About" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">About</Link></li>
+                    <li><Link href="/Shop" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Shop</Link></li>
+                    <li><Link href="/Contact" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Contact us</Link></li>
 
                 </ul>
                 <div className="flex items-center gap-2 md:gap-4">
@@ -274,12 +274,12 @@ export default function Nav_bar_interface({classNameGlobal , classNameMenuUserIc
                         </div>
                     </div> */}
                     {!session?
-                        <button onClick={goToLoginPage} className={"bg-yellow-600 rounded-xl px-3 py-1  border-yellow-50 border-[1.2px] text-white font-semibold hover:bg-white hover:text-yellow-900"}>
+                        <button onClick={goToLoginPage} className={"bg-black rounded-xl px-3 py-1  border-black border-[1.2px] text-white font-semibold hover:bg-white hover:text-black"}>
                             Login
                         </button>
                     :
                     <div>
-                        <button onClick={()=>setShowUserMenu(!showUserMenu)} className="flex justify-center bg-yellow-600 gap-1 text-white  rounded-full overflow-hidden">
+                        <button onClick={()=>setShowUserMenu(!showUserMenu)} className="flex justify-center bg-black gap-1 text-white  rounded-full overflow-hidden">
                             <span className=" text-sm p-2 relative"><FaUserAlt/></span>
                         </button>
                         {showUserMenu&&

@@ -117,7 +117,7 @@ export default function Orders(){
               <th className="py-3 px-6 text-left">Phone</th>
               <th className="py-3 px-6 text-left">Status</th>
               <th className="py-3 px-6 text-left">Date</th>
-              <th className="py-3 px-6 text-nowrap text-right">Total ($)</th>
+              <th className="py-3 px-6 text-nowrap text-right">Total (MAD)</th>
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
@@ -170,16 +170,16 @@ export default function Orders(){
 
                 {purchaseRequest._id === id && (
                   <tr key={`${purchaseRequest._id}-details`} className="border-b bg-gray-50">
-                    <td colSpan="6" className="p-3">
+                    <td colSpan="7" className="p-3">
                       <table className="bg-white w-full rounded-lg border-gray-400 shadow-lg border-[2px]">
                         <caption className="font-bold bg-gray-200 border-gray-400 border-b-0 border-[2px] p-1">Order content</caption>
                         <thead>
                           <tr className="bg-yellow-100 text-gray-600 uppercase text-sm leading-normal">
                             <th className="py-2 px-4 text-left">Product ID</th>
                             <th className="py-2 px-4 text-nowrap text-left">Product Name</th>
-                            <th className="py-2 px-4 text-nowrap text-left">Unit Price ($)</th>
+                            <th className="py-2 px-4 text-nowrap text-left">Unit Price (MAD)</th>
                             <th className="py-2 px-4 text-left">Quantity</th>
-                            <th title="the total price of etch product (Quantity * Unit Price)"  className="py-2 text-nowrap px-4 text-left">Total Price ($)</th>
+                            <th title="the total price of etch product (Quantity * Unit Price)"  className="py-2 text-nowrap px-4 text-left">Total Price (MAD)</th>
                           </tr>
                         </thead>
                         <tbody className="text-gray-600 text-sm font-light">

@@ -74,7 +74,7 @@ export default function Shop({ productList }) {
         <>
             <BlackBarTop/>
             <NavBarInterface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'}/>
-            <div className="mt-12"> 
+            <div className=""> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
             </div>
             <div className="min-h-screen pb-8 flex justify-center ">
