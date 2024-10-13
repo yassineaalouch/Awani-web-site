@@ -26,7 +26,7 @@ export default function ContactUs(){
           .catch(err => console.error("Error fetching admins: ", err));
       }
     return(
-        <div className="bg-slate-50">
+        <div className="">
         <Nav_bar_interface/>
         <div className=" flex flex-col justify-center mt-10 items-center text-2xl">
           <h1 className="text-4xl border-b-4 border-black m-3 font-extrabold">
@@ -36,19 +36,45 @@ export default function ContactUs(){
             زبوننا العزيز، إذا كان لديك أي تساؤلات، استفسارات أو شكاوى، لا تتردد في التواصل معنا. يمكنك مراسلتنا عبر البريد الإلكتروني أو عبر تطبيق واتساب أو استخدام النموذج أدناه. نشكرك جزيلاً على ثقتك بمنتجاتنا وخدماتنا ونتطلع لخدمتك بأفضل ما لدينا.
           </p>
         </div>
-        <div className="h-screen flex justify-center items-center ">
-          <div className="flex w-full gap-3 justify-center h-5/6">
-
-              <div className="w-2/5">
-                <MapLocation isContactPage={true}/>
-              </div>
-              <div className="w-1/5">
+        <div className="h-screen my-9 flex justify-center items-center ">
+          <div className="flex w-full gap-3 justify-center h-fit">
+              <div className="">
                 <ContactCard/>
               </div>
               <div >    
                 <Formulair blacklist={blacklist} className=" !h-full"/>
               </div>
-
+          </div>
+        </div>
+        <div>
+        <div className=" flex flex-col justify-center mt-10 items-center text-2xl">
+          <h1 className="text-4xl border-b-4 border-black m-3 font-extrabold">
+          زورو محلاتنا 
+          </h1>
+          <p className="w-2/3 text-center">
+          يمكنكم أيضاً زيارتنا في محلنا لاكتشاف منتجاتنا والاستفادة من خدماتنا مباشرة. سنكون سعداء باستقبالكم          
+          </p>
+        </div>
+        {/* <p className="w-full text-2xl mt-10 text-center">
+        يمكنكم أيضاً زيارتنا في محلنا لاكتشاف منتجاتنا والاستفادة من خدماتنا مباشرة. سنكون سعداء باستقبالكم          
+        </p> */}
+        </div>
+        <div className="grid grid-cols-2 text-center gap-5 px-10 my-10">
+          <div>
+            <h2 className="pb-3 text-[1.1rem] ">
+                المحل الأول يقع في تيط مليل قرب مقهى إولي   
+            </h2>
+            <div className="border-gray-300 rounded-md border-2">
+              <MapLocation/>
+            </div>
+          </div>
+          <div>
+            <h2 className="pb-3 text-[1.1rem] ">
+               المحل الأول يقع في تيط مليل قرب مقهى إولي   
+            </h2>
+            <div className="border-gray-300 rounded-md border-2">
+              <MapLocation/>
+            </div>
           </div>
         </div>
         <Footer className="!mt-0"/>
