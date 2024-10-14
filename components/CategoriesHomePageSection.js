@@ -14,6 +14,12 @@ function CategoriesHomePageSection() {
     {img:'/categories/ghlay.png',text:'غلاي'},
     {img:'/categories/mos.png',text:'سكين '},
     {img:'/categories/tnjra.png',text:'طنجرة'},
+    {img:'/categories/3ssara.png',text:'عصارة'},
+    {img:'/categories/7kaka.png',text:'حكاكة '},
+    {img:'/categories/electric.png',text:'كهرباء '},
+    {img:'/categories/ghlay.png',text:'غلاي'},
+    {img:'/categories/mos.png',text:'سكين '},
+    {img:'/categories/tnjra.png',text:'طنجرة'},
   ]
   const visibleSlides = 3; // Nombre de slides visibles à la fois
   const productsRef = useRef(null);
@@ -66,14 +72,14 @@ function CategoriesHomePageSection() {
             className="flex gap-10 overflow-auto py-5 scrollBarNon items-center transition-transform duration-300"
           >
             {list.map((ele,index) => (
-              <div key={index} className="min-w-20 flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5 hover:scale-110 transition-all duration-300">
+              <div key={index} className="w-20 h-20 sm:min-h-24 sm:min-w-24 md:min-w-36 md:min-h-36  flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5 hover:scale-110 transition-all duration-300">
                 <Link href={"/shope/"+ele.text}>
                   <Image
                     src= {ele.img ||"/No_Image_Available.jpg"}
                     alt="No_Image_Available"
-                    className="w-[100%] "
+                    className="w-full "
                     width={100}
-                    height={50}
+                    height={100}
                     quality={60}
                     loading="lazy"
                   />
