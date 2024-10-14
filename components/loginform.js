@@ -63,9 +63,9 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
         
              <>
       <NavBarInterface/>
-      <div className="bg-yellow-500 w-screen h-screen flex justify-center items-center">
-        <div className="w-96 px-3 sm:px-6 pt-6 pb-2 shadow-lg bg-white rounded-md">
-          <h1 className="mb-2 text-3xl text-yellow-500 font-semibold text-center">
+      <div className=" w-screen h-screen flex justify-center items-center">
+        <div className="w-96 px-3 sm:px-6 pt-6 pb-2 shadow-lg bg-white border rounded-md">
+          <h1 className="mb-2 text-3xl text-black font-semibold text-center">
             {registrationSwitch ? 'Create Account' : 'Login'}
           </h1>
           {error && (
@@ -140,7 +140,7 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
               // )
               }
               <div className="w-full text-center">
-                <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 py-1 px-3 rounded-md text-black font-medium shadow-md mt-3 mb-2 w-2/5">Send</button>
+                <button type="submit" className="border-black border-[1px] hover:bg-black hover:text-white transition-all duration-300 py-1 px-3 rounded-md text-black font-medium shadow-sm mt-3 mb-2 w-2/5">Send</button>
               </div>
             </form>
 
@@ -148,26 +148,30 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
               <div className="w-full flex flex-col items-center">
                 {!registrationSwitch && (
                   <Link href={'/forgetPassword'} 
-                    className="block p-0 mb-0 w-fit text-blue-500 text-sm">
+                    className="block p-0 mb-0 w-fit text-blue-700 text-sm">
                     <>I forgot the password</>
                   </Link>
                 )}
                 {!registrationSwitch && (
                   <button onClick={() => switchToRegistrationLoginForm(true)} className="block w-fit">
-                    <span className="text-xs text-blue-500 mt-0 font-bold">Create account</span>
+                    <span className="text-xs text-blue-700 mt-0 font-bold">Create account</span>
                   </button>
                 )}
                 {registrationSwitch && (
                   <button onClick={() => switchToRegistrationLoginForm(false)} className="block w-fit">
-                    <span className="text-xs text-blue-500 mt-0 font-bold">Back to login</span>
+                    <span className="text-xs text-blue-700 mt-0 font-bold">Back to login</span>
                   </button>
                 )}
               </div>
             </div>
-            <hr />
+            <div className='flex justify-center items-center mt-3 '>
+              <hr className='w-1/2' />
+              <p className='px-1 text-sm text-nowrap text-gray-500'>Continue with</p>
+              <hr className='w-1/2' />
+            </div>
             <div className="w-full flex justify-center sm:px-11">
-              <button className="bg-white border flex items-center justify-center gap-2 hover:bg-gray-200 w-full border-black p-2 px-4 rounded-lg mt-3" onClick={() => signIn('google')}>
-              <FcGoogle className='size-8'/>Google
+              <button className="bg-white border flex items-center justify-center gap-2 hover:bg-gray-200 w-full border-black p-1 px-4 rounded-lg mt-3" onClick={() => signIn('google')}>
+              <FcGoogle className='size-6'/>Google
               </button>
             </div>
             <br />
