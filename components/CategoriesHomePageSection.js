@@ -4,21 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useRef } from "react";
+import { CategoryContext } from "./categoryContext";
+import { useContext } from "react";
 
 function CategoriesHomePageSection() {
+  const {category, setCategory } = useContext(CategoryContext)
   const [currentIndex, setCurrentIndex] = useState(0); // L'index du slide actuel
   const list = [
     {img:'/categories/3ssara.png',text:'عصارة'},
-    {img:'/categories/7kaka.png',text:'حكاكة '},
-    {img:'/categories/electric.png',text:'كهرباء '},
+    {img:'/categories/7kaka.png',text:'حكاكة'},
+    {img:'/categories/electric.png',text:'كهرباء'},
     {img:'/categories/ghlay.png',text:'غلاي'},
-    {img:'/categories/mos.png',text:'سكين '},
+    {img:'/categories/mos.png',text:'سكين'},
     {img:'/categories/tnjra.png',text:'طنجرة'},
     {img:'/categories/3ssara.png',text:'عصارة'},
-    {img:'/categories/7kaka.png',text:'حكاكة '},
-    {img:'/categories/electric.png',text:'كهرباء '},
+    {img:'/categories/7kaka.png',text:'حكاكة'},
+    {img:'/categories/electric.png',text:'كهرباء'},
     {img:'/categories/ghlay.png',text:'غلاي'},
-    {img:'/categories/mos.png',text:'سكين '},
+    {img:'/categories/mos.png',text:'سكين'},
     {img:'/categories/tnjra.png',text:'طنجرة'},
   ]
   const visibleSlides = 3; // Nombre de slides visibles à la fois
@@ -31,7 +34,7 @@ function CategoriesHomePageSection() {
       behavior: "smooth", // Défilement fluide
     });
   };
-
+ 
   // Fonction pour faire défiler vers la droite
   const scrollRight = () => {
     productsRef.current.scrollBy({
@@ -73,7 +76,7 @@ function CategoriesHomePageSection() {
           >
             {list.map((ele,index) => (
               <div key={index} className="w-20 h-20 sm:min-h-24 sm:min-w-24 md:min-w-36 md:min-h-36  flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5 hover:scale-110 transition-all duration-300">
-                <Link href={"/shope/"+ele.text}>
+                <Link onClick={()=>{setCategory(ele.text)}} href={"/Shop"}>
                   <Image
                     src= {ele.img ||"/No_Image_Available.jpg"}
                     alt="No_Image_Available"

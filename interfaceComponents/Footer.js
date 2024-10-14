@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Footer(props) {
     return (
         <>
-        <footer className={`bg-gray-900 mt-0 text-white py-8 ${props.className}`} >
+        <footer className={`bg-gray-950 mt-0 text-white py-8 ${props.className}`} >
             <div className="container mx-auto px-0">
                 <div className="grid grid-cols-1 md:grid-cols-12 text-center md:text-right">
 

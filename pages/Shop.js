@@ -13,6 +13,8 @@ import { Category } from "@/models/Category";
 import axios from "axios";
 import { converterCurrency } from "@/components/currencyConverter";
 import BlackBarTop from "@/components/blackBarTop";
+import { CategoryContext } from "@/components/categoryContext";
+
 
 export async function getServerSideProps() {
     await mongooseConnect()
@@ -31,18 +33,23 @@ export default function Shop({ productList }) {
     const [productListFilter,setProductListFilter] = useState (productList)
     const {conversionRate,currencyWanted,} = useContext(converterCurrency)
     const [rateOfChange,setRateOfChange] = useState(null)
+    const {category, setCategory } = useContext(CategoryContext)
+
     useEffect(()=>{
         setRateOfChange(conversionRate[currencyWanted])
     },[currencyWanted])
     useEffect(()=>{
         fitchData()
-        // getGeolocation()
-    },[])
+        if(category!='All'&&category!=undefined){
+            ImportFilterValues({priceRange:'',categoryFilter:category,sortOrder:'',rating:''})
+        }
+    },[]) 
     
     function ImportFilterValues(number){
         const list = productList.filter(product => {
+
             return (
-              (number.category=='All'||number.category===''||product?.category?.name === number.category)&&
+              (number.categoryFilter=='All'||number.categoryFilter===''||product?.category?.name === number.categoryFilter)&&
               (!number.priceRange||(rateOfChange? product.price*rateOfChange:product.price) <= number.priceRange)&&
               (!number.rating||product?.rating >= number.rating)
 
@@ -84,9 +91,9 @@ export default function Shop({ productList }) {
                     ))}
                 </div>
             </div>
-            <Link href='/cart' className="bg-yellow-500 border-red-600 border-2 hover:bg-yellow-600 flex p-2 rounded-full text-white fixed right-5 bottom-5 ">
+            <Link href='/cart' className=" border-black border-2 hover:bg-yellow-600 flex p-2 rounded-full text-black fixed right-5 bottom-5 ">
                 <FaCartShopping size={30} className=" relative z-40"/>
-                <div className="bg-red-600 text-sm px-2 py-1 rounded-full absolute bottom-7 left-7">
+                <div className="bg-red-600 text-sm p-[3px] text-[30px] text-white font-bold rounded-full absolute bottom-7 left-7">
                     {cartProducts.length}
                 </div>
             </Link>
