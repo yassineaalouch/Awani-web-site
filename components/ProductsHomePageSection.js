@@ -54,10 +54,10 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre }) {
         {/* Liste des produits */}
         <div
           ref={productsRef}
-          className="w-full mx-1 overflow-auto gap-10 scrollBarNon flex items-center justify-between"
+          className="w-full h-fit mx-1 overflow-auto gap-10 scrollBarNon flex items-center justify-between"
         >
           {productList.map((ele, index) => (
-            <div key={index} className="flex flex-col hover:scale-110 transition-all duration-300 py-5 justify-center items-center gap-3">
+            <div key={index} className="flex flex-col my-6 hover:scale-110 transition-all duration-300 justify-center items-center gap-3">
               <ProductCard product={ele} />
             </div>
           ))}
