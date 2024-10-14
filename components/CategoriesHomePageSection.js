@@ -8,14 +8,13 @@ import { useRef } from "react";
 function CategoriesHomePageSection() {
   const [currentIndex, setCurrentIndex] = useState(0); // L'index du slide actuel
   const list = [
-    {img:'/categories/3ssara.png',text:'3ssara'},
-    {img:'/categories/3ssara.png',text:'3ssara'},
-    {img:'/categories/3ssara.png',text:'3ssara'},
-    {img:'/categories/3ssara.png',text:'3ssara'},
-    {img:'/categories/3ssara.png',text:'3ssara'},
-    {img:'/categories/3ssara.png',text:'3ssara'},
-    {img:'/categories/3ssara.png',text:'3ssara'},
-    {img:'/categories/3ssara.png',text:'3ssara'}];
+    {img:'/categories/3ssara.png',text:'عصارة'},
+    {img:'/categories/7kaka.png',text:'حكاكة '},
+    {img:'/categories/electric.png',text:'كهرباء '},
+    {img:'/categories/ghlay.png',text:'غلاي'},
+    {img:'/categories/mos.png',text:'سكين '},
+    {img:'/categories/tnjra.png',text:'طنجرة'},
+  ]
   const visibleSlides = 3; // Nombre de slides visibles à la fois
   const productsRef = useRef(null);
 
@@ -38,9 +37,9 @@ function CategoriesHomePageSection() {
 
 
   return (
-    <div className="w-[88%] mb-5 m-auto">
+    <div className="w-full md:w-[88%] mb-5 m-auto">
       {/* Section titre */}
-      <div className="w-full py-5 mb-2 mt-6 flex justify-end">
+      <div className="w-full px-4 md:px-0 py-5 mb-2 mt-6 flex justify-end">
         <div className="text-right">
           <div className="border-r-[15px] text-sm pr-2 mb-2 border-black">الصنف</div>
           <div className="text-2xl">تصفح حسب الفئة</div>
@@ -67,7 +66,7 @@ function CategoriesHomePageSection() {
             className="flex gap-10 overflow-auto py-5 scrollBarNon items-center transition-transform duration-300"
           >
             {list.map((ele,index) => (
-              <div key={index} className="min-w-[24%] flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5 hover:scale-110 transition-all duration-300">
+              <div key={index} className="min-w-20 flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5 hover:scale-110 transition-all duration-300">
                 <Link href={"/shope/"+ele.text}>
                   <Image
                     src= {ele.img ||"/No_Image_Available.jpg"}

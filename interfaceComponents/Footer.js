@@ -9,10 +9,10 @@ export default function Footer(props) {
         <>
         <footer className={`bg-gray-900 mt-0 text-white py-8 ${props.className}`} >
             <div className="container mx-auto px-0">
-                <div className="flex justify-center flex-wrap">
+                <div className="grid grid-cols-1 md:grid-cols-12 text-center md:text-right">
 
                     {/* قسم الروابط السريعة */}
-                    <div className="w-fit  px-4 mb-8 sm:mb-0 text-right">
+                    <div className="w-full md:col-span-2 px-4 mb-8 sm:mb-0">
                         <h2 className="font-bold text-xl mb-4">روابط سريعة</h2>
                         <ul>
                             <li className="mb-2">
@@ -31,7 +31,7 @@ export default function Footer(props) {
                     </div>
 
                     {/* قسم الاتصال */}
-                    <div className="w-2/12  px-4 mb-8 sm:mb-0 text-right">
+                    <div className="w-full md:col-span-2 px-4 mb-8 sm:mb-0 ">
                         <h2 className="font-bold text-xl mb-4">اتصل بنا</h2>
                         <p className="text-gray-400">
                             المحل بتط مليل، بالقرب من مقهى إولي
@@ -41,30 +41,30 @@ export default function Footer(props) {
                     </div>
 
                     {/* قسم مواقع التواصل الاجتماعي */}
-                    <div className="w-fit  px-4 mb-8 sm:mb-0 text-right">
+                    <div className="w-full md:col-span-2 px-4 mb-8 sm:mb-0">
                         <h2 className="font-bold text-xl mb-4">تابعونا</h2>
-                        <div className="flex justify-end ">
+                        <div className="flex justify-center md:justify-end">
                             <ul className="flex-col gap-5 flex">
                                 <li>
-                                    <a href="https://www.dadant.com/">
+                                    <Link href="https://www.facebook.com/profile.php?id=100069789726333">
                                         <FaFacebook className="text-white hover:text-blue-500 transition-colors duration-200" />
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <Link href="https://www.instagram.com/awani_abdo_tacharok/">
                                         <TiSocialInstagram className="text-white hover:text-pink-500 transition-colors duration-200" />
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <Link href="#">
                                         <FaXTwitter className="text-white hover:text-blue-400 transition-colors duration-200" />
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    {/* قسم عن المحل */}
-                    <div className="w-5/12  px-4 mb-8 sm:mb-0 text-right ">
+                    {/*  big screen قسم عن المحل */}
+                    <div className="w-full hidden md:block md:col-span-6 px-4 mb-8 sm:mb-0 ">
                         <h2 className="font-bold text-xl mb-4"> من نحن</h2>
                         <p className="text-gray-400">
                             مرحبًا بكم في محل عبدو للأواني، حيث ستجدون جميع أنواع الأواني وديكورات المطبخ، سواء العصرية أو التقليدية، بجودة عالية وتشكيلة متنوعة. يمكنكم اليوم الطلب مباشرة عبر الموقع، مع توصيل مجاني ابتداءً من 250 درهم. طلبكم سيصل في غضون 3 أيام كحد أقصى. لا تفوتوا الفرصة، شرفونا بزيارتكم في المحل بتط مليل، بالقرب من مقهى إولي، واستمتعوا بتجربة تسوق مميزة!
@@ -74,7 +74,7 @@ export default function Footer(props) {
                 </div>
             </div>
             <div className="px-5 mt-10">
-                    <div className="grid grid-cols-2 text-center gap-5 px-10 my-10">
+                    <div className="grid md:grid-cols-2 text-center gap-5 px-10 my-10">
                         <div>
                             <h2 className="pb-3 text-[1.1rem] ">
                                 المحل الأول يقع في تيط مليل قرب مقهى إولي   

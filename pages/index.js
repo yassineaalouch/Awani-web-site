@@ -16,7 +16,7 @@ import Nav_bar_interface from "@/interfaceComponents/Nav-bar-interface";
 export async function getServerSideProps() {
   await mongooseConnect()
   const productList = await Product.find({}).populate('category').lean();
-  console.log("productList in server component", productList);  return {
+  return {
       props: {
           productList: JSON.parse(JSON.stringify(productList.reverse())),
       },

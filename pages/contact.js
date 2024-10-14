@@ -29,7 +29,7 @@ export default function ContactUs(){
         <div className="">
         <Nav_bar_interface/>
         <div className=" flex flex-col justify-center mt-10 items-center text-2xl">
-          <h1 className="text-4xl border-b-4 border-black m-3 font-extrabold">
+          <h1 className="text-2xl md:text-4xl border-b-4 border-black m-3 font-extrabold">
             تواصل معنا
           </h1>
           <p className="w-2/3 text-center">
@@ -37,7 +37,7 @@ export default function ContactUs(){
           </p>
         </div>
         <div className="h-screen my-9 flex justify-center items-center ">
-          <div className="flex w-full gap-3 justify-center h-fit">
+          <div className="flex w-full flex-col md:flex-row gap-3 justify-center h-fit">
               <div className="">
                 <ContactCard/>
               </div>

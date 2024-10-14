@@ -23,9 +23,9 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre }) {
   };
 
   return (
-    <div className="w-[88%] mb-5 m-auto">
+    <div className="md:w-[88%] mb-5 m-auto">
       {/* Section du titre */}
-      <div className="w-full py-5 mb-2 mt-6 flex justify-end">
+      <div className="w-full px-4 md:px-0 py-5 mb-2 mt-6 flex justify-end">
         <div className="text-right">
           <div className="border-r-[15px] text-lg pr-2 mb-2 border-black">
               {petitTitre} 
