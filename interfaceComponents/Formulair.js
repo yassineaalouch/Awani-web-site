@@ -79,7 +79,7 @@ export default function Formulair(props) {
     <div className={`bg-white shadow-lg rounded-lg p-4 mb-4 sm:p-8 max-w-lg text-right w-fit ${props.className}`}>
       <h2 className="text-2xl font-bold mb-9 text-black">تواصل معنا</h2>
 
-      <form onSubmit={sendUserMessage} className="w-fit lg:w-96 space-y-2 lg:space-y-6">
+      <form onSubmit={sendUserMessage} className="w-full lg:w-96 space-y-2 lg:space-y-6">
         <div className="grid lg:grid-cols-2 gap-2 lg:gap-6">
           <div className="block">
             <label htmlFor="email" className="block text-md font-semibold text-gray-700 mb-2">البريد الإلكتروني *</label>

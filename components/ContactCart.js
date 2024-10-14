@@ -6,20 +6,20 @@ export default function ContactCard({ email, phone, address }) {
     <div className="mx-auto flex bg-white flex-col items-end rounded-xl h-full text-right shadow-lg overflow-hidden w-full">
       <div className="md:flex ">
         <div className="p-8">
-          <h3 className="text-2xl font-bold mb-10 text-gray-900">معلومات الاتصال</h3>
+          <h3 className="text-xl md:text-2xl font-bold mb-10 text-gray-900">معلومات الاتصال</h3>
 
-          <div className="mt-4 flex flex-col gap-7 w-full ">
-            <p className="text-gray-700 text-md flex gap-3 justify-end items-center">
+          <div className="mt-4 flex md:text-md text-sm flex-col gap-7 w-full ">
+            <p className="text-gray-700 flex gap-3 justify-end items-center">
               <strong className="ml-2">البريد الإلكتروني:</strong> {email || "غير متوفر"}
               <FaEnvelope className="text-black mr-2" />
             </p>
 
-            <p className="text-gray-700 text-md mt-2 flex gap-3 justify-end items-center">
+            <p className="text-gray-700 mt-2 flex gap-3 justify-end items-center">
               <strong className="ml-2">رقم الهاتف:</strong> {phone || "غير متوفر"}
               <FaPhoneAlt className="text-black mr-2" />
             </p>
 
-            <p className="text-gray-700 text-md mt-2 flex gap-3 justify-end items-center">
+            <p className="text-gray-700 mt-2 flex gap-3 justify-end items-center">
               <strong className="ml-2">العنوان:</strong> {address || "غير متوفر"}
               <FaMapMarkerAlt className="text-black mr-2" />
             </p>
@@ -30,7 +30,7 @@ export default function ContactCard({ email, phone, address }) {
       {/* Social Media Section */}
       <div className="md:flex">
         <div className="p-8">
-          <h3 className="text-2xl font-bold mb-10 text-gray-900">تابعنا على وسائل التواصل الاجتماعي</h3>
+          <h3 className="text-xl md:text-2xl font-bold mb-10 text-gray-900">تابعنا على وسائل التواصل الاجتماعي</h3>
 
           <div className="w-full flex flex-col items-end gap-7">
             <Link href="https://facebook.com" className="text-gray-700 text-md">
