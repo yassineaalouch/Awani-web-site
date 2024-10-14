@@ -62,21 +62,21 @@ const ProductCard = ({ product,exchangeRate,currencyWanted }) => {
               <Image
                 src={product?.images[0]?product?.images[0]:'/No_Image_Available.jpg'}
                 alt={product?.title}
-                layout='responsive'
                 quality={70}
                 width={100}
+                loading='lazy'
                 height={100}
-                className={"cover w-auto h-auto rounded-t-lg"}
+                className={"cover w-full rounded-t-lg"}
               />
 
               <Image
                 src={product?.images[0]?product?.images[0]:'/No_Image_Available.jpg'}
                 alt={product?.title}
-                layout='responsive'
                 quality={70}
                 width={100}
+                loading="lazy"
                 height={100}
-                className={animation?"cover z-50 absolute bg-cover inset-0 rounded-t-lg animated":"cover z-30 hidden absolute inset-0 rounded-t-lg" }
+                className={animation?"cover w-full z-50 absolute bg-cover inset-0 rounded-t-lg animated":"cover z-30 hidden absolute inset-0 rounded-t-lg" }
               />
             </div>
         </Link>
