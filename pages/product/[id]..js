@@ -518,7 +518,7 @@ export default function ProductPage({ Session, product }) {
                           width={100}
                           height={100}
                           quality={10}
-                          className="rounded-lg p-1 cursor-pointer"
+                        className="rounded-lg p-1 cursor-pointer"
                         />
                       </div>
                     ))}
