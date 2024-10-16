@@ -1,8 +1,14 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import ProductCard from "@/interfaceComponents/ProductCart";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { CategoryContext } from "./categoryContext";
+import { useContext } from "react";
+import Link from "next/link";
 
-function ProductsHomePageSection({ productList, petitTitre, grandTitre }) {
+
+function ProductsHomePageSection({ productList, petitTitre, grandTitre,categoryTitre }) {
+  const {category, setCategory } = useContext(CategoryContext)
+
   // Référence pour accéder à l'élément contenant les produits
   const productsRef = useRef(null);
 
@@ -22,10 +28,23 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre }) {
     });
   };
 
+  //  Show more function
+  function ShowMore(){
+    setCategory(categoryTitre)
+  }
   return (
     <div className="md:w-[88%] mb-5 m-auto">
       {/* Section du titre */}
-      <div className="w-full px-4 md:px-0 py-5 mb-2 mt-6 flex justify-end">
+      <div className="w-full justify-between items-center px-4 md:px-0 py-5 mb-2 mt-6 flex">
+        <div>
+          <Link
+            href={'/Shop'}
+            onClick={()=>ShowMore()}
+            className="px-3 bg-black flex justify-around items-center text-white py-2 border-white rounded-lg border-2 hover:border-black hover:text-black hover:bg-white transition-colors duration-300"
+          >
+            عرض الكل
+          </Link>
+        </div>
         <div className="text-right">
           <div className="border-r-[15px] text-lg pr-2 mb-2 border-black">
               {petitTitre} 
