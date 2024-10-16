@@ -298,7 +298,7 @@ export default function ProductPage({ Session, product }) {
         <NavBarInterface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'} />
         <div className="min-h-screen bg-gray-100 px-2">
           <div className="mx-auto mt-5 bg-white p-6 shadow-md rounded-lg">
-            <div className="grid grid-cols-1 md:grid-cols-2 text-right gap-6">
+            <div className="flex flex-col-reverse md:grid md:grid-cols-2 text-right gap-6">
 
               <div>
                 <h1 className="text-3xl text-right font-semibold text-gray-800">
@@ -481,11 +481,19 @@ export default function ProductPage({ Session, product }) {
                       <li>Configure Navigation</li>
                       <li>Update Menu Items</li>
                       <li>Edit Page Content</li>
+                      <li>Edit Page Content</li>
+                      <li>Configure Navigation</li>
+                      <li>Update Menu Items</li>
+                      <li>Edit Page Content</li>
+                      <li>Edit Page Content</li>
+                      <li>Configure Navigation</li>
+                      <li>Update Menu Items</li>
+                      <li>Edit Page Content</li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <div className="flex place-content-center gap-2 ">
+              <div className="flex flex-col md:flex-row place-content-center gap-2 ">
                 <div className='md:relative w-full block '>
                   <div className='md:sticky flex md:top-16  justify-center border-2 rounded-lg'>
                     <Image
@@ -500,14 +508,13 @@ export default function ProductPage({ Session, product }) {
                   </div>
                 </div>
                 <div className='md:relative place-content-start block'>
-                  <div className='flex md:sticky md:top-16 items-center max-h-80 p-0 overflow-y-auto border-2 rounded-lg max-w-20 flex-col'>
+                  <div className='flex md:sticky md:top-16 items-center justify-around md:justify-normal md:max-h-80 p-0 overflow-x-auto md:overflow-y-auto md:border-2 rounded-lg w-full md:max-w-20 flex-row md:flex-col'>
                     {product?.images.map((src, index) => (
                       <div key={index} className="border-2  relative">
                         <Image
                           onClick={() => ImageChange(src)}
                           src={src}
                           alt={`Product image ${index + 1}`}
-                          layout="responsive"
                           width={100}
                           height={100}
                           quality={10}

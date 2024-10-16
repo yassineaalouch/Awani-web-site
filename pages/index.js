@@ -31,7 +31,7 @@ export default function Home({productList}) {
       <SlidesOfDiscountHomePage/>
       <QualiteCarts/>
       <CategoriesHomePageSection/>
-      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"المنتجات الأكثر مبيعاً"}/>
+      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={" الأكثر مبيعاً"}/>
       <PlaceOfAdvertisingBar/>
       <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"معدات كهربائية"}/>
       <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"كؤوس"}/>

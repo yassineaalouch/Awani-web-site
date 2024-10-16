@@ -14,7 +14,7 @@ import axios from "axios";
 import { converterCurrency } from "@/components/currencyConverter";
 import BlackBarTop from "@/components/blackBarTop";
 import { CategoryContext } from "@/components/categoryContext";
-
+import { FaArrowRight } from "react-icons/fa";
 
 export async function getServerSideProps() {
     await mongooseConnect()
@@ -84,14 +84,25 @@ export default function Shop({ productList }) {
             <div className=""> 
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories}/>
             </div>
-            <div className="min-h-screen pb-8 flex justify-center ">
+            <div className="min-h-screen pb-8 flex flex-col items-center justify-between ">
                 <div className="flex h-fit justify-center gap-2 flex-wrap md:grid sm:grid-cols-3 lg:grid-cols-4">
                     {productListFilter.map((element) => (
                         <ProductCart key={element._id} currencyWanted={currencyWanted} exchangeRate={rateOfChange} product={element} />
                     ))}
                 </div>
+                <div className=" w-full mt-8 flex gap-2 justify-center items-center">
+                    <button className="border-2 border-black rounded-md py-1 px-3 hover:text-white hover:bg-black transition-all duration-300 rotate-180">
+                        <FaArrowRight/>
+                    </button>
+                    <div className="px-3 text-xl">
+                        1
+                    </div>
+                    <button className="border-2 border-black rounded-md py-1 px-3 hover:text-white hover:bg-black transition-all duration-300 ">
+                        <FaArrowRight/>
+                    </button>
+                </div>
             </div>
-            <Link href='/cart' className=" border-black border-2 hover:bg-yellow-600 flex p-2 rounded-full text-black fixed right-5 bottom-5 ">
+            <Link href='/cart' className=" border-black bg-white border-2 hover:bg-black hover:text-white transition-all duration-300 flex p-2 rounded-full text-black fixed right-5 bottom-5 ">
                 <FaCartShopping size={30} className=" relative z-40"/>
                 <div className="bg-red-600 text-sm p-[3px] text-[30px] text-white font-bold rounded-full absolute bottom-7 left-7">
                     {cartProducts.length}
