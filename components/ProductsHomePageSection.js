@@ -40,7 +40,7 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre,categoryT
           <Link
             href={'/Shop'}
             onClick={()=>ShowMore()}
-            className="px-3 bg-black flex justify-around items-center text-white py-2 border-white rounded-lg border-2 hover:border-black hover:text-black hover:bg-white transition-colors duration-300"
+            className="px-3 bg-black flex justify-around items-center text-white py-2 border-black rounded-lg border-2 hover:text-black hover:bg-white transition-colors duration-300"
           >
             عرض الكل
           </Link>

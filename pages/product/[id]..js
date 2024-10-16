@@ -343,7 +343,7 @@ export default function ProductPage({ Session, product }) {
                   {!existingProductIndex ?
                     <div className='w-full flex justify-end'>
                       <button
-                        className="mt-0 w-1/2 bg-yellow-500 flex justify-center gap-3 items-center text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-300"
+                        className="mt-0 w-1/2 bg-black flex justify-center gap-3 items-center text-white py-2 rounded-lg hover:bg-white hover:text-black border-black border-2 transition-colors duration-300"
                         onClick={() => addToCart(product)}
                       >
                         Add To Cart <FaCartShopping size={25} />
