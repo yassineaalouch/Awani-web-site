@@ -323,12 +323,38 @@ export default function ProductPage({ Session, product }) {
 
 
                 {/* description section */}
-                  <div className="my-2">
-                    <p className="text-gray-600">
+                 {product?.description&&
+                  <div className="">
+                    <p className="text-gray-600 my-2">
                       {product?.description}
                     </p>
-                  </div>
-                <hr />
+                    <hr/>
+                  </div>}
+                
+                {product?.properties?.length > 0 &&
+                    <div className="mt-2 rounded-lg">
+                      {/* <h3 className="text-xl mb-2 font-semibold text-gray-700">
+                        properties
+                      </h3> */}
+                      <div className='mb-0'>
+                        {product?.properties?.length > 0 && product?.properties.map((ele) => (
+                          <div key={ele.property}>
+                            <div>
+                              {ele.property}
+                            </div>
+                            <div className='flex justify-end  gap-2 py-1 pb-2 pr-5'>
+                              {ele.valuesWanted.length > 0 && ele.valuesWanted.map((value, index) => (
+                                <div onClick={() => choiceProperties(ele.property, value.value)} className='border hover:border-yellow-500 rounded-md px-3 py-1 hover:bg-slate-100 border-slate-600' key={index}>
+                                  {value.value}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>}
+                    <hr />
+
                 <div className='mt-2'>
 
                       {/* <div className={`flex items-center ${product?.stockQuantity < 25 ? "animate-pulse text-red-500":''} space-x-1 text-sm text-gray-700 bg-yellow-100 p-2 rounded-md`}>
@@ -396,29 +422,9 @@ export default function ProductPage({ Session, product }) {
                 </div>
 
                 <div className="mt-2">
-                  {product?.properties?.length > 0 &&
-                    <div className="mt-4 rounded-lg">
-                      <h3 className="text-xl font-semibold text-gray-700">
-                        properties
-                      </h3>
-                      <hr className='border-black mb-3 mt-1' />
-                      <div className='mb-6'>
-                        {product?.properties?.length > 0 && product?.properties.map((ele) => (
-                          <div key={ele.property}>
-                            <div>
-                              {ele.property}
-                            </div>
-                            <div className='flex  gap-2 pl-5'>
-                              {ele.valuesExist.length > 0 && ele.valuesExist.map((value, index) => (
-                                <div onClick={() => choiceProperties(ele.property, value.value)} className='border hover:border-yellow-500 rounded-md px-3 py-1 hover:bg-slate-100 border-slate-600' key={index}>
-                                  {value.value}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>}
+
+
+
                   {product?.promotionsOrDiscounts?.length > 0 &&
                     <div className="mt-4 rounded-lg">
                       <h3 className="text-xl font-semibold text-gray-700">
@@ -535,7 +541,7 @@ export default function ProductPage({ Session, product }) {
                 <div className='border-2 w-full border-gray-300 rounded-lg bg-white mx-auto px-6 pt-6 pb-1 shadow-lg max-w-md'>
 
 
-                  {!true ?
+                  {!dejaRating ?
                     <form onSubmit={(e) => sentStars(e)}>
                       <h1 className='text-xl font-semibold text-gray-800'>Did you use our product before?</h1>
                       <p className='text-gray-600 text-sm'>Share your feedback. </p>

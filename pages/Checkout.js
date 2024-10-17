@@ -153,105 +153,104 @@ export default function Checkout({Session}){
     return (
         <>
         <NavBarInterface/>
-            <div className="min-h-screen mt-14 p-6">
-                {/* {!Session&&
-                    <div className="p-6 max-w-3xl mx-auto mb-3 bg-gray-100 border rounded-lg shadow-md">
-                        <h2 className="text-xl font-semibold mb-4">Access Denied</h2>
-                        <p className="text-gray-700 mb-4">You must be logged in to view your cart and proceed with checkout.</p>
-                        <div className="text-gray-700 gap-1 flex mb-6">Please <Link href={'/Login'} className="text-yellow-500 underline cursor-pointer">log in</Link> or <Link href="/Login"><p className="text-yellow-500 underline">create an account</p></Link> to continue.</div>
-                    </div>
-                } */}
-                {!showMessage?
-                    <form onSubmit={handleSubmit}  className="max-w-3xl text-xs sm:text-base mx-auto p-6 bg-white shadow-md border rounded-lg">
-                    
-                    <h2 className="md:text-2xl text-xl font-semibold mb-6">Billing Information</h2>
-                
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                        <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-gray-700">
-                            First Name
-                        </label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            value={formData.firstName}
-                            // disabled={!Session}
-                            onChange={handleChange}
-                            className={`mt-1 block w-full border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                            required
-                        />
-                        </div>
-                
-                        <div>
-                        <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-gray-700">
-                            Last Name
-                        </label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            // disabled={!Session}
-                            value={formData.lastName}
-                            onChange={handleChange}
-                            className={`mt-1 block w-full border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                            required
-                        />
-                        </div>
-                    </div>
-                
-                
-                    <div className="mt-4">
-                        <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
-                        Phone Number
-                        </label>
-                        <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        // disabled={!Session}
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className={`mt-1 block w-full border  border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                        required
-                        />
-                    </div>
-                    {/* ${!Session? 'cursor-not-allowed':'cursor-default'}
-                     */}
-                    <div className="mt-4">
-                        <label htmlFor="address" className="block text-xs sm:text-sm font-medium text-gray-700">
-                        Address
-                        </label>
-                        <input
-                        type="text"
-                        id="address"
-                        // disabled={!Session}
-                        name="address"
-                        value={formData.address}
-                        onChange={handleChange}
-                        className={`mt-1 block w-full border border-gray-300 outline-none rounded-md shadow-sm p-2 focus:ring-yellow-500 focus:border-yellow-500`}
-                        required
-                        />
-                    </div>
-
-                
-                    <button
-                        type="submit"
-                        disabled={isLoading}
-                        className={`mt-2 block w-full bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400`}
-                    >
-                    {isLoading? 'Sending ....':'Place Order'}
-                    </button>
-                    </form>
-
-                    :
-
-                    <div>
-                        <ThankYouCard/>
-                    </div>
-                }
+        <div className="min-h-screen mt-10 p-6">
+    {/* {!Session&&
+        <div className="p-6 max-w-3xl mx-auto mb-3 bg-gray-100 border rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold mb-4">Access Denied</h2>
+            <p className="text-gray-700 mb-4">You must be logged in to view your cart and proceed with checkout.</p>
+            <div className="text-gray-700 gap-1 flex mb-6">Please <Link href={'/Login'} className="text-yellow-500 underline cursor-pointer">log in</Link> or <Link href="/Login"><p className="text-yellow-500 underline">create an account</p></Link> to continue.</div>
+        </div>
+    } */}
+    {!showMessage?
+        <form onSubmit={handleSubmit}  className="max-w-3xl text-xs text-right sm:text-base mx-auto p-6 bg-white shadow-md border rounded-lg">
+        
+        <h2 className="md:text-2xl text-xl font-semibold mb-6">تأكيد الطلبية</h2>
+    
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+            <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-gray-700">
+                الاسم الأول
+            </label>
+            <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                // disabled={!Session}
+                onChange={handleChange} 
+                className={`mt-1 block w-full border border-gray-300 text-right outline-none rounded-md shadow-sm p-2  focus:ring-black focus:border-black`}
+                required
+            />
             </div>
-        <Footer/>
-        </>
-      );
-    };
+    
+            <div>
+            <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-gray-700">
+                اسم العائلة
+            </label>
+            <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                // disabled={!Session}
+                value={formData.lastName}
+                onChange={handleChange}
+                className={`mt-1 block w-full border border-gray-300 text-right outline-none rounded-md shadow-sm p-2 focus:ring-black focus:border-black`}
+                required
+            />
+            </div>
+        </div>
+    
+    
+        <div className="mt-4">
+            <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700">
+            رقم الهاتف
+            </label>
+            <input
+            type="tel"
+            id="phone"
+            name="phone"
+            // disabled={!Session}
+            value={formData.phone}
+            onChange={handleChange}
+            className={`mt-1 block w-full border  border-gray-300 text-right outline-none rounded-md shadow-sm p-2 focus:ring-black focus:border-black `}
+            required
+            />
+        </div>
+        {/* ${!Session? 'cursor-not-allowed':'cursor-default'}
+         */}
+        <div className="mt-4">
+            <label htmlFor="address" className="block text-xs sm:text-sm font-medium text-gray-700">
+            العنوان
+            </label>
+            <input
+            type="text"
+            id="address"
+            // disabled={!Session}
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            className={`mt-1 block w-full border border-gray-300 text-right outline-none rounded-md shadow-sm p-2 focus:ring-black focus:border-black`}
+            required
+            />
+        </div>
+
+    
+        <button
+            type="submit"
+            disabled={isLoading}
+            className={`mt-2 block w-full bg-black border-2 border-black transition-all duration-300 hover:bg-white hover:text-black text-white py-2 px-4 rounded-md  `}
+        >
+        {isLoading? 'جاري الإرسال ....':'إتمام الطلب'}
+        </button>
+        </form>
+
+        :
+
+        <div>
+            <ThankYouCard/>
+        </div>
+    }
+</div>
+<Footer/>
+</>
+    )}

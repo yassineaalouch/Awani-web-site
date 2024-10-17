@@ -38,7 +38,7 @@ supplier: { type: String},
 
 properties:[ 
   {
-    property:{value:{type:String},label:{type:String}},
+    property:{type:String},
     valuesWanted:[{value:{type:String},label:{type:String}}], 
     valuesInterval:[{value:{type:String},label:{type:String}}] 
   }
