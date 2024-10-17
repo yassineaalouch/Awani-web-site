@@ -35,12 +35,15 @@ ratingDistribution :{
 
 // exist but need more modifecation
 supplier: { type: String},
+
 properties:[ 
   {
-    property:{ type:String},
-    valuesExist:[{value:String, label:String}] 
+    property:{value:{type:String},label:{type:String}},
+    valuesWanted:[{value:{type:String},label:{type:String}}], 
+    valuesInterval:[{value:{type:String},label:{type:String}}] 
   }
 ],
+
 promotionsOrDiscounts: [{
   titre:String,
   percentage:Number,

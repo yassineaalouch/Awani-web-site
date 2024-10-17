@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
 import CommentBlock from "./Commentaire";
-import Image from "next/image";
 import RatingSummaryCard from "./RatingSummaryCard ";
 import Etoiles from "./rating";
 import { useSession } from "next-auth/react";
@@ -17,20 +16,22 @@ import makeAnimated from 'react-select/animated';
 
 export default function ProductForm({ _id, rating, properties: existProperties, comments: existingComments, ratingDistribution, title: existingTitle, discountPrice: existingDiscountPrice, description: existingDescription, price: existingPrice, images: existingImages, category: existingCategory, purchasePrice: existingPurchasePrice, supplier: existingSupplier, stockQuantity: existingStockQuantity, dimensions: existingDimensions, countryOfProduction: existingCountryOfProduction, deliveryTime: existingDeliveryTime, SKU: existingSKU, barcode: existingBarcode, customerReviews: existingCustomerReviews, materials: existingMaterials, careInstructions: existingCareInstructions, allergens: existingAllergens, expirationDate: existingExpirationDate, certificatesAndLabels: existingCertificatesAndLabels, recyclingInformation: existingRecyclingInformation, returnAndWarrantyConditions: existingReturnAndWarrantyConditions, promotionsOrDiscounts: existingPromotionsOrDiscounts, complementaryProducts: existingComplementaryProducts, productFAQ: existingProductFAQ }) {
     const { data: session } = useSession()
-
-
+    const [existPropList,setExistPropList]= useState(existProperties || [])
+    console.log("existPropList",existPropList)
     const [title, setTitle] = useState(existingTitle || '');
     const [category, setCategory] = useState(existingCategory || '')
     const [images, setImages] = useState(existingImages || []);
     const [description, setDescription] = useState(existingDescription || '');
     const [price, setPrice] = useState(existingPrice || '');
     const [discountPrice, setDiscountPrice] = useState(existingDiscountPrice || '');
-    const [purchasePrice, setPurchasePrice] = useState(existingPurchasePrice || '');
-    const [supplier, setSupplier] = useState(existingSupplier || '');
     const [stockQuantity, setStockQuantity] = useState(existingStockQuantity || '');
+    const [purchasePrice, setPurchasePrice] = useState(existingPurchasePrice || '');
     const [dimensions, setDimensions] = useState(existingDimensions || { length: '', width: '', height: '' });
-    const [countryOfProduction, setCountryOfProduction] = useState(existingCountryOfProduction || '');
     const [deliveryTime, setDeliveryTime] = useState(existingDeliveryTime || '');
+  
+  
+    const [supplier, setSupplier] = useState(existingSupplier || '');
+    const [countryOfProduction, setCountryOfProduction] = useState(existingCountryOfProduction || '');
     const [SKU, setSKU] = useState(existingSKU || '');
     const [barcode, setBarcode] = useState(existingBarcode || '');
     const [careInstructions, setCareInstructions] = useState(existingCareInstructions || '');
@@ -41,10 +42,8 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
     const [goToProducts, setGoToProducts] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [categories, setCategories] = useState([]);
+    
     const [properties, setProperties] = useState(existProperties || []);
-    console.log('existProperties', existProperties || 'hi2')
-    console.log('properties properties', properties || 'hi2')
-
     const [products, setProducts] = useState([]);
     const [discounts, setDiscounts] = useState([]);
     const [discountsList, setDiscountsList] = useState([])
@@ -60,6 +59,12 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
     const [update, setUpdate] = useState(false);
     const animatedComponents = makeAnimated();
     const [litOfPropertiesToValidate, setLitOfPropertiesToValidate] = useState(properties || [])
+
+
+
+    const [PropertiesNew,setPropertiesNew]=useState(existProperties||[])
+
+
     useEffect(() => {
         initializeProperties()
     }, [])
@@ -123,7 +128,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
 
     async function saveProduct(ev) {
         ev.preventDefault();
-        const data = { title, description, price, promotionsOrDiscounts: discountListToSend, discountPrice, comments, images, category, properties: litOfPropertiesToValidate, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions };
+        const data = { title, description, price, promotionsOrDiscounts: discountListToSend, discountPrice, comments, images, category, properties: PropertiesNew, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions };
         if (title.trim() != "") {
             if (_id) {
                 await axios.put('/api/products', { ...data, _id }, {
@@ -392,14 +397,21 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                     ))}
                 </select>
 
+
+
                 <label className="this">Properties</label>
+                
+
+
+
                 <Select
                     options={properties}
                     value={propertiesList}
                     isMulti={true}
                     components={animatedComponents}
-                    onChange={ev => { setPropertiesList(ev); console.log('propertiesListpropertiesList', ev) }}
+                    onChange={ev => { setPropertiesList(ev); console.log('properties', properties);console.log('propertiesListpropertiesList', ev) }}
                 />
+                
                 {propertiesList.length > 0 &&
                     <div className="pt-4 ml-1 rounded-bl-lg mb-10 border-l-2">
                         {propertiesList.length > 0 && propertiesList.map(ele => (
@@ -408,16 +420,41 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                                 <div>
                                     <Select
                                         options={ele.values}
-                                        value={''}
+                                        value={PropertiesNew.filter(p => p.property === ele.name).valuesWanted}
                                         isMulti={true}
                                         components={animatedComponents}
-                                        onChange={ev => { console.log('propertiesValuesList[ele.name]', propertiesValuesList[ele.name]) }}
+                                        onChange={ev => 
+                                            {   console.log('PropertiesNew.filter(p => p.property === ele.name).valuesWanted',PropertiesNew.filter(p => p.property === ele.name).valuesWanted)
+                                                console.log('existProperties.filter(prop=>prop.property === ele.name).valuesWanted',existProperties.filter(prop=>prop.property === ele.name).valuesWanted)
+                                                setPropertiesNew(prev => {
+                                                    // Check if the property already exists
+                                                    const existingProperty = prev.find(p => p.property === ele.name);
+                                                    if (existingProperty) {
+                                                        // Update the existing property
+                                                        return prev.map(p =>
+                                                            p.property === ele.name ? { ...p, valuesWanted: ev } : p
+                                                        );
+                                                    } else {
+                                                        // Add a new property entry
+                                                        return [...prev, { property: ele.name, valuesWanted: ev, valuesInterval: ele.values }];
+                                                    }
+                                                });
+                                                console.log('PropertiesNew', PropertiesNew);
+                                                // console.log('ev', ev);
+                                                // console.log('ele.name', ele.name);
+                                                // console.log('ele.values', ele.values);
+                                            }
+                                            
+                                            // {setPropertiesNew((prev) => [...prev,{property:ele.name,valueWanted:ev,valuesInterval:ele.values }]);console.log('PropertiesNew',PropertiesNew) ;console.log('ev',ev);console.log('ele.name',ele.name);console.log('ele.values',ele.values)  }
+                                        }
                                     />
                                 </div>
                             </div>
                         ))}
                     </div>
                 }
+
+
                 <label className="this">Dimensions (cm)</label>
                 <div className="flex gap-2">
                     <input
@@ -473,6 +510,11 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                     <option value={false}>Block</option>
                 </select>
 
+
+
+
+
+{/* 
                 <hr className="my-4"/>
                 <label className="this">Discounts</label>
                 <Select
@@ -554,7 +596,17 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                     placeholder="Return and Warranty Conditions"
                     value={returnAndWarrantyConditions}
                     onChange={e => setReturnAndWarrantyConditions(e.target.value)}
-                />
+                /> */}
+
+
+
+
+
+
+
+
+
+
 
 
                 <div className="flex gap-2 justify-center py-2">
@@ -562,7 +614,9 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                     <button type="submit" className="btn-primary">Save</button>
                 </div>
             </form>
-            <Hr classNameHr=" w-1/3 border-gray-300" classNameTitre=" font-bold text-black text-lg text-nowrap lg:text-xl p-4" titre="Customer reviews" />
+
+
+            {/* <Hr classNameHr=" w-1/3 border-gray-300" classNameTitre=" font-bold text-black text-lg text-nowrap lg:text-xl p-4" titre="Customer reviews" />
             <label className="this ">Average Customer Rating</label>
             <div className="flex border-2 rounded-md px-1 justify-center items-center">
                 <Etoiles number={rating} />
@@ -621,7 +675,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                 </div>
 
 
-            </div>
+            </div> */}
         </>
     )
 }
