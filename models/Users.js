@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     }
   ] ,
   role:{type:String,default:"user"},
-  googleId: { type: String, unique: true, sparse: true },
+  googleId: { type: String, unique: true, sparse: true }, 
   facebookId: { type: String, unique: true, sparse: true },
   resetTokenExpiry :{type:Date,required:false},
   resetToken  :{type:String,required:false}

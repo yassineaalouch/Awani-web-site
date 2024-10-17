@@ -134,6 +134,7 @@ export default function ProductPage({ Session, product }) {
         }),
       ]);
       setPermissionList(listRatingProduct.data.timerRating.map((ele) => (ele.productId)))
+      console.log('(listRatingProduct.data.timerRating.map((ele) => (ele.productId)))',listRatingProduct.data.timerRating.map((ele) => (ele.productId)))
       setListOfRatingCarts(ratingCarts)
       setCommentsList(commentsResponse.data);
       setRatingList(ratingResponse.data);
@@ -224,7 +225,7 @@ export default function ProductPage({ Session, product }) {
           })
         setTimeout(() => {
           setDejaRating(false);
-        }, 1000);
+        }, 5000);
       } else {
         await axios.post('/api/rating', data,
           {
@@ -234,7 +235,7 @@ export default function ProductPage({ Session, product }) {
           })
         setTimeout(() => {
           setDejaRating(false);
-        }, 1000);
+        }, 5000);
       }
       setUpdate(!update)
       setCustomerReview('')
@@ -310,7 +311,7 @@ export default function ProductPage({ Session, product }) {
                     ({totalRating.numberRating ? totalRating.numberRating : 0})
                   </p>
                   <div className="flex items-center">
-                    <Etoiles number={product?.rating} />
+                    <Etoiles number={totalRating.averageRating} />
                   </div>
                 </div>
 
@@ -534,7 +535,12 @@ export default function ProductPage({ Session, product }) {
               </div>
 
             </div>
-            <hr className='mt-6' />
+
+            <div className='flex my-12 justify-center items-center '>
+              <hr className=' w-1/2 ' />
+              <h2 className='text-nowrap text-2xl px-2'> تقييمات عملائنا</h2>
+              <hr className=' w-1/2' />
+            </div>
 
             <div className={!permissionList?.includes(product?._id) ? 'grid gap-1 mt-6 px-5' : 'grid md:grid-cols-2 gap-1 mt-6'}>
               {permissionList?.includes(product?._id) && timeLimit < 30 &&
@@ -542,48 +548,48 @@ export default function ProductPage({ Session, product }) {
 
 
                   {!dejaRating ?
-                    <form onSubmit={(e) => sentStars(e)}>
-                      <h1 className='text-xl font-semibold text-gray-800'>Did you use our product before?</h1>
-                      <p className='text-gray-600 text-sm'>Share your feedback. </p>
-                      <div className=' pt-3 flex justify-center px-8'>
+                    <form className='text-right' onSubmit={(e) => sentStars(e)}>
+                      <h1 className='text-xl font-semibold text-gray-800'>هل سبق لك استخدام منتجنا؟</h1>
+                      <p className='text-gray-600 text-sm'>شاركنا رأيك وتجربتك.</p>
+                      <div className='pt-3 flex justify-center px-8'>
                         <textarea
                           rows="3"
                           value={customerReview}
                           required
                           onChange={(e) => setCustomerReview(e.target.value)}
-                          placeholder='Your feedback ....'
-                          className='bg-slate-100 resize-none rounded-md text-xs p-1 w-full'
+                          placeholder='...  اكتب ملاحظاتك هنا'
+                          className='bg-slate-100 resize-none text-right rounded-md text-xs p-1 w-full'
                         />
                       </div>
-                      <div className='mt-3 flex  justify-center gap-6 relative'>
-
+                      <div className='mt-3 flex justify-center gap-6 relative'>
                         <div className='relative flex items-center'>
                           <Etoiles number={cursor} />
                           <input
                             type="range"
                             min="1"
                             max="5"
-                            className='absolute inset-0 bg-slate-200 opacity-0 cursor-pointer'
+                            className='absolute inset-0 bg-slate-200 opacity-0 rotate-180 cursor-pointer'
                             value={cursor}
                             onChange={(e) => {
                               setCursor(e.target.value);
                             }}
                           />
                         </div>
-
                       </div>
-                      <button type='submit' className='mt-1 float-end text-yellow-500 border-2 border-yellow-500 rounded-lg px-2  hover:bg-yellow-500 hover:text-white duration-300'>
-                        Send
+                      <button type='submit' className='mt-1 rounded-lg px-2 float-end bg-black border-2 border-black text-white hover:bg-white   hover:text-black duration-300'>
+                        إرسال
                       </button>
                     </form>
+
                     :
-                    <div >
-                      <h2 className='text-2xl font-semibold text-green-600'>Thank You!</h2>
-                      <p className='text-gray-800 text-lg mt-2'>We appreciate your feedback and your time.</p>
+                    <div className='text-right'>
+                      <h2 className='text-2xl font-semibold text-black'>جزيل الشكر لك!</h2>
+                      <p className='text-gray-800 text-lg mt-2'>نحن ممتنون لوقتك وملاحظاتك القيمة.</p>
                       <p className='text-gray-600 text-sm mt-2'>
-                        Your feedback is invaluable in our ongoing efforts to deliver high-quality products and exceptional service.
+                        تعليقاتك الثمينة هي أساس تحسين خدماتنا وتطوير منتجاتنا باستمرار لتلبية تطلعاتك بأفضل صورة.
                       </p>
                     </div>
+
                   }
 
                 </div>
@@ -594,10 +600,15 @@ export default function ProductPage({ Session, product }) {
               </div>
             </div>
 
-            <hr className='mt-6 ' />
+
             {listOfRatingCarts?.data?.length > 0 &&
               <div>
-                <div className='mt-6 overflow-auto flex gap-5 bg-slate-100 p-3'>
+                <div className='flex my-12 justify-center items-center '>
+                  <hr className=' w-1/2 ' />
+                  <h2 className='text-nowrap text-2xl px-2'>آراء عملائنا</h2>
+                  <hr className=' w-1/2' />
+                </div>
+                <div className=' overflow-auto flex gap-5 p-3'>
                   {listOfRatingCarts.data.length > 0 && listOfRatingCarts.data.map((ele) => (
 
                     <div key={ele.email} className='border-2 h-full border-gray-300 rounded-lg bg-white mx-auto p-6 shadow-md w-80'>
@@ -613,44 +624,46 @@ export default function ProductPage({ Session, product }) {
 
                   }
                 </div>
-                <hr className='mt-6' />
-              </div>
+             </div>
             }
 
+            <div className='flex my-12 justify-center items-center '>
+              <hr className=' w-1/2 ' />
+              <h2 className='text-nowrap text-2xl px-2'>التعليقات</h2>
+              <hr className=' w-1/2' />
+            </div> 
 
             {product.comments ?
               <div>
                 <div className='bg-white p-4 rounded-lg shadow-sm mt-6'>
-                  <form onSubmit={(ev) => addComment(ev)} className='flex items-start space-x-4'>
+                    <form onSubmit={(ev) => addComment(ev)} className='flex items-start space-x-4'>
+                      <div className='flex-grow'>
+                        <textarea
+                          className='w-full bg-gray-100 text-right rounded-lg p-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black'
+                          rows='2'
+                          placeholder= '...  أضف تعليقًا '
+                          value={message}
+                          required
+                          onChange={e => setMessage(e.target.value)}
+                        ></textarea>
 
-                    <div className='flex-grow'>
-                      <textarea
-                        className='w-full bg-gray-100 rounded-lg p-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500'
-                        rows='2'
-                        placeholder='Add a public comment...'
-                        value={message}
-                        required
-                        onChange={e => setMessage(e.target.value)}
-                      ></textarea>
+                        {showLoginMessage &&
+                          <div className='text-sm justify-center items-center flex gap-2 border-2 px-1 rounded-md border-red-500 text-red-500'>
+                            <div>يجب عليك تسجيل الدخول أولاً</div>
+                            <Link className='text-blue-950 hover:underline' href={'/Login'}>تسجيل الدخول</Link>
+                          </div>
+                        }
 
-                      {showLoginMessage &&
-                        <div className='text-sm justify-center items-center flex gap-2 border-2 px-1 rounded-md border-red-500 text-red-500'>
-                          <div>you have to login first!!:</div>
-                          <Link className='text-blue-950 hover:underline' href={'/Login'}>login</Link>
+                        <div className='flex items-center justify-end space-x-2 mt-2'>
+                          <button type='button' onClick={cancel} className='bg-white border-2 border-black text-black hover:bg-black hover:text-white px-4 py-1.5 rounded-lg font-medium duration-300'>
+                            إلغاء
+                          </button>
+                          <button type='submit' className=' bg-black border-2 border-black text-white hover:bg-white   hover:text-black duration-300 px-4 py-1.5 rounded-lg font-medium'>
+                            إضافة تعليق
+                          </button>
                         </div>
-                      }
-
-
-                      <div className='flex items-center space-x-2 mt-2'>
-                        <button type='submit' className='bg-yellow-500 text-white px-4 py-1.5 rounded-lg font-medium hover:bg-yellow-600'>
-                          Add Comment
-                        </button>
-                        <button type='button' onClick={cancel} className='text-gray-600 hover:text-gray-800'>
-                          Cancel
-                        </button>
                       </div>
-                    </div>
-                  </form>
+                    </form>
                 </div>
 
 
@@ -670,7 +683,7 @@ export default function ProductPage({ Session, product }) {
                 <div className="flex justify-center items-center">
                   <div>
                     <p className="text-gray-600 text-sm mt-2">
-                      Comments for this product are currently disabled. Please check back later.
+                    التعليقات على هذا المنتج معطلة حاليا. يرجى التحقق مرة أخرى في وقت لاحق.                   
                     </p>
                   </div>
                 </div>

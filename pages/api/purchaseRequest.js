@@ -2,6 +2,7 @@ import mongooseConnect from "@/lib/mongoose";
 import { AdminUsers } from "@/models/Admine_Users";
 import { purchaseRequest } from "@/models/purchaseRequest";
 import { sendMail } from "@/service/mailService";
+import axios from "axios";
 
 export default async function handle(req,res){
     const {method}= req;
@@ -16,7 +17,7 @@ export default async function handle(req,res){
             res.json(await purchaseRequest.find({userId}));
         }else if(role==="statistics"){
             const purchases = await purchaseRequest.find().select('createdAt cart status country');
-            res.json(purchases);
+            res.json(purchases); 
         }
         else{
             res.json(await purchaseRequest.find());
@@ -33,6 +34,7 @@ export default async function handle(req,res){
         const toEmail = adminEmailLis.filter((ele)=>ele.getOrderEmail === true).map((ele)=>(ele.email)).join(', ') || 'pasDeEmail@gmail.com'
         await sendMail(subject,toEmail, message);
         const purchaseRequestDoc = await purchaseRequest.create({firstName,lastName,userId,email,phone,address,city,postalCode,country,cart,finalePrice});
+
         res.json(purchaseRequestDoc);
     }
 

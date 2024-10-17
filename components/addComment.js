@@ -26,6 +26,7 @@ const AddComment = ({session,fetchData,review,cancelForm,id}) => {
           }})
           setMessage('')
           fetchData()
+          cancel()
         }else{
           setShowLoginMessage(true)
         }
@@ -36,20 +37,20 @@ const AddComment = ({session,fetchData,review,cancelForm,id}) => {
 
         <div className='flex-grow'>
             <textarea
-                className='w-full bg-gray-100 rounded-lg p-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500'
+                className='w-full bg-gray-100 text-right rounded-lg p-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500'
                 rows='2'
-                placeholder='Add a public comment...'
+                placeholder='...  أضف تعليقًا '
                 value={message}
                 required
                 onChange={e=>setMessage(e.target.value)}
             ></textarea>
 
-            <div className='flex items-center space-x-2 mt-2'>
-                <button type='submit' className='bg-yellow-500 text-white px-4 py-1.5 rounded-lg font-medium hover:bg-yellow-600'>
-                    Add Comment
+            <div className='flex justify-end items-center space-x-2 mt-2'>
+                <button type='button' onClick={cancel} className=' bg-white border-2 border-black text-black hover:bg-black   hover:text-white px-4 py-1.5 rounded-lg font-medium  duration-300'>
+                  إلغاء
                 </button>
-                <button type='button' onClick={cancel} className='text-gray-600 hover:text-gray-800'>
-                    Cancel
+                <button type='submit' className=' bg-black border-2 border-black text-white hover:bg-white hover:text-black duration-300 px-4 py-1.5 rounded-lg font-medium '>
+                    رد    
                 </button>
             </div>
         </div>

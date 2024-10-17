@@ -83,12 +83,12 @@ export default function Orders(){
     }}).then(()=>{
       fetchPurchaseRequest()
     })
-    if(e.target.value==='Validate'){
+    if(e.target.value==='Validated'){
       axios.get('/api/UserHandler',{params:{_id:userId}, headers: {
         'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
       }}).then((response)=>{
         let productsIds = cart.map((ele)=>(ele.id))
-        const listRatingProduct =response.data.timerRating.map((ele)=>(ele.productId))
+        const listRatingProduct =response.data?.timerRating.map((ele)=>(ele.productId))
         const existingTest= productsIds.every(element =>listRatingProduct.includes(element))
         if(!existingTest){
           axios.put('/api/UserHandler',{productsIds,_id:userId},{ headers: {
