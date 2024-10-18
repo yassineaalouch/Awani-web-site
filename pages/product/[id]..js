@@ -57,9 +57,9 @@ export default function ProductPage({ Session, product }) {
     setMainImage(src);
   };
   const [ratingList, setRatingList] = useState({})
-  useEffect(()=>{
-    console.log('ratingList',ratingList)
-  },[ratingList])
+  useEffect(() => {
+    console.log('ratingList', ratingList)
+  }, [ratingList])
   const [cursor, setCursor] = useState(5)
   const [message, setMessage] = useState('')
   const [commentsList, setCommentsList] = useState([])
@@ -141,15 +141,15 @@ export default function ProductPage({ Session, product }) {
       console.error('Error fetching comments and ratings:', error);
     }
 
-    try{
-      if(Session){
+    try {
+      if (Session) {
         const listRatingProduct = await axios.get('/api/UserHandler', {
           params: { _id: Session?.user?.id, productId: product?._id }, headers: {
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
           }
         })
         setPermissionList(listRatingProduct.data.timerRating.map((ele) => (ele.productId)))
-    
+
         const purchaseDate = new Date(listRatingProduct.data.timerRating.filter(ele => ele.productId === product?._id)[0]?.purchaseDate)
         const timeNow = new Date()
         setTimeLimit((timeNow - purchaseDate) / (1000 * 60 * 60 * 24))
@@ -337,41 +337,41 @@ export default function ProductPage({ Session, product }) {
 
 
                 {/* description section */}
-                 {product?.description&&
+                {product?.description &&
                   <div className="">
                     <p className="text-gray-600 my-2">
                       {product?.description}
                     </p>
-                    <hr/>
+                    <hr />
                   </div>}
-                
+
                 {product?.properties?.length > 0 &&
-                    <div className="mt-2 rounded-lg">
-                      {/* <h3 className="text-xl mb-2 font-semibold text-gray-700">
+                  <div className="mt-2 rounded-lg">
+                    {/* <h3 className="text-xl mb-2 font-semibold text-gray-700">
                         properties
                       </h3> */}
-                      <div className='mb-0'>
-                        {product?.properties?.length > 0 && product?.properties.map((ele) => (
-                          <div key={ele.property}>
-                            <div>
-                              {ele.property}
-                            </div>
-                            <div className='flex justify-end  gap-2 py-1 pb-2 pr-5'>
-                              {ele.valuesWanted.length > 0 && ele.valuesWanted.map((value, index) => (
-                                <div onClick={() => choiceProperties(ele.property, value.value)} className='border hover:border-yellow-500 rounded-md px-3 py-1 hover:bg-slate-100 border-slate-600' key={index}>
-                                  {value.value}
-                                </div>
-                              ))}
-                            </div>
+                    <div className='mb-0'>
+                      {product?.properties?.length > 0 && product?.properties.map((ele) => (
+                        <div key={ele.property}>
+                          <div>
+                            {ele.property}
                           </div>
-                        ))}
-                      </div>
-                    </div>}
-                    <hr />
+                          <div className='flex justify-end  gap-2 py-1 pb-2 pr-5'>
+                            {ele.valuesWanted.length > 0 && ele.valuesWanted.map((value, index) => (
+                              <div onClick={() => choiceProperties(ele.property, value.value)} className='border hover:border-yellow-500 rounded-md px-3 py-1 hover:bg-slate-100 border-slate-600' key={index}>
+                                {value.value}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>}
+                <hr />
 
                 <div className='mt-2'>
 
-                      {/* <div className={`flex items-center ${product?.stockQuantity < 25 ? "animate-pulse text-red-500":''} space-x-1 text-sm text-gray-700 bg-yellow-100 p-2 rounded-md`}>
+                  {/* <div className={`flex items-center ${product?.stockQuantity < 25 ? "animate-pulse text-red-500":''} space-x-1 text-sm text-gray-700 bg-yellow-100 p-2 rounded-md`}>
                                   <span>Just</span>
                                   <span className="font-bold text-yellow-600 underline">{product?.stockQuantity}</span>
                                   <span>left in stock</span>
@@ -410,7 +410,7 @@ export default function ProductPage({ Session, product }) {
                       </div>
                     </div>
                   }
-            {/* Social media icons */}
+                  {/* Social media icons */}
                   <div className=' flex justify-end rounded-lg'>
                     <div className="flex">
                       <button
@@ -538,7 +538,7 @@ export default function ProductPage({ Session, product }) {
                           width={100}
                           height={100}
                           quality={10}
-                        className="rounded-lg p-1 cursor-pointer"
+                          className="rounded-lg p-1 cursor-pointer"
                         />
                       </div>
                     ))}
@@ -637,46 +637,46 @@ export default function ProductPage({ Session, product }) {
 
                   }
                 </div>
-             </div>
+              </div>
             }
 
             <div className='flex my-12 justify-center items-center '>
               <hr className=' w-1/2 ' />
               <h2 className='text-nowrap text-2xl px-2'>التعليقات</h2>
               <hr className=' w-1/2' />
-            </div> 
+            </div>
 
             {product.comments ?
               <div>
                 <div className='bg-white p-4 rounded-lg shadow-sm mt-6'>
-                    <form onSubmit={(ev) => addComment(ev)} className='flex items-start space-x-4'>
-                      <div className='flex-grow'>
-                        <textarea
-                          className='w-full bg-gray-100 text-right rounded-lg p-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black'
-                          rows='2'
-                          placeholder= '...  أضف تعليقًا '
-                          value={message}
-                          required
-                          onChange={e => setMessage(e.target.value)}
-                        ></textarea>
+                  <form onSubmit={(ev) => addComment(ev)} className='flex items-start space-x-4'>
+                    <div className='flex-grow'>
+                      <textarea
+                        className='w-full bg-gray-100 text-right rounded-lg p-3 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black'
+                        rows='2'
+                        placeholder='...  أضف تعليقًا '
+                        value={message}
+                        required
+                        onChange={e => setMessage(e.target.value)}
+                      ></textarea>
 
-                        {showLoginMessage &&
-                          <div className='text-sm justify-center items-center flex gap-2 border-2 px-1 rounded-md border-red-500 text-red-500'>
-                            <div>يجب عليك تسجيل الدخول أولاً</div>
-                            <Link className='text-blue-950 hover:underline' href={'/Login'}>تسجيل الدخول</Link>
-                          </div>
-                        }
-
-                        <div className='flex items-center justify-end space-x-2 mt-2'>
-                          <button type='button' onClick={cancel} className='bg-white border-2 border-black text-black hover:bg-black hover:text-white px-4 py-1.5 rounded-lg font-medium duration-300'>
-                            إلغاء
-                          </button>
-                          <button type='submit' className=' bg-black border-2 border-black text-white hover:bg-white   hover:text-black duration-300 px-4 py-1.5 rounded-lg font-medium'>
-                            إضافة تعليق
-                          </button>
+                      {showLoginMessage &&
+                        <div className='text-sm justify-center items-center flex gap-2 border-2 px-1 rounded-md border-red-500 text-red-500'>
+                          <div>يجب عليك تسجيل الدخول أولاً</div>
+                          <Link className='text-blue-950 hover:underline' href={'/Login'}>تسجيل الدخول</Link>
                         </div>
+                      }
+
+                      <div className='flex items-center justify-end space-x-2 mt-2'>
+                        <button type='button' onClick={cancel} className='bg-white border-2 border-black text-black hover:bg-black hover:text-white px-4 py-1.5 rounded-lg font-medium duration-300'>
+                          إلغاء
+                        </button>
+                        <button type='submit' className=' bg-black border-2 border-black text-white hover:bg-white   hover:text-black duration-300 px-4 py-1.5 rounded-lg font-medium'>
+                          إضافة تعليق
+                        </button>
                       </div>
-                    </form>
+                    </div>
+                  </form>
                 </div>
 
 
@@ -696,7 +696,7 @@ export default function ProductPage({ Session, product }) {
                 <div className="flex justify-center items-center">
                   <div>
                     <p className="text-gray-600 text-sm mt-2">
-                    التعليقات على هذا المنتج معطلة حاليا. يرجى التحقق مرة أخرى في وقت لاحق.                   
+                      التعليقات على هذا المنتج معطلة حاليا. يرجى التحقق مرة أخرى في وقت لاحق.
                     </p>
                   </div>
                 </div>

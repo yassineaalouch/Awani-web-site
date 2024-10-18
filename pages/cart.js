@@ -1,6 +1,6 @@
 'use client'; // Utiliser le mode client pour l'accès au localStorage
 
-import { useContext,useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/components/cartContext";
 import Image from "next/image";
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -18,10 +18,10 @@ export default function CartPage() {
             prevItems.map((item) => {
                 if (item.id === id) {
                     const newQuantity = Math.max(1, item.quantity + delta);
-                    const discount = item.discountPercentage > 0 && newQuantity>item.discountQuantity  ? item.discountPercentage / 100 : 0;
+                    const discount = item.discountPercentage > 0 && newQuantity > item.discountQuantity ? item.discountPercentage / 100 : 0;
                     const discountedPrice = item.price - item.price * discount;
                     const totalPrice = (newQuantity * discountedPrice);
-    
+
                     return {
                         ...item,
                         quantity: newQuantity,
@@ -32,16 +32,16 @@ export default function CartPage() {
             })
         );
     };
-    const [deletePermission,setDeletePermission] = useState(false)
+    const [deletePermission, setDeletePermission] = useState(false)
     useEffect(() => {
-        if(cartProducts.length >0 ||deletePermission){
+        if (cartProducts.length > 0 || deletePermission) {
             localStorage.setItem('cart', JSON.stringify(cartProducts));
             setDeletePermission(false)
 
         }
-        
+
     }, [cartProducts]);
-    
+
 
     const handleRemoveItem = (id) => {
         setCartProducts((prevItems) => {
@@ -69,7 +69,7 @@ export default function CartPage() {
                                             className="flex items-center bg-gray-200 p-4 rounded-lg shadow-sm"
                                         >
                                             <div className="w-28 h-28 mr-4">
-                                                <Image 
+                                                <Image
                                                     src={item.image || "/No_Image_Available.jpg"}
                                                     alt={item.title}
                                                     width={100}
@@ -79,7 +79,7 @@ export default function CartPage() {
                                             </div>
                                             <div className="flex-1">
                                                 <h2 className="text-lg line-clamp-2 font-medium">{item.title}</h2>
-                                                <p className="text-sm text-gray-600">${item.totalPrice.toFixed(2)}</p>
+                                                <p className="text-sm text-gray-600">MAD {item.totalPrice.toFixed(2)}</p>
                                                 <div className="flex items-center mt-2">
                                                     <button
                                                         onClick={() => handleQuantityChange(item.id, -1)}
@@ -110,8 +110,13 @@ export default function CartPage() {
                                     <Link href="/Checkout" className="bg-yellow-300 p-2 rounded-lg hover:bg-yellow-500">
                                         Continue to checkout
                                     </Link>
-                                    <div className="text-lg font-semibold">
-                                        Total Price: ${totalPrice.toFixed(2)}
+                                    <div className="flex text-lg font-semibold">
+                                        <p>
+                                            MAD {totalPrice.toFixed(2)}
+                                        </p>
+                                        <p>
+                                            : السعر الإجمالي
+                                        </p>
                                     </div>
                                 </div>
                             </div>
