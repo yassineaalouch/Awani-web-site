@@ -24,9 +24,13 @@ return (
         className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm text-gray-800"
     >
             <option value="All">All</option>
-                <option value={'Validate'} className='text-green-500'>Validate </option>
-                <option value={'Rejected'} className='text-red-500'>Rejected</option>
-                <option value={'Under Review'} className='text-yellow-500'>Under Review</option>
+            <option value='New Order' className="text-blue-500">New Order</option>
+            <option value='Try 1' className="text-yellow-300">Try 1</option>
+            <option value='Try 2' className="text-yellow-500">Try 2</option>
+            <option value='Try 3' className="text-yellow-600">Try 3</option>
+            <option value='Validated' className="text-green-600">Validated</option>
+            <option value='Rejected' className="text-red-500">Rejected</option>
+
     </select>
     </div>
 

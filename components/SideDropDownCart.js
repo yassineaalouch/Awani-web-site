@@ -1,9 +1,22 @@
-export default function SideDropDownCart(){
-    return(
-        <>
-        <div className=" fixed bottom-0 bg-yellow-900/35 h-screen w-52 hover:right-0 transition-all duration-500 right-[-32%]">
-j
-        </div>
-        </>
-    )
+import { useEffect, useState } from "react";
+
+export default function SideDropDownCart({ ShowCart }) {
+  const [translateX, setTranslateX] = useState("-100%");
+
+  useEffect(() => {
+    if (ShowCart) {
+      setTranslateX("0");
+    } else {
+      setTranslateX("-100%");
+    }
+  }, [ShowCart]);
+
+  return (
+    <div
+      className={`h-screen md:w-1/3 w-1/2 bg-white fixed top-0 left-0 z-[100] transition-transform duration-300`}
+      style={{ transform: `translateX(${translateX})` }}
+    >
+      hello
+    </div>
+  );
 }

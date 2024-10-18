@@ -13,12 +13,16 @@ import axios from "axios";
 import { MdOutlineCurrencyExchange } from "react-icons/md";
 import Image from "next/image";
 import { CategoryContext } from "@/components/categoryContext";
+import { FaCartShopping } from "react-icons/fa6";
+import { CartContext } from "@/components/cartContext";
+import SideDropDownCart from "@/components/SideDropDownCart";
 
 
 export default function Nav_bar_interface({classNameGlobal , classNameMenuUserIcon}) {
     const {conversionRate,currencyWanted,setCurrencyWanted,setConversionRate} = useContext(converterCurrency)
     const {category, setCategory } = useContext(CategoryContext)
-
+    const {cartProducts,setCartProducts} = useContext(CartContext)
+    const [showSideCart,setShowSideCart] = useState (false)
     const router = useRouter();
     const  {data:session} = useSession()
     
@@ -70,7 +74,8 @@ export default function Nav_bar_interface({classNameGlobal , classNameMenuUserIc
 
     
     return (
-        <div className={"w-screen bg-white border-b border"+classNameGlobal}>
+    <div>
+        <div className={"w-screen  bg-white border-b border"+classNameGlobal}>
             <div className="flex justify-between items-center px-2 md:px-4 lg:px-10">
                 <div className="block px-3 pr-5 md:hidden lg:hidden">
                     <svg onClick={showMenu} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-black font-bold cursor-pointer size-6">
@@ -106,15 +111,12 @@ export default function Nav_bar_interface({classNameGlobal , classNameMenuUserIc
 
                 </ul>
                 <div className="flex items-center gap-2 md:gap-4">
-                    {/* <button onClick={ShowConverterCurrencyFunction}  className="flex group-[]: px-1 items-center py-1 group relative hover:bg-yellow-600 bg-white   rounded-full">
-                    <MdOutlineCurrencyExchange size={20} className=" text-slate-600 group-hover:text-white" />
-                    <span className="text-xs group-hover:text-white text-slate-600">_{currencyWanted||'MAD'}</span>
-                    </button>
-                    <div onClick={ShowConverterCurrencyFunction} className={showConverterCurrency? 'block absolute inset-0  w-screen h-screen ': "hidden" }>
-                        <div className={`absolute top-12 right-2`} onClick={(e)=>{e.stopPropagation()}}>
-                            <LanguageCurrencySettings/>
+                    <button onClick={()=>setShowSideCart(!showSideCart)} className="relative pt-3 mx-2 ">
+                        <FaCartShopping size={25} className="z-40"/>
+                        <div className="text-sm bg-red-500 px-[3px] text-[18px] text-white font-light rounded-full absolute bottom-3 left-4">
+                            {cartProducts.length}
                         </div>
-                    </div> */}
+                    </button>
                     {!session?
                         <button onClick={goToLoginPage} className={"bg-black rounded-xl px-3 py-1  border-black border-[1.2px] text-white font-semibold hover:bg-white hover:text-black"}>
                             Login
@@ -124,6 +126,7 @@ export default function Nav_bar_interface({classNameGlobal , classNameMenuUserIc
                         <button onClick={()=>setShowUserMenu(!showUserMenu)} className="flex justify-center bg-black gap-1 text-white  rounded-full overflow-hidden">
                             <span className=" text-sm p-2 relative"><FaUserAlt/></span>
                         </button>
+                        
                         {showUserMenu&&
                         <div onClick={()=>setShowUserMenu(!showUserMenu)} className={showUserMenu? 'block absolute inset-0  w-screen h-screen ': "hidden" }>
                             <div className={"absolute top-9 right-3 md:right-14 lg:right-20 text-black flex flex-col rounded-lg  justify-start bg-white border-x-2 border-slate-300 border-t-2 z-40"+classNameMenuUserIcon}>
@@ -154,8 +157,11 @@ export default function Nav_bar_interface({classNameGlobal , classNameMenuUserIc
                         }
                   </div>
                     }
+                    
                 </div>
             </div>
         </div>
+    <SideDropDownCart ShowCart={showSideCart} />
+</div>
     );
 }

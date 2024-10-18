@@ -18,7 +18,6 @@ import { IoRemove } from "react-icons/io5";
 import formatCurrency from '@/components/formatCurrency';
 import { FaFacebook, FaShoppingCart, FaWhatsappSquare } from "react-icons/fa";
 import { FaXTwitter, FaSquareInstagram } from "react-icons/fa6";
-import SideDropDownCart from '@/components/SideDropDownCart';
 import { converterCurrency } from "@/components/currencyConverter";
 import BlackBarTop from '@/components/blackBarTop';
 
@@ -57,14 +56,16 @@ export default function ProductPage({ Session, product }) {
   const ImageChange = (src) => {
     setMainImage(src);
   };
-
+  const [ratingList, setRatingList] = useState({})
+  useEffect(()=>{
+    console.log('ratingList',ratingList)
+  },[ratingList])
   const [cursor, setCursor] = useState(5)
   const [message, setMessage] = useState('')
   const [commentsList, setCommentsList] = useState([])
   const [update, setUpdate] = useState(false);
   const [dejaRating, setDejaRating] = useState(false);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
-  const [ratingList, setRatingList] = useState({})
   const [totalRating, setTotalRating] = useState({})
   const [listOfRatingCarts, setListOfRatingCarts] = useState([])
   const [customerReview, setCustomerReview] = useState('')
@@ -92,7 +93,6 @@ export default function ProductPage({ Session, product }) {
   }, []);
   const shareOnFacebook = () => {
     const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`;
-    console.log(facebookShareUrl)
     window.open(facebookShareUrl, '_blank');
   };
 
@@ -111,7 +111,7 @@ export default function ProductPage({ Session, product }) {
 
   async function fetchData() {
     try {
-      const [commentsResponse, ratingResponse, ratingCarts, listRatingProduct] = await Promise.all([
+      const [commentsResponse, ratingResponse, ratingCarts] = await Promise.all([
         axios.get('/api/comment', {
           params: { id: product?._id }, headers: {
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
@@ -127,25 +127,38 @@ export default function ProductPage({ Session, product }) {
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
           }
         }),
-        axios.get('/api/UserHandler', {
-          params: { _id: Session?.user?.id, productId: product?._id }, headers: {
-            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
-          }
-        }),
+
       ]);
-      setPermissionList(listRatingProduct.data.timerRating.map((ele) => (ele.productId)))
-      console.log('(listRatingProduct.data.timerRating.map((ele) => (ele.productId)))',listRatingProduct.data.timerRating.map((ele) => (ele.productId)))
       setListOfRatingCarts(ratingCarts)
       setCommentsList(commentsResponse.data);
       setRatingList(ratingResponse.data);
-      const purchaseDate = new Date(listRatingProduct.data.timerRating.filter(ele => ele.productId === product?._id)[0]?.purchaseDate)
-      const timeNow = new Date()
-      setTimeLimit((timeNow - purchaseDate) / (1000 * 60 * 60 * 24))
       const totalRating = TotalRatingCalculator(ratingResponse.data);
       setTotalRating(totalRating);
+
+
+
     } catch (error) {
       console.error('Error fetching comments and ratings:', error);
     }
+
+    try{
+      if(Session){
+        const listRatingProduct = await axios.get('/api/UserHandler', {
+          params: { _id: Session?.user?.id, productId: product?._id }, headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }
+        })
+        setPermissionList(listRatingProduct.data.timerRating.map((ele) => (ele.productId)))
+    
+        const purchaseDate = new Date(listRatingProduct.data.timerRating.filter(ele => ele.productId === product?._id)[0]?.purchaseDate)
+        const timeNow = new Date()
+        setTimeLimit((timeNow - purchaseDate) / (1000 * 60 * 60 * 24))
+      }
+    }
+    catch (error) {
+      console.error('Error fetching comments and ratings:', error);
+    }
+
   }
 
 
@@ -615,7 +628,7 @@ export default function ProductPage({ Session, product }) {
                       <div className='flex flex-col'>
                         <h1 className='text-xl flex justify-center font-semibold text-gray-800 mb-2'>{ele.name}</h1>
                         <div className='flex flex-col justify-center gap-2 items-center'>
-                          <p>{ele.customerReview}</p>
+                          <p className='text-right'>{ele.customerReview}</p>
                           <Etoiles number={ele.rating} />
                         </div>
                       </div>
@@ -694,7 +707,6 @@ export default function ProductPage({ Session, product }) {
 
         </div>
         <div>
-          <SideDropDownCart />
         </div>
         <Footer />
       </div>
