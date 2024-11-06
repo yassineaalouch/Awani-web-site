@@ -116,10 +116,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useContext } from "react";
-import { CategoryContext } from "./categoryContext";
+import { FilterLocalContext } from "./FilterLocalContext";
 
 function CategoriesHomePageSection() {
-  const { category, setCategory } = useContext(CategoryContext);
+  const { filterLocal, setFilterLocal } = useContext(FilterLocalContext);
   const [currentIndex, setCurrentIndex] = useState(0);
   const list = [
     { img: '/categories/3ssara.png', text: 'عصارة' },
@@ -212,7 +212,7 @@ function CategoriesHomePageSection() {
           >
             {list.map((ele, index) => (
               <div key={index} className="w-20 h-20 sm:min-h-24 sm:min-w-24 md:min-w-36 md:min-h-36  flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5 hover:scale-110 transition-all duration-300">
-                <Link onClick={() => { setCategory(ele.text); }} href={"/Shop"}>
+                <Link onClick={() => { setFilterLocal({ category: ele.text, price: null, rating: null, order: null }) }} href={"/Shop"}>
                   <Image
                     src={ele.img || "/No_Image_Available.jpg"}
                     alt="No_Image_Available"

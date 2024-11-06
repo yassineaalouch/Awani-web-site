@@ -12,24 +12,33 @@ import { useSession } from "next-auth/react";
 import Hr from "@/interfaceComponents/Hr";
 import Select from "react-select";
 import makeAnimated from 'react-select/animated';
+import TiptapEditor from "./TiptapEditor";
 
 
 export default function ProductForm({ _id, rating, properties: existProperties, comments: existingComments, ratingDistribution, title: existingTitle, discountPrice: existingDiscountPrice, description: existingDescription, price: existingPrice, images: existingImages, category: existingCategory, purchasePrice: existingPurchasePrice, supplier: existingSupplier, stockQuantity: existingStockQuantity, dimensions: existingDimensions, countryOfProduction: existingCountryOfProduction, deliveryTime: existingDeliveryTime, SKU: existingSKU, barcode: existingBarcode, customerReviews: existingCustomerReviews, materials: existingMaterials, careInstructions: existingCareInstructions, allergens: existingAllergens, expirationDate: existingExpirationDate, certificatesAndLabels: existingCertificatesAndLabels, recyclingInformation: existingRecyclingInformation, returnAndWarrantyConditions: existingReturnAndWarrantyConditions, promotionsOrDiscounts: existingPromotionsOrDiscounts, complementaryProducts: existingComplementaryProducts, productFAQ: existingProductFAQ }) {
     const { data: session } = useSession()
-    const [existPropList,setExistPropList]= useState(existProperties || [])
-    console.log("existPropList",existPropList)
+    const [existPropList, setExistPropList] = useState(existProperties || [])
+    console.log("existPropList", existPropList)
     const [title, setTitle] = useState(existingTitle || '');
     const [category, setCategory] = useState(existingCategory || '')
     const [images, setImages] = useState(existingImages || []);
-    const [description, setDescription] = useState(existingDescription || '');
+    // const [description, setDescription] = useState(!!existingDescription ? JSON.parse(existingDescription) : '' || '');
+    const [description, setDescription] = useState(() => {
+        try {
+            return existingDescription ? JSON.parse(existingDescription) : '';
+        } catch (error) {
+            console.error("Failed to parse existingDescription:", error);
+            return '';
+        }
+    });
     const [price, setPrice] = useState(existingPrice || '');
     const [discountPrice, setDiscountPrice] = useState(existingDiscountPrice || '');
     const [stockQuantity, setStockQuantity] = useState(existingStockQuantity || '');
     const [purchasePrice, setPurchasePrice] = useState(existingPurchasePrice || '');
     const [dimensions, setDimensions] = useState(existingDimensions || { length: '', width: '', height: '' });
     const [deliveryTime, setDeliveryTime] = useState(existingDeliveryTime || '');
-  
-  
+
+
     const [supplier, setSupplier] = useState(existingSupplier || '');
     const [countryOfProduction, setCountryOfProduction] = useState(existingCountryOfProduction || '');
     const [SKU, setSKU] = useState(existingSKU || '');
@@ -42,7 +51,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
     const [goToProducts, setGoToProducts] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [categories, setCategories] = useState([]);
-    
+
     const [properties, setProperties] = useState(existProperties || []);
     const [products, setProducts] = useState([]);
     const [discounts, setDiscounts] = useState([]);
@@ -62,7 +71,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
 
 
 
-    const [PropertiesNew,setPropertiesNew]=useState(existProperties||[])
+    const [PropertiesNew, setPropertiesNew] = useState(existProperties || [])
 
 
     useEffect(() => {
@@ -128,7 +137,8 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
 
     async function saveProduct(ev) {
         ev.preventDefault();
-        const data = { title, description, price, promotionsOrDiscounts: discountListToSend, discountPrice, comments, images, category, properties: PropertiesNew, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions };
+        const serializedContent = JSON.stringify(description);
+        const data = { title, description: serializedContent, price, promotionsOrDiscounts: discountListToSend, discountPrice, comments, images, category, properties: PropertiesNew, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions };
         if (title.trim() != "") {
             if (_id) {
                 await axios.put('/api/products', { ...data, _id }, {
@@ -380,14 +390,15 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                     value={purchasePrice}
                     onChange={e => setPurchasePrice(e.target.value)}
                 />
-                
+
                 <label className="this">Description</label>
-                <textarea
+                <TiptapEditor content={description} editable={true} toolBar={true} setContent={setDescription} />
+                {/* <textarea
                     className="this"
                     placeholder="Description"
                     value={description}
                     onChange={e => setDescription(e.target.value)}
-                />
+                /> */}
 
                 <label className="this">Category</label>
                 <select className="this mt-1" value={category} onChange={ev => { setCategory(ev.target.value) }}>
@@ -400,7 +411,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
 
 
                 <label className="this">Properties</label>
-                
+
 
 
 
@@ -409,9 +420,9 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                     value={propertiesList}
                     isMulti={true}
                     components={animatedComponents}
-                    onChange={ev => { setPropertiesList(ev); console.log('properties', properties);console.log('propertiesListpropertiesList', ev) }}
+                    onChange={ev => { setPropertiesList(ev); console.log('properties', properties); console.log('propertiesListpropertiesList', ev) }}
                 />
-                
+
                 {propertiesList.length > 0 &&
                     <div className="pt-4 ml-1 rounded-bl-lg mb-10 border-l-2">
                         {propertiesList.length > 0 && propertiesList.map(ele => (
@@ -423,28 +434,28 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                                         value={PropertiesNew.filter(p => p.property === ele.name).valuesWanted}
                                         isMulti={true}
                                         components={animatedComponents}
-                                        onChange={ev => 
-                                            {   console.log('PropertiesNew.filter(p => p.property === ele.name).valuesWanted',PropertiesNew.filter(p => p.property === ele.name).valuesWanted)
-                                                console.log('existProperties.filter(prop=>prop.property === ele.name).valuesWanted',existProperties.filter(prop=>prop.property === ele.name).valuesWanted)
-                                                setPropertiesNew(prev => {
-                                                    // Check if the property already exists
-                                                    const existingProperty = prev.find(p => p.property === ele.name);
-                                                    if (existingProperty) {
-                                                        // Update the existing property
-                                                        return prev.map(p =>
-                                                            p.property === ele.name ? { ...p, valuesWanted: ev } : p
-                                                        );
-                                                    } else {
-                                                        // Add a new property entry
-                                                        return [...prev, { property: ele.name, valuesWanted: ev, valuesInterval: ele.values }];
-                                                    }
-                                                });
-                                                console.log('PropertiesNew', PropertiesNew);
-                                                // console.log('ev', ev);
-                                                // console.log('ele.name', ele.name);
-                                                // console.log('ele.values', ele.values);
-                                            }
-                                            
+                                        onChange={ev => {
+                                            console.log('PropertiesNew.filter(p => p.property === ele.name).valuesWanted', PropertiesNew.filter(p => p.property === ele.name).valuesWanted)
+                                            console.log('existProperties.filter(prop=>prop.property === ele.name).valuesWanted', existProperties.filter(prop => prop.property === ele.name).valuesWanted)
+                                            setPropertiesNew(prev => {
+                                                // Check if the property already exists
+                                                const existingProperty = prev.find(p => p.property === ele.name);
+                                                if (existingProperty) {
+                                                    // Update the existing property
+                                                    return prev.map(p =>
+                                                        p.property === ele.name ? { ...p, valuesWanted: ev } : p
+                                                    );
+                                                } else {
+                                                    // Add a new property entry
+                                                    return [...prev, { property: ele.name, valuesWanted: ev, valuesInterval: ele.values }];
+                                                }
+                                            });
+                                            console.log('PropertiesNew', PropertiesNew);
+                                            // console.log('ev', ev);
+                                            // console.log('ele.name', ele.name);
+                                            // console.log('ele.values', ele.values);
+                                        }
+
                                             // {setPropertiesNew((prev) => [...prev,{property:ele.name,valueWanted:ev,valuesInterval:ele.values }]);console.log('PropertiesNew',PropertiesNew) ;console.log('ev',ev);console.log('ele.name',ele.name);console.log('ele.values',ele.values)  }
                                         }
                                     />
@@ -497,7 +508,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                     value={deliveryTime}
                     onChange={e => setDeliveryTime(e.target.value)}
                 />
-                
+
                 <label className="this">Comments</label>
                 <select
                     className="this"
@@ -514,7 +525,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
 
 
 
-{/* 
+                {/* 
                 <hr className="my-4"/>
                 <label className="this">Discounts</label>
                 <Select

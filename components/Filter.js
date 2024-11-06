@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { CategoryContext } from "@/components/categoryContext";
+import { FilterLocalContext } from "@/components/FilterLocalContext";
 
 function ProductFilterBar({ categories, ImportFilterValues }) {
 
@@ -8,11 +8,18 @@ function ProductFilterBar({ categories, ImportFilterValues }) {
     const [priceRange, setPriceRange] = useState('');
     const [rating, setRating] = useState('');
     const [sortOrder, setSortOrder] = useState('');
-    const { category, setCategory } = useContext(CategoryContext)
+    const { filterLocal, setFilterLocal } = useContext(FilterLocalContext)
 
     useEffect(() => {
-        if (category != 'All' && category != undefined) {
-            setCategoryFilter(category)
+        if (filterLocal.category != 'All' && filterLocal.category != undefined) {
+            setCategoryFilter(filterLocal.category)
+        } else {
+            setFilterLocal({
+                category: '',
+                price: '',
+                rating: '',
+                order: ''
+            })
         }
     }, [])
 
@@ -87,7 +94,15 @@ function ProductFilterBar({ categories, ImportFilterValues }) {
 
             {/* Filter Button */}
             <button
-                onClick={() => { ImportFilterValues({ priceRange, categoryFilter, sortOrder, rating }) }}
+                onClick={() => {
+                    setFilterLocal({
+                        category: categoryFilter,
+                        price: priceRange,
+                        rating: rating,
+                        order: sortOrder
+                    });
+                    ImportFilterValues({ priceRange, categoryFilter, sortOrder, rating })
+                }}
                 className="bg-black border-white border-2 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:text-black hover:border-black hover:bg-white transition duration-150"
             >
                 يبحث

@@ -1,6 +1,5 @@
 import Footer from "@/interfaceComponents/Footer";
 import BlackBarTop from "@/components/blackBarTop";
-import NavBarTajrProject from "@/components/NavBarTajrProject";
 import SlidesOfDiscountHomePage from "@/components/SlidesOfDiscountHomePage";
 import QualiteCarts from "@/components/QualiteCarts";
 import CategoriesHomePageSection from "@/components/CategoriesHomePageSection";
@@ -17,27 +16,27 @@ export async function getServerSideProps() {
   await mongooseConnect()
   const productList = await Product.find({}).populate('category').lean();
   return {
-      props: {
-          productList: JSON.parse(JSON.stringify(productList.reverse())),
-      },
+    props: {
+      productList: JSON.parse(JSON.stringify(productList.reverse())),
+    },
   };
 }
-export default function Home({productList}) {
-  const[productListClientSide,setProductListClientSide]=useState(productList)
+export default function Home({ productList }) {
+  const [productListClientSide, setProductListClientSide] = useState(productList)
   return (
     <>
-      <BlackBarTop/>
-      <Nav_bar_interface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'}/>
-      <SlidesOfDiscountHomePage/>
-      <QualiteCarts/>
-      <CategoriesHomePageSection/>
-      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={" الأكثر مبيعاً"}/>
-      <PlaceOfAdvertisingBar/>
-      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"معدات كهربائية"}/>
-      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"كؤوس"}/>
-      <LastPlaceOfAdvertisingBar/>
+      <BlackBarTop />
+      <Nav_bar_interface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'} />
+      <SlidesOfDiscountHomePage />
+      <QualiteCarts />
+      <CategoriesHomePageSection />
+      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={" الأكثر مبيعاً"} />
+      <PlaceOfAdvertisingBar />
+      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"معدات كهربائية"} />
+      <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={"كؤوس"} />
+      <LastPlaceOfAdvertisingBar />
       <Footer className="mt-5"></Footer>
-    
+
     </>
   );
 }

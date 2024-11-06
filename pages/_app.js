@@ -3,13 +3,13 @@ import '../styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import { ConverterCurrencyProvider } from '@/components/currencyConverter'
 import Script from 'next/script'
-import CategoryContextProvider from '@/components/categoryContext'
+import FilterLocalContextProvider from '@/components/FilterLocalContext'
 
 
-export default function App({Component, pageProps: { session, ...pageProps }}) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <CartContextProvider>
-      <CategoryContextProvider>
+      <FilterLocalContextProvider>
         <ConverterCurrencyProvider>
           <SessionProvider session={session}>
             <Script
@@ -29,10 +29,10 @@ export default function App({Component, pageProps: { session, ...pageProps }}) {
                 `,
               }}
             />
-            <Component {...pageProps}/>
+            <Component {...pageProps} />
           </SessionProvider>
         </ConverterCurrencyProvider>
-      </CategoryContextProvider>
+      </FilterLocalContextProvider>
     </CartContextProvider>
 
   )

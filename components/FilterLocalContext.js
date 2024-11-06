@@ -34,22 +34,26 @@
 "use client";
 import { createContext, useState, useEffect } from 'react';
 
-export const CategoryContext = createContext({});
+export const FilterLocalContext = createContext({});
 
-function CategoryContextProvider({ children }) {
-    const [category, setCategory] = useState('All');
+function FilterLocalContextProvider({ children }) {
+    const [filterLocal, setFilterLocal] = useState({
+        category: '',
+        price: null,
+        rating: null,
+        order: null
+    });
 
     // Chargement initial de la catégorie à partir du localStorage
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const storedCategory = localStorage.getItem('CategoryLocal');
+            const storedCategory = localStorage.getItem('FilterLocal');
             if (storedCategory) {
                 try {
-                    setCategory(JSON.parse(storedCategory));
+                    setFilterLocal(JSON.parse(storedCategory));
                 } catch (error) {
-                    console.error("Erreur lors du parsing de la catégorie :", error);
                     // Si le JSON n'est pas valide, utiliser la valeur par défaut 'All'
-                    setCategory('All');
+                    setFilterLocal({});
                 }
             }
         }
@@ -58,15 +62,15 @@ function CategoryContextProvider({ children }) {
     // Sauvegarde de la catégorie dans le localStorage à chaque changement
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            localStorage.setItem('CategoryLocal', JSON.stringify(category));
+            localStorage.setItem('filterLocal', JSON.stringify(filterLocal));
         }
-    }, [category]);
+    }, [filterLocal]);
 
     return (
-        <CategoryContext.Provider value={{ category, setCategory }}>
+        <FilterLocalContext.Provider value={{ filterLocal, setFilterLocal }}>
             {children}
-        </CategoryContext.Provider>
+        </FilterLocalContext.Provider>
     );
 }
 
-export default CategoryContextProvider;
+export default FilterLocalContextProvider;

@@ -12,15 +12,15 @@ import { converterCurrency } from "@/components/currencyConverter";
 import axios from "axios";
 import { MdOutlineCurrencyExchange } from "react-icons/md";
 import Image from "next/image";
-import { CategoryContext } from "@/components/categoryContext";
+import { FilterLocalContext } from "@/components/FilterLocalContext";
 import { FaCartShopping } from "react-icons/fa6";
 import { CartContext } from "@/components/cartContext";
 import SideDropDownCart from "@/components/SideDropDownCart";
 
 
 export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIcon }) {
-    const { conversionRate, currencyWanted, setCurrencyWanted, setConversionRate } = useContext(converterCurrency)
-    const { category, setCategory } = useContext(CategoryContext)
+    const { setConversionRate } = useContext(converterCurrency)
+    const { setFilterLocal } = useContext(FilterLocalContext)
     const { cartProducts, setCartProducts } = useContext(CartContext)
     const [showSideCart, setShowSideCart] = useState(false)
     const router = useRouter();
@@ -94,7 +94,7 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
                                 <ul onClick={(e) => { e.stopPropagation() }} className="grid gap-1 w-full py-6 bg-white/15 backdrop-blur-[2px]">
                                     <Link href='/' className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">Home</Link>
                                     <Link href="/About" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">About</Link>
-                                    <Link onClick={() => { setCategory('All') }} href="/Shop" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">Shop</Link>
+                                    <Link onClick={() => { setFilterLocal({ category: '', price: null, rating: null, order: null }) }} href="/Shop" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">Shop</Link>
                                     <Link href="/contact" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all pb-1 cursor-pointer text-center w-full py-4">Contact us</Link>
                                 </ul>
                             </div>
@@ -109,7 +109,7 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
                     <ul className="hidden md:flex ml-3 md:gap-4 lg:gap-9 text-sm">
                         <li><Link href="/" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Home</Link></li>
                         <li><Link href="/About" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">About</Link></li>
-                        <li><Link onClick={() => { setCategory('All') }} href="/Shop" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Shop</Link></li>
+                        <li><Link onClick={() => { setFilterLocal({ category: '', price: null, rating: null, order: null }) }} href="/Shop" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Shop</Link></li>
                         <li><Link href="/contact" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Contact us</Link></li>
 
                     </ul>

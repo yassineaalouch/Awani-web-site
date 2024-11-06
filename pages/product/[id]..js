@@ -20,6 +20,8 @@ import { FaFacebook, FaShoppingCart, FaWhatsappSquare } from "react-icons/fa";
 import { FaXTwitter, FaSquareInstagram } from "react-icons/fa6";
 import { converterCurrency } from "@/components/currencyConverter";
 import BlackBarTop from '@/components/blackBarTop';
+import TiptapEditor from '@/components/TiptapEditor';
+import ProductsHomePageSection from '@/components/ProductsHomePageSection';
 
 
 export async function getServerSideProps(context) {
@@ -29,25 +31,28 @@ export async function getServerSideProps(context) {
 
   const { id } = context.params;
   const product = await Product.findById(id).lean();
+  const productList = await Product.find({ category: product.category }).populate('category').limit(20).lean();
 
   if (session?.user?.id) {
     return {
       props: {
         Session: JSON.parse(JSON.stringify(session)),
         product: JSON.parse(JSON.stringify(product)),
+        productList: JSON.parse(JSON.stringify(productList.reverse())),
       }
     };
   } else {
     return {
       props: {
         product: JSON.parse(JSON.stringify(product)),
+        productList: JSON.parse(JSON.stringify(productList.reverse())),
       }
     }
   }
 }
 
 
-export default function ProductPage({ Session, product }) {
+export default function ProductPage({ Session, product, productList }) {
   const [mainImage, setMainImage] = useState(product?.images[0] || "/No_Image_Available.jpg");
   const { setCartProducts, cartProducts } = useContext(CartContext)
   const { conversionRate, currencyWanted, } = useContext(converterCurrency)
@@ -268,6 +273,7 @@ export default function ProductPage({ Session, product }) {
         title: product.title,
         price: product.price,
         image: product.images[0],
+        productProperties: {},
         discountPercentage: product?.promotionsOrDiscounts[0]?.percentage || 0,
         discountQuantity: product?.promotionsOrDiscounts[0]?.quantity || 0,
         totalPrice: product.price,
@@ -303,6 +309,32 @@ export default function ProductPage({ Session, product }) {
       localStorage.setItem('cart', JSON.stringify(cartProducts));
     }
   };
+  let propListStyle = []
+  const choiceProperties = (id, propertyName, propertyValue) => {
+    propListStyle = [...propListStyle, { propertyName: propertyValue }]
+    setCartProducts((prevItems) =>
+      prevItems.map((item) => {
+        if (item.id === id) {
+          // Mise à jour ou ajout de la propriété directement
+          let newProductProperties = {
+            ...item.productProperties,
+            [propertyName]: propertyValue, // Ajoute ou met à jour la propriété
+          };
+
+          return {
+            ...item,
+            productProperties: newProductProperties,
+          };
+        }
+        return item;
+      })
+    );
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(cartProducts));
+    }
+  };
+
 
 
   return (
@@ -340,7 +372,8 @@ export default function ProductPage({ Session, product }) {
                 {product?.description &&
                   <div className="">
                     <p className="text-gray-600 my-2">
-                      {product?.description}
+                      <TiptapEditor toolBar={false} editable={false} content={JSON.parse(product?.description)} />
+                      {/* {product?.description} */}
                     </p>
                     <hr />
                   </div>}
@@ -351,20 +384,40 @@ export default function ProductPage({ Session, product }) {
                         properties
                       </h3> */}
                     <div className='mb-0'>
-                      {product?.properties?.length > 0 && product?.properties.map((ele) => (
+                      {/* {product?.properties?.length > 0 && product?.properties.map((ele) => (
                         <div key={ele.property}>
                           <div>
                             {ele.property}
                           </div>
                           <div className='flex justify-end  gap-2 py-1 pb-2 pr-5'>
                             {ele.valuesWanted.length > 0 && ele.valuesWanted.map((value, index) => (
-                              <div onClick={() => choiceProperties(ele.property, value.value)} className='border hover:border-yellow-500 rounded-md px-3 py-1 hover:bg-slate-100 border-slate-600' key={index}>
+                              <div onClick={() => choiceProperties(product._id, ele.property, value.value)} className='border hover:border-yellow-500 rounded-md px-3 py-1 hover:bg-slate-100 border-slate-600' key={index}>
                                 {value.value}
                               </div>
                             ))}
                           </div>
                         </div>
+                      ))} */}
+                      {product?.properties?.length > 0 && product?.properties.map((ele) => (
+                        <div key={ele.property} className="mb-4 border-b border-gray-300 pb-2">
+                          <div className="text-lg font-semibold text-black mb-1">
+                            {ele.property}
+                          </div>
+                          <div className="flex justify-end gap-2 py-1 pb-2 pr-5">
+                            {ele.valuesWanted.length > 0 && ele.valuesWanted.map((value, index) => (
+                              <div
+                                onClick={() => choiceProperties(product._id, ele.property, value.value)}
+                                // ${propListStyle.map()}
+                                className={`border  rounded-md px-3 py-1 cursor-pointer border-black hover:bg-gray-200 transition duration-150`}
+                                key={index}
+                              >
+                                <span className="text-black">{value.value}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       ))}
+
                     </div>
                   </div>}
                 <hr />
@@ -484,33 +537,6 @@ export default function ProductPage({ Session, product }) {
                         ))}
                       </div>
                     </div>}
-
-                  <div className="mt-4 bg-gray-50   rounded-lg shadow-sm">
-                    <h3 className="text-xl font-semibold text-gray-700">
-                      Menu & Content
-                    </h3>
-                    <p className="text-gray-600">
-                      Manage the menu and content sections of the application. This includes updating menu items and configuring content displayed on the pages.
-                    </p>
-                    <ul className="mt-2 list-disc list-inside">
-                      <li>Update Menu Items</li>
-                      <li>Edit Page Content</li>
-                      <li>Configure Navigation</li>
-                      <li>Update Menu Items</li>
-                      <li>Edit Page Content</li>
-                      <li>Configure Navigation</li>
-                      <li>Update Menu Items</li>
-                      <li>Edit Page Content</li>
-                      <li>Edit Page Content</li>
-                      <li>Configure Navigation</li>
-                      <li>Update Menu Items</li>
-                      <li>Edit Page Content</li>
-                      <li>Edit Page Content</li>
-                      <li>Configure Navigation</li>
-                      <li>Update Menu Items</li>
-                      <li>Edit Page Content</li>
-                    </ul>
-                  </div>
                 </div>
               </div>
               <div className="flex flex-col md:flex-row place-content-center gap-2 ">
@@ -551,7 +577,7 @@ export default function ProductPage({ Session, product }) {
 
             <div className='flex my-12 justify-center items-center '>
               <hr className=' w-1/2 ' />
-              <h2 className='text-nowrap text-2xl px-2'> تقييمات عملائنا</h2>
+              <h2 className='text-nowrap text-xl md:text-2xl px-2'> تقييمات عملائنا</h2>
               <hr className=' w-1/2' />
             </div>
 
@@ -618,7 +644,7 @@ export default function ProductPage({ Session, product }) {
               <div>
                 <div className='flex my-12 justify-center items-center '>
                   <hr className=' w-1/2 ' />
-                  <h2 className='text-nowrap text-2xl px-2'>آراء عملائنا</h2>
+                  <h2 className='text-nowrap text-xl md:text-2xl px-2'>آراء عملائنا</h2>
                   <hr className=' w-1/2' />
                 </div>
                 <div className=' overflow-auto flex gap-5 p-3'>
@@ -640,9 +666,20 @@ export default function ProductPage({ Session, product }) {
               </div>
             }
 
+
             <div className='flex my-12 justify-center items-center '>
               <hr className=' w-1/2 ' />
-              <h2 className='text-nowrap text-2xl px-2'>التعليقات</h2>
+              <h2 className='text-nowrap text-xl md:text-2xl px-2'>من نفس الفئة</h2>
+              <hr className=' w-1/2' />
+            </div>
+
+
+            <ProductsHomePageSection productList={productList} page={'productPage'} petitTitre={"هذا الشهر"} grandTitre={" الأكثر مبيعاً"} />
+
+
+            <div className='flex my-12 justify-center items-center '>
+              <hr className=' w-1/2 ' />
+              <h2 className='text-nowrap text-xl md:text-2xl px-2'>التعليقات</h2>
               <hr className=' w-1/2' />
             </div>
 

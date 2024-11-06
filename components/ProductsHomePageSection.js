@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import ProductCard from "@/interfaceComponents/ProductCart";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import { CategoryContext } from "./categoryContext";
+import { FilterLocalContext } from "./FilterLocalContext";
 import { useContext } from "react";
 import Link from "next/link";
 
 
-function ProductsHomePageSection({ productList, petitTitre, grandTitre,categoryTitre }) {
-  const {category, setCategory } = useContext(CategoryContext)
+function ProductsHomePageSection({ productList, petitTitre, grandTitre, categoryTitre, page }) {
+  const { setFilterLocal } = useContext(FilterLocalContext)
 
   // Référence pour accéder à l'élément contenant les produits
   const productsRef = useRef(null);
@@ -29,31 +29,38 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre,categoryT
   };
 
   //  Show more function
-  function ShowMore(){
-    setCategory(categoryTitre)
+  function ShowMore() {
+    setFilterLocal((prevFilter) => ({
+      ...prevFilter,
+      category: categoryTitre,
+    }));
   }
+
   return (
     <div className="md:w-[88%] mb-5 m-auto">
       {/* Section du titre */}
-      <div className="w-full justify-between items-center px-4 md:px-0 py-5 mb-2 mt-6 flex">
-        <div>
-          <Link
-            href={'/Shop'}
-            onClick={()=>ShowMore()}
-            className="px-3 bg-black flex justify-around items-center text-white py-2 border-black rounded-lg border-2 hover:text-black hover:bg-white transition-colors duration-300"
-          >
-            عرض الكل
-          </Link>
-        </div>
-        <div className="text-right">
-          <div className="border-r-[15px] text-lg pr-2 mb-2 border-black">
-              {petitTitre} 
+
+      {page != 'productPage' &&
+        <div className="w-full justify-between items-center px-4 md:px-0 py-5 mb-2 mt-6 flex">
+          <div>
+            <Link
+              href={'/Shop'}
+              onClick={() => ShowMore()}
+              className="px-3 bg-black flex justify-around items-center text-white py-2 border-black rounded-lg border-2 hover:text-black hover:bg-white transition-colors duration-300"
+            >
+              عرض الكل
+            </Link>
           </div>
-          <div className="text-3xl"> 
+          <div className="text-right">
+            <div className="border-r-[15px] text-lg pr-2 mb-2 border-black">
+              {petitTitre}
+            </div>
+            <div className="text-3xl">
               {grandTitre}
+            </div>
           </div>
         </div>
-      </div>
+      }
 
       {/* Section des produits avec les flèches */}
       <div className="flex justify-between items-center">
