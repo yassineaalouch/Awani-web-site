@@ -59,10 +59,6 @@ export default function DashboardDesign() {
           return { name: date ? date : '000', pu: 1 };
         })))
         setNumberOfProducts(response3.data)
-        // console.log('hi', aggregateList(response1.data.map((ele) => {
-        //   const date = ele?.createdAt?.split('T')[0];
-        //   return { name: date ? date : '000', pu: 1 };
-        // })))
 
         const countryCounts = response2.data.reduce((acc, item) => {
           const countryName = item?.country || 'Unknown'; // On s'assure que le pays est défini
@@ -129,12 +125,9 @@ export default function DashboardDesign() {
         </div>
 
       </div>
-      {/*grph of orders co*/}
       <div className='grid mt-10 gap-2 grid-cols-2 md:grid-cols-3'>
-        {/* <div className='col-span-3 md:col-span-2 bg-zinc-100'>
-          <Cercle title={'countries orders'} data={purchasesListCountries} />
-        </div> */}
-        {/*grph of orders status*/}
+
+        {/*graph of orders status*/}
         <div className='bg-zinc-100 col-span-3 '>
           <Cercle title={'Order status'} data={purchasesListStatus} />
         </div>
