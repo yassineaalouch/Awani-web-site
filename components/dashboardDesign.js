@@ -116,29 +116,33 @@ export default function DashboardDesign() {
           <p className="text-2xl font-bold text-blue-600">{totalYear}</p>
         </div>
 
-        {/* Total Revenue */}
+        {/* Number of products */}
         <div className="bg-white p-4 border rounded-lg shadow-md">
           <h3 className="text-lg font-semibold text-gray-700">Number of products</h3>
           <p className="text-2xl font-bold text-yellow-600">{numberOfProducts}</p>
         </div>
 
-        {/* New Users */}
+        {/* Users*/}
         <div className="bg-white p-4 border rounded-lg shadow-md">
           <h3 className="text-lg font-semibold text-gray-700">Users</h3>
           <p className="text-2xl font-bold text-green-600">{usersNumber}</p>
         </div>
 
       </div>
+      {/*grph of orders co*/}
       <div className='grid mt-10 gap-2 grid-cols-2 md:grid-cols-3'>
-        <div className='col-span-3 md:col-span-2 bg-zinc-100'>
+        {/* <div className='col-span-3 md:col-span-2 bg-zinc-100'>
           <Cercle title={'countries orders'} data={purchasesListCountries} />
-        </div>
-        <div className='bg-zinc-100 col-span-3 md:col-span-1'>
+        </div> */}
+        {/*grph of orders status*/}
+        <div className='bg-zinc-100 col-span-3 '>
           <Cercle title={'Order status'} data={purchasesListStatus} />
         </div>
+        {/* graph of evolution of users */}
         <div className='bg-slate-100 pb-12 max-h-96 col-span-3' >
           <CustomBarChartCercle title={'New users'} data={usersList} />
         </div>
+
       </div>
     </div>
   );
