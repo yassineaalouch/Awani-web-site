@@ -116,7 +116,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useContext } from "react";
-import { FilterLocalContext } from "./FilterLocalContext";
+import { FilterLocalContext } from "../context/FilterLocalContext";
 
 function CategoriesHomePageSection() {
   const { filterLocal, setFilterLocal } = useContext(FilterLocalContext);

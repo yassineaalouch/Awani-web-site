@@ -4,7 +4,7 @@ import NavBarInterface from "@/components/interfaceComponents/Nav-bar-interface"
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { CartContext } from "@/components/cartContext";
+import { CartContext } from "@/context/cartContext";
 import ThankYouCard from "@/components/ThankYouCard";
 import { getSession } from "next-auth/react";
 import Select from "react-select";

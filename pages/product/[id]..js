@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { Product } from '@/models/Product';
 import { FaCartShopping, FaTag } from "react-icons/fa6";
 import mongooseConnect from "@/lib/mongoose";
-import { CartContext } from '@/components/cartContext';
+import { CartContext } from '@/context/cartContext';
 import { useContext } from 'react';
 import { IoAddSharp } from "react-icons/io5";
 import { IoRemove } from "react-icons/io5";

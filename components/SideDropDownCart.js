@@ -137,7 +137,7 @@
 
 
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "@/components/cartContext";
+import { CartContext } from "@/context/cartContext";
 import Link from "next/link";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { IoAddSharp, IoRemove } from "react-icons/io5";

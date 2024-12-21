@@ -12,9 +12,9 @@ import { converterCurrency } from "@/components/currencyConverter";
 import axios from "axios";
 import { MdOutlineCurrencyExchange } from "react-icons/md";
 import Image from "next/image";
-import { FilterLocalContext } from "@/components/FilterLocalContext";
+import { FilterLocalContext } from "@/context/FilterLocalContext";
 import { FaCartShopping } from "react-icons/fa6";
-import { CartContext } from "@/components/cartContext";
+import { CartContext } from "@/context/cartContext";
 import SideDropDownCart from "@/components/SideDropDownCart";
 
 

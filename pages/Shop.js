@@ -126,7 +126,7 @@ import mongooseConnect from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import Link from "next/link";
 import { useContext } from "react";
-import { CartContext } from "@/components/cartContext";
+import { CartContext } from "@/context/cartContext";
 import { FaCartShopping } from "react-icons/fa6";
 import ProductFilterBar from "@/components/Filter";
 import { useEffect, useState } from "react";
@@ -134,7 +134,7 @@ import { Category } from "@/models/Category";
 import axios from "axios";
 import { converterCurrency } from "@/components/currencyConverter";
 import BlackBarTop from "@/components/blackBarTop";
-import { FilterLocalContext } from "@/components/FilterLocalContext";
+import { FilterLocalContext } from "@/context/FilterLocalContext";
 import { FaArrowRight } from "react-icons/fa";
 
 export async function getServerSideProps() {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import { FilterLocalContext } from "@/components/FilterLocalContext";
+import { FilterLocalContext } from "@/context/FilterLocalContext";
 
 function ProductFilterBar({ categories, ImportFilterValues }) {
 

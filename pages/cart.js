@@ -1,7 +1,7 @@
 'use client'; // Utiliser le mode client pour l'accès au localStorage
 
 import { useContext, useEffect, useState } from "react";
-import { CartContext } from "@/components/cartContext";
+import { CartContext } from "@/context/cartContext";
 import Image from "next/image";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { IoAddSharp, IoRemove } from "react-icons/io5";

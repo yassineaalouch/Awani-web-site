@@ -1,9 +1,9 @@
-import { CartContextProvider } from '@/components/cartContext'
+import { CartContextProvider } from '@/context/cartContext'
 import '../styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import { ConverterCurrencyProvider } from '@/components/currencyConverter'
 import Script from 'next/script'
-import FilterLocalContextProvider from '@/components/FilterLocalContext'
+import FilterLocalContextProvider from '@/context/FilterLocalContext'
 
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
