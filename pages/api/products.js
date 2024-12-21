@@ -27,6 +27,10 @@ export default async function handle(req, res) {
                 }
             }
 
+            if (req.query.role === "statistics") {
+                res.json(await Product.countDocuments());
+            }
+
             const { page = 1, limit = 5, category, price, rating } = req.query;
             const query = {};
             if (category && category !== 'All') {

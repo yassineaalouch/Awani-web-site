@@ -16,7 +16,7 @@ export default async function handle(req, res) {
             if (userId) {
                 res.json(await purchaseRequest.find({ userId }));
             } else if (role === "statistics") {
-                const purchases = await purchaseRequest.find().select('createdAt cart status country');
+                const purchases = await purchaseRequest.find().select('createdAt cart status country finalePrice');
                 res.json(purchases);
             }
             else {
