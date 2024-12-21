@@ -1,12 +1,12 @@
-import {signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import axios from 'axios';
-import NavBarInterface from '@/interfaceComponents/Nav-bar-interface';
-import Footer from '@/interfaceComponents/Footer';
+import NavBarInterface from '@/components/interfaceComponents/Nav-bar-interface';
+import Footer from '@/components/interfaceComponents/Footer';
 import React from 'react';
-import { FcGoogle } from "react-icons/fc";const Loginform = () => {
+import { FcGoogle } from "react-icons/fc"; const Loginform = () => {
   const router = useRouter();
   const { error } = router.query;
   const [registrationSwitch, setRegistrationSwitch] = useState(false);
@@ -27,13 +27,13 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
 
   async function signInFunction(ev) {
     ev.preventDefault();
-    const result = await signIn('credentials', {redirect:false,email, password});
+    const result = await signIn('credentials', { redirect: false, email, password });
     if (result.error) {
       setNoUser(true)
       setErrorMessage(result.error);
-    } 
+    }
     else {
-    setNoUser(false)
+      setNoUser(false)
     }
   }
 
@@ -42,27 +42,31 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
     const dataUser = { name, email, password };
 
     try {
-      const response = await axios.get('/api/UserHandler', { params: { email } , headers: {
-        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
-      }});
+      const response = await axios.get('/api/UserHandler', {
+        params: { email }, headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+        }
+      });
 
       if (response.data) {
         setEmailExist(true);
       } else {
         setEmailExist(false);
-        await axios.post('/api/UserHandler', dataUser,{ headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
-        }});
-        setRegistrationSwitch(false); 
+        await axios.post('/api/UserHandler', dataUser, {
+          headers: {
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PROTECTION}`, // Envoyer l'API Key
+          }
+        });
+        setRegistrationSwitch(false);
       }
     } catch (error) {
-      setEmailExist(false); 
+      setEmailExist(false);
     }
   }
-    return (
-        
-             <>
-      <NavBarInterface/>
+  return (
+
+    <>
+      <NavBarInterface />
       <div className=" w-screen h-screen flex justify-center items-center">
         <div className="w-96 px-3 sm:px-6 pt-6 pb-2 shadow-lg bg-white border rounded-md">
           <h1 className="mb-2 text-3xl text-black font-semibold text-center">
@@ -108,7 +112,7 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
                   <span className='text-red-500 text-xs'>Cet email est déjà utilisé</span>
                 </div>
               )}
-              {noUser&&!registrationSwitch&&
+              {noUser && !registrationSwitch &&
                 <div>
                   <span className='text-red-500 text-xs'>{errorMessage}</span>
                 </div>
@@ -126,7 +130,7 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
               />
               <br />
               {
-              registrationSwitch&&
+                registrationSwitch &&
 
                 <div className="block">
                   <input id='terms' required type="checkbox" className="mr-2" />
@@ -137,7 +141,7 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
                     </Link>
                   </label>
                 </div>
-              // )
+                // )
               }
               <div className="w-full text-center">
                 <button type="submit" className="border-black border-[1px] hover:bg-black hover:text-white transition-all duration-300 py-1 px-3 rounded-md text-black font-medium shadow-sm mt-3 mb-2 w-2/5">Send</button>
@@ -147,7 +151,7 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
             <div className="w-full text-center">
               <div className="w-full flex flex-col items-center">
                 {!registrationSwitch && (
-                  <Link href={'/forgetPassword'} 
+                  <Link href={'/forgetPassword'}
                     className="block p-0 mb-0 w-fit text-blue-700 text-sm">
                     <>I forgot the password</>
                   </Link>
@@ -171,16 +175,16 @@ import { FcGoogle } from "react-icons/fc";const Loginform = () => {
             </div>
             <div className="w-full flex justify-center sm:px-11">
               <button className="bg-white border flex items-center justify-center gap-2 hover:bg-gray-200 w-full border-black p-1 px-4 rounded-lg mt-3" onClick={() => signIn('google')}>
-              <FcGoogle className='size-6'/>Google
+                <FcGoogle className='size-6' />Google
               </button>
             </div>
             <br />
           </div>
         </div>
       </div>
-      <Footer className="!mt-0"/>
-      </>
-    )
+      <Footer className="!mt-0" />
+    </>
+  )
 }
 
 export default Loginform;

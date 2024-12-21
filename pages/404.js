@@ -1,5 +1,5 @@
-import Footer from "@/interfaceComponents/Footer";
-import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
+import Footer from "@/components/interfaceComponents/Footer";
+import NavBarInterface from "@/components/interfaceComponents/Nav-bar-interface";
 import Link from "next/link";
 
 export default function Error() {

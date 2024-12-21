@@ -1,6 +1,6 @@
 import { FaHandsHelping, FaLightbulb, FaUsers } from 'react-icons/fa';
-import Footer from "@/interfaceComponents/Footer";
-import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
+import Footer from "@/components/interfaceComponents/Footer";
+import NavBarInterface from "@/components/interfaceComponents/Nav-bar-interface";
 import axios from "axios";
 import { useState, useEffect } from "react";
 

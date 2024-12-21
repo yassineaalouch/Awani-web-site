@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import ProductCard from "@/interfaceComponents/ProductCart";
+import ProductCard from "@/components/interfaceComponents/ProductCart";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { FilterLocalContext } from "./FilterLocalContext";
 import { useContext } from "react";

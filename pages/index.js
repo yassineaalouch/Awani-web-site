@@ -1,4 +1,4 @@
-import Footer from "@/interfaceComponents/Footer";
+import Footer from "@/components/interfaceComponents/Footer";
 import BlackBarTop from "@/components/blackBarTop";
 import SlidesOfDiscountHomePage from "@/components/SlidesOfDiscountHomePage";
 import QualiteCarts from "@/components/QualiteCarts";
@@ -10,7 +10,7 @@ import { Category } from "@/models/Category";
 import { useState } from "react";
 import PlaceOfAdvertisingBar from "@/components/PlaceOfAdvertisingBar";
 import LastPlaceOfAdvertisingBar from "@/components/LastPlaceOfAdvertisingBar";
-import Nav_bar_interface from "@/interfaceComponents/Nav-bar-interface";
+import Nav_bar_interface from "@/components/interfaceComponents/Nav-bar-interface";
 
 export async function getServerSideProps() {
   await mongooseConnect()

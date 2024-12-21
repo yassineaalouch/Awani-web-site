@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Footer from '@/interfaceComponents/Footer';
-import NavBarInterface from '@/interfaceComponents/Nav-bar-interface';
+import Footer from '@/components/interfaceComponents/Footer';
+import NavBarInterface from '@/components/interfaceComponents/Nav-bar-interface';
 import Image from 'next/image';
 import CommentBlock from '@/components/Commentaire';
 import Etoiles from '../../components/rating';

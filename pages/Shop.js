@@ -119,9 +119,9 @@
 
 
 
-import Footer from "@/interfaceComponents/Footer";
-import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
-import ProductCart from "@/interfaceComponents/ProductCart";
+import Footer from "@/components/interfaceComponents/Footer";
+import NavBarInterface from "@/components/interfaceComponents/Nav-bar-interface";
+import ProductCart from "@/components/interfaceComponents/ProductCart";
 import mongooseConnect from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import Link from "next/link";

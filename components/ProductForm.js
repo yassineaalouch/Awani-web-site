@@ -9,7 +9,7 @@ import CommentBlock from "./Commentaire";
 import RatingSummaryCard from "./RatingSummaryCard ";
 import Etoiles from "./rating";
 import { useSession } from "next-auth/react";
-import Hr from "@/interfaceComponents/Hr";
+import Hr from "@/components/interfaceComponents/Hr";
 import Select from "react-select";
 import makeAnimated from 'react-select/animated';
 import TiptapEditor from "./TiptapEditor";

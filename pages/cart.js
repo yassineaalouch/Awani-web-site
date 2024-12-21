@@ -6,8 +6,8 @@ import Image from "next/image";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { IoAddSharp, IoRemove } from "react-icons/io5";
 import Link from "next/link";
-import Footer from "@/interfaceComponents/Footer";
-import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
+import Footer from "@/components/interfaceComponents/Footer";
+import NavBarInterface from "@/components/interfaceComponents/Nav-bar-interface";
 
 
 export default function CartPage() {

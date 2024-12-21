@@ -1,6 +1,6 @@
 "use client"
-import Footer from "@/interfaceComponents/Footer";
-import NavBarInterface from "@/interfaceComponents/Nav-bar-interface";
+import Footer from "@/components/interfaceComponents/Footer";
+import NavBarInterface from "@/components/interfaceComponents/Nav-bar-interface";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
