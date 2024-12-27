@@ -15,7 +15,7 @@ export default function Error() {
           </p>
           <Link
             href="/"
-            className="mt-6 text-sm md:text-base lg:text-lg inline-block rounded-md  border-2 border-black rounded-md bg-white px-4 py-2 text-black font-semibold hover:bg-black hover:text-white transition-all  duration-300"
+            className="mt-6 text-sm md:text-base lg:text-lg inline-block rounded-md  border-2 border-black bg-white px-4 py-2 text-black font-semibold hover:bg-black hover:text-white transition-all  duration-300"
           >
             Go Back Home
           </Link>

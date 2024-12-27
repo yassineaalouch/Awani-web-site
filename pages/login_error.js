@@ -1,4 +1,3 @@
-// pages/auth/error.js
 import Footer from '@/components/interfaceComponents/Footer';
 import NavBarInterface from '@/components/interfaceComponents/Nav-bar-interface';
 import { useRouter } from 'next/router';
