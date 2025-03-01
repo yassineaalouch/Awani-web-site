@@ -6,7 +6,7 @@ export const CartContext = createContext({});
 
 export function CartContextProvider({ children }) {
     const [cartProducts, setCartProducts] = useState([]);
-    
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const storedCart = localStorage.getItem('cart');
@@ -15,7 +15,7 @@ export function CartContextProvider({ children }) {
             }
         }
     }, []);
-    
+
     useEffect(() => {
         if (cartProducts.length > 0) {
             localStorage.setItem('cart', JSON.stringify(cartProducts));

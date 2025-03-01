@@ -21,6 +21,8 @@ export async function getServerSideProps() {
     },
   };
 }
+
+
 export default function Home({ productList }) {
   const [productListClientSide, setProductListClientSide] = useState(productList)
   return (
