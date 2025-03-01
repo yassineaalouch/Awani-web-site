@@ -4,9 +4,10 @@ import ProductCart from "@/components/interfaceComponents/ProductCart";
 import mongooseConnect from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import { useContext } from "react";
+import { CartContext } from "@/context/cartContext";
 import ProductFilterBar from "@/components/Filter";
-import { Category } from "@/models/Category";
 import { useEffect, useState } from "react";
+import { Category } from "@/models/Category";
 import axios from "axios";
 import { converterCurrency } from "@/components/currencyConverter";
 import BlackBarTop from "@/components/blackBarTop";
@@ -25,6 +26,7 @@ export async function getStaticProps() {
 }
 
 export default function Shop({ productList }) {
+    const { cartProducts, setCartProducts } = useContext(CartContext)
     const [categories, setCategories] = useState([])
     const [productListFilter, setProductListFilter] = useState(productList)
     const { conversionRate, currencyWanted, } = useContext(converterCurrency)
@@ -44,7 +46,7 @@ export default function Shop({ productList }) {
         }
     }, [])
 
-    async function ImportFilterValues(page = 1) {
+    async function ImportFilterValues(number, page = 1) {
         let list = [];
 
         const filters = {
