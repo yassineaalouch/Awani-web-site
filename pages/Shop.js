@@ -5,6 +5,7 @@ import mongooseConnect from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import { useContext } from "react";
 import ProductFilterBar from "@/components/Filter";
+import { Category } from "@/models/Category";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { converterCurrency } from "@/components/currencyConverter";
