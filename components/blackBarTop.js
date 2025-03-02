@@ -13,7 +13,7 @@ function BlackBarTop() {
             <p className="">06 20 39 75 92</p>
           </Link>
         </div>
-        <p className="text-xs sm:text-sm text-center md:text-[23.69px] w-fit place-self-center h-full flex items-center">التوصيل بالمجان ابتداءا من 249 درهم</p>
+        <p className="text-xs sm:text-sm text-center md:text-[23.69px] w-fit place-self-center h-full flex items-center">التوصيل بالمجان ابتداءا من 120 درهم</p>
         <div className="w-fit place-self-end flex justify-end h-full items-center">
           <div className="flex gap-3">
             <Link target='_blank' href={'https://www.facebook.com/profile.php?id=100069789726333'}><FaFacebook /></Link>
