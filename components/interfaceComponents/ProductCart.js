@@ -67,15 +67,14 @@ const ProductCard = ({ product, exchangeRate, currencyWanted }) => {
       {/* Product image */}
       <div className='rounded-t-lg flex justify-center items-center'>
         <Link href={'/product/' + product._id}>
-          <div className='size-52 relative flex items-center'>
+          <div className='w-52 h-52 relative'>
             <Image
               src={product?.images[0] ? product?.images[0] : '/No_Image_Available.jpg'}
               alt={product?.title}
               quality={70}
-              width={100}
+              fill
               loading='lazy'
-              height={100}
-              className={"cover w-full rounded-t-lg"}
+              className="object-contain rounded-t-lg"
             />
 
             {/* Animation overlay image */}
@@ -83,10 +82,9 @@ const ProductCard = ({ product, exchangeRate, currencyWanted }) => {
               src={product?.images[0] ? product?.images[0] : '/No_Image_Available.jpg'}
               alt={product?.title}
               quality={70}
-              width={100}
+              fill
               loading="lazy"
-              height={100}
-              className={animation ? "cover w-full z-50 absolute bg-cover inset-0 rounded-t-lg animated" : "cover z-30 hidden absolute inset-0 rounded-t-lg"}
+              className={animation ? "object-contain z-50 absolute bg-cover inset-0 rounded-t-lg animated" : "object-contain z-30 hidden absolute inset-0 rounded-t-lg"}
             />
           </div>
         </Link>
@@ -124,7 +122,7 @@ const ProductCard = ({ product, exchangeRate, currencyWanted }) => {
           className="mt-4 w-full bg-black flex justify-around items-center text-white py-2 border-black rounded-lg border-2 hover:text-black hover:bg-white transition-colors duration-300"
           onClick={() => addToCart(product)}
         >
-          Add To Cart <FaCartShopping className={animation ? 'animate-bounce' : ''} size={25} />
+           <FaCartShopping className={animation ? 'animate-bounce' : ''} size={25} />اشتري الآن
         </button>
       </div>
     </div>
