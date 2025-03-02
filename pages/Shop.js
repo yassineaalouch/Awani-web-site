@@ -16,7 +16,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 export async function getStaticProps() {
     await mongooseConnect()
-    const productList = await Product.find({}).populate('category').limit(5).lean();
+    const productList = await Product.find({}).populate('category').limit(30).lean();
 
     return {
         props: {
