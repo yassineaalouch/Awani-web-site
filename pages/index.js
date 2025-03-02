@@ -11,7 +11,7 @@ import { useState } from "react";
 import PlaceOfAdvertisingBar from "@/components/PlaceOfAdvertisingBar";
 import LastPlaceOfAdvertisingBar from "@/components/LastPlaceOfAdvertisingBar";
 import Nav_bar_interface from "@/components/interfaceComponents/Nav-bar-interface";
-
+import Packs from "@/components/Packs";
 export async function getServerSideProps() {
   await mongooseConnect()
   const productList = await Product.find({}).populate('category').lean();
@@ -31,6 +31,7 @@ export default function Home({ productList }) {
       <Nav_bar_interface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'} />
       <SlidesOfDiscountHomePage />
       <QualiteCarts />
+      <Packs />
       <CategoriesHomePageSection />
       <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={" الأكثر مبيعاً"} />
       <PlaceOfAdvertisingBar />

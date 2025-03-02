@@ -81,7 +81,7 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
             <div className={"w-screen  bg-white border-b border" + classNameGlobal}>
                 <div className="flex justify-between items-center px-2 md:px-4 lg:px-10">
                     <div className="block px-3 pr-5 md:hidden lg:hidden">
-                        <svg onClick={showMenu} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-black font-bold cursor-pointer size-6">
+                        {/* <svg onClick={showMenu} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-black font-bold cursor-pointer size-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                         {menuIsShow &&
@@ -92,14 +92,14 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
                                     </svg>
                                 </div>
                                 <ul onClick={(e) => { e.stopPropagation() }} className="grid gap-1 w-full py-6 bg-white/15 backdrop-blur-[2px]">
-                                    <Link href='/' className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">Home</Link>
-                                    <Link href="/About" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">About</Link>
-                                    <Link onClick={() => { setFilterLocal({ category: '', price: null, rating: null, order: null }) }} href="/Shop" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">Shop</Link>
-                                    <Link href="/contact" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all pb-1 cursor-pointer text-center w-full py-4">Contact us</Link>
+                                    <Link href='/' className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">الرئيسية</Link>
+                                    <Link href="/About" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">من نحن</Link>
+                                    <Link onClick={() => { setFilterLocal({ category: '', price: null, rating: null, order: null }) }} href="/Shop" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all cursor-pointer text-center w-full py-4">المتجر</Link>
+                                    <Link href="/contact" className="text-white text-opacity-75 hover:text-opacity-100 hover:border-y-[2.5px] font-semibold hover:tracking-[0.2em] transition-all pb-1 cursor-pointer text-center w-full py-4">اتصل بنا</Link>
                                 </ul>
                             </div>
 
-                        }
+                        } */}
 
 
                     </div>
@@ -107,10 +107,10 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
                         <Link href="/"><Image width={80} height={80} src="/logo.webp" loading="lazy" className="size-12 !p-0" alt="logo" /></Link>
                     </div>
                     <ul className="hidden md:flex ml-3 md:gap-4 lg:gap-9 text-sm">
-                        <li><Link href="/" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Home</Link></li>
-                        <li><Link href="/About" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">About</Link></li>
-                        <li><Link onClick={() => { setFilterLocal({ category: '', price: null, rating: null, order: null }) }} href="/Shop" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Shop</Link></li>
-                        <li><Link href="/contact" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">Contact us</Link></li>
+                        <li><Link href="/" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">الرئيسية</Link></li>
+                        <li><Link href="/About" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">من نحن</Link></li>
+                        <li><Link onClick={() => { setFilterLocal({ category: '', price: null, rating: null, order: null }) }} href="/Shop" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">المتجر</Link></li>
+                        <li><Link href="/contact" className="text-black text-opacity-75 hover:text-opacity-100 hover:border-b-[2.5px] hover:border-black/80 font-semibold transition-all pb-0 cursor-pointer">اتصل بنا</Link></li>
 
                     </ul>
                     <div className="flex items-center gap-2 md:gap-4">
@@ -120,9 +120,9 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
                                 {cartProducts.length}
                             </div>
                         </button>
-                        {!session ?
+                        {/* {!session ?
                             <button onClick={goToLoginPage} className={"bg-black rounded-xl px-3 py-1  border-black border-[1.2px] text-white font-semibold hover:bg-white hover:text-black"}>
-                                Login
+                                تسجيل الدخول
                             </button>
                             :
                             <div>
@@ -133,10 +133,10 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
                                 {showUserMenu &&
                                     <div onClick={() => setShowUserMenu(!showUserMenu)} className={showUserMenu ? 'block absolute inset-0  w-screen h-screen ' : "hidden"}>
                                         <div className={"absolute top-9 right-3 md:right-14 lg:right-20 text-black flex flex-col rounded-lg  justify-start bg-white border-x-2 border-slate-300 border-t-2 z-40" + classNameMenuUserIcon}>
-                                            <h1 className="text-center border-b-2 border-slate-300 p-1">Hi,{session?.user?.image}<span className="font-semibold">{session?.user?.name}</span></h1>
+                                            <h1 className="text-center border-b-2 border-slate-300 p-1">مرحباً،{session?.user?.image}<span className="font-semibold">{session?.user?.name}</span></h1>
                                             <button className="border-b-2 border-slate-300 p-2 hover:bg-zinc-200 " onClick={() => signOut({ callbackUrl: '/' })}>
                                                 <span className="flex gap-3 items-center justify-between">
-                                                    Logout
+                                                    تسجيل الخروج
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
                                                     </svg>
@@ -145,13 +145,13 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
                                             {session.user.role === 'admin' &&
                                                 <Link className="border-b-2 border-slate-300 p-2 hover:bg-zinc-200 " href={'/dashbordAdmine'}>
                                                     <span className="flex gap-3 items-center justify-between">
-                                                        Dashboard
+                                                        لوحة التحكم
                                                         <RiDashboardHorizontalLine size={25} />
                                                     </span>
                                                 </Link>}
                                             <Link className="border-b-2 rounded-b-lg border-slate-300 p-2 hover:bg-zinc-200 " href={'/account'}>
                                                 <span className="flex gap-3 items-center justify-between">
-                                                    Account
+                                                    الحساب
                                                     <MdOutlineAccountBox size={25} />
                                                 </span>
                                             </Link>
@@ -159,7 +159,7 @@ export default function Nav_bar_interface({ classNameGlobal, classNameMenuUserIc
                                     </div>
                                 }
                             </div>
-                        }
+                        } */}
 
                     </div>
                 </div>

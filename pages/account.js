@@ -208,7 +208,7 @@ export default function UserAccount({ children }) {
                             name="email"
                             value={session?.user?.email}
                             disabled
-                            className="w-full px-4 py-2 border border-gray-300 outline-none text-slate-400 focus:text-black  cursor-not-allowed text-gray-400 rounded-md focus:outline-none text-slate-400 focus:text-black bg-slate-100"
+                            className="w-full px-4 py-2 border border-gray-300 outline-none focus:text-black  cursor-not-allowed rounded-md focus:outline-none "
                             placeholder="Enter your new email"
                             required
                           />
@@ -223,7 +223,7 @@ export default function UserAccount({ children }) {
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 border border-gray-300 outline-none text-slate-400 focus:text-black rounded-md focus:outline-none text-slate-400 focus:text-black focus:ring-yellow-500 focus:border-yellow-500"
+                            className="w-full px-4 py-2 border border-gray-300 outline-none text-slate-400 focus:text-black rounded-md focus:outline-none  focus:ring-yellow-500 focus:border-yellow-500"
                             placeholder="Enter your new password"
                             required
                           />
@@ -232,7 +232,7 @@ export default function UserAccount({ children }) {
                       </div>
                       <button
                         type="submit"
-                        className=" bg-yellow-500  text-white py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none text-slate-400 focus:text-black focus:ring-2 focus:ring-yellow-400"
+                        className=" bg-yellow-500  py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none text-slate-400 focus:text-black focus:ring-2 focus:ring-yellow-400"
                       >
                         Change Password
                       </button>
