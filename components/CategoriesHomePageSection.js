@@ -9,18 +9,11 @@ function CategoriesHomePageSection() {
   const { filterLocal, setFilterLocal } = useContext(FilterLocalContext);
   const [currentIndex, setCurrentIndex] = useState(0);
   const list = [
-    { img: '/categories/3ssara.png', text: 'عصارة' },
-    { img: '/categories/7kaka.png', text: 'حكاكة' },
-    { img: '/categories/electric.png', text: 'كهرباء' },
-    { img: '/categories/ghlay.png', text: 'غلاي' },
-    { img: '/categories/mos.png', text: 'سكين' },
-    { img: '/categories/tnjra.png', text: 'طنجرة' },
-    { img: '/categories/3ssara.png', text: 'عصارة' },
-    { img: '/categories/7kaka.png', text: 'حكاكة' },
-    { img: '/categories/electric.png', text: 'كهرباء' },
-    { img: '/categories/ghlay.png', text: 'غلاي' },
-    { img: '/categories/mos.png', text: 'سكين' },
-    { img: '/categories/tnjra.png', text: 'طنجرة' },
+    { img: '/traditional-moroccan-tagine.avif', text: 'تقليدي' },
+    { img: '/fastFood.jpg', text: 'وجبات سريعة' },
+    { img: '/salad.avif', text: 'سلطة'},
+    { img: '/croissan.avif', text: 'مخبوزات ' },
+    { img: '/jus.jpg', text: 'عصائر ' },
   ];
   const visibleSlides = 3;
   const productsRef = useRef(null);
