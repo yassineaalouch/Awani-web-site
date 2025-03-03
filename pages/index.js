@@ -28,10 +28,13 @@ export default function Home({ productList }) {
   return (
     <>
       <BlackBarTop />
+      <div className="h-9">
+      </div>
       <Nav_bar_interface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'} />
+
       <SlidesOfDiscountHomePage />
       <QualiteCarts />
-      <Packs />
+      {/* <Packs /> */}
       <CategoriesHomePageSection />
       <ProductsHomePageSection productList={productListClientSide} petitTitre={"هذا الشهر"} grandTitre={" الأكثر مبيعاً"} />
       <PlaceOfAdvertisingBar />

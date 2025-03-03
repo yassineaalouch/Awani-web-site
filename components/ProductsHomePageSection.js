@@ -46,13 +46,13 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre, category
             <Link
               href={'/Shop'}
               onClick={() => ShowMore()}
-              className="px-3 bg-black flex justify-around items-center text-white py-2 border-black rounded-lg border-2 hover:text-black hover:bg-white transition-colors duration-300"
+              className="px-3 bg-[#6bb41e] flex justify-around items-center text-white py-2 border-[#6bb41e] rounded-lg border-2 hover:text-[#6bb41e] hover:bg-white transition-colors duration-300"
             >
               عرض الكل
             </Link>
           </div>
           <div className="text-right">
-            <div className="border-r-[15px] text-lg pr-2 mb-2 border-black">
+            <div className="border-r-[15px] text-lg pr-2 mb-2 border-[#6bb41e]">
               {petitTitre}
             </div>
             <div className="text-3xl">
@@ -68,11 +68,11 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre, category
         <div>
           <button
             onClick={scrollLeft}
-            className="bg-white hover:scale-110 transition-all duration-300 border-slate-400 border size-8 rounded-full flex justify-center items-center"
+            className="bg-white hover:scale-110 transition-all duration-300 border-[#6bb41e] border size-8 rounded-full flex justify-center items-center"
           >
             <FaArrowLeft
               size={20}
-              className="text-slate-700 transition-all hover:scale-110 duration-300"
+              className="text-[#6bb41e] transition-all hover:scale-110 duration-300"
             />
           </button>
         </div>
@@ -93,11 +93,11 @@ function ProductsHomePageSection({ productList, petitTitre, grandTitre, category
         <div>
           <button
             onClick={scrollRight}
-            className="bg-white hover:scale-110 transition-all duration-300 border-slate-400 border size-8 rounded-full flex justify-center items-center"
+            className="bg-white hover:scale-110 transition-all duration-300 border-[#6bb41e] border size-8 rounded-full flex justify-center items-center"
           >
             <FaArrowRight
               size={20}
-              className="text-slate-700 transition-all hover:scale-110 duration-300"
+              className="text-[#6bb41e] transition-all hover:scale-110 duration-300"
             />
           </button>
         </div>

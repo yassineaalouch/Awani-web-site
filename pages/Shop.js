@@ -16,7 +16,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 export async function getStaticProps() {
     await mongooseConnect()
-    const productList = await Product.find({}).populate('category').limit(30).lean();
+    const productList = await Product.find({}).populate('category').limit(25).lean();
 
     return {
         props: {
@@ -54,7 +54,7 @@ export default function Shop({ productList }) {
             price: filterLocal.price,
             rating: filterLocal.rating,
             page: page, // Inclure la page dans les filtres
-            limit: 5    // Nombre d'éléments par page
+            limit: 25    // Nombre d'éléments par page
         };
         setQuery(filters);
         setCurrentPage(page); // Mettre à jour la page actuelle
@@ -104,6 +104,7 @@ export default function Shop({ productList }) {
     return (
         <>
             <BlackBarTop />
+            <div className="mt-12"></div>
             <NavBarInterface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'} />
             <div className="">
                 <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories} />

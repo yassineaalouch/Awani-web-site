@@ -73,7 +73,7 @@ function CategoriesHomePageSection() {
       {/* Section titre */}
       <div className="w-full px-4 md:px-0 py-5 mb-2 mt-6 flex justify-end">
         <div className="text-right">
-          <div className="border-r-[15px] text-sm pr-2 mb-2 border-black">الصنف</div>
+          <div className="border-r-[15px] text-sm pr-2 mb-2 border-[#6bb41e]">الصنف</div>
           <div className="text-2xl">تصفح حسب الفئة</div>
         </div>
       </div>
@@ -98,18 +98,19 @@ function CategoriesHomePageSection() {
             className="flex gap-10 overflow-auto py-5 scrollBarNon items-center transition-transform duration-300"
           >
             {list.map((ele, index) => (
-              <div key={index} className="w-20 h-20 sm:min-h-24 sm:min-w-24 md:min-w-36 md:min-h-36  flex flex-col justify-center items-center gap-3 border-slate-500/80 border-2 rounded-md p-5 hover:scale-110 transition-all duration-300">
-                <Link onClick={() => { setFilterLocal({ category: ele.text, price: null, rating: null, order: null }) }} href={"/Shop"}>
+              <div key={index}
+               className="w-20 h-20 sm:min-h-24 sm:min-w-24 md:min-w-36 md:min-h-36 flex flex-col justify-center items-center gap-3 border-[#6bb41e] border-2 rounded-xl p-5 hover:scale-105 hover:shadow-lg hover:shadow-[#6bb41e]/20 transition-all duration-300 bg-white">
+                <Link onClick={() => { setFilterLocal({ category: ele.text, price: null, rating: null, order: null }) }} href={"/Shop"} className="flex flex-col items-center">
                   <Image
                     src={ele.img || "/No_Image_Available.jpg"}
                     alt="No_Image_Available"
-                    className="w-full "
+                    className="w-full object-contain"
                     width={100}
                     height={100}
                     quality={60}
                     loading="lazy"
                   />
-                  <p className="text-center">{ele.text}</p>
+                  <p className="text-center mt-2 text-gray-800 font-medium hover:text-[#6bb41e] transition-colors">{ele.text}</p>
                 </Link>
               </div>
             ))}

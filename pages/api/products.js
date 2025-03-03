@@ -31,7 +31,7 @@ export default async function handle(req, res) {
                 res.json(await Product.countDocuments());
             }
 
-            const { page = 1, limit = 30, category, price, rating } = req.query;
+            const { page = 1, limit = 25, category, price, rating } = req.query;
             const query = {};
             if (category && category !== 'All') {
                 const categoryDocument = await Category.findOne({ name: category });

@@ -6,20 +6,13 @@ import { RxDotFilled } from 'react-icons/rx';
 function SlidesOfDiscountHomePage() {
   const slides = [
     {
-      url: '/image.png',
+      url: '/diapo/1.png',
     },
     {
-      url: 'https://imageio.forbes.com/specials-images/imageserve/63223ad1d6711e0568c1fa09/A-julienne-peeler--cherry-pitter-and-dry-spaghetti-measurer-/960x0.jpg?format=jpg&width=1440',
+      url: '/diapo/1.png',
     },
     {
-      url: 'https://alaskacountertops.com/wp-content/uploads/2023/01/blog-kitchen-drawer.jpg',
-    },
-
-    {
-      url: 'https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2253&q=80',
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80',
+      url: '/diapo/3.png',
     },
   ];
 
@@ -42,7 +35,7 @@ function SlidesOfDiscountHomePage() {
   };
 
   return (
-    <div className=' h-[290px] md:max-w-[1400px] md:h-[500px] w-full m-auto pb-10 pt-2 px-1 relative group'>
+    <div className=' h-[290px] md:max-w-[1400px] md:h-[600px] w-full m-auto pb-10 pt-2 px-1 relative group'>
       <div
         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
         className='w-full h-full transition-all rounded-2xl bg-center bg-cover duration-500'
