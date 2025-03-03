@@ -195,38 +195,38 @@ export default function Nav_bar_interface({ classNameGlobal }) {
     const { data: session } = useSession()
 
     const navigation = [
-        { name: 'Home', href: '/' },
-        { name: 'Shop', href: '/Shop', onClick: () => setFilterLocal({ category: '', price: null, rating: null, order: null }) },
-        { name: 'About', href: '/About' },
-        { name: 'Contact', href: '/contact' }
+        { name: 'الرئيسية', href: '/' },
+        { name: 'المتجر', href: '/Shop', onClick: () => setFilterLocal({ category: '', price: null, rating: null, order: null }) },
+        { name: 'من نحن', href: '/About' },
+        { name: 'اتصل بنا', href: '/contact' }
     ]
 
     return (
-        <div className=" w-full top-0 z-50">
-            <nav className="bg-white/80 backdrop-blur-md shadow-sm">
+        <div className="w-full top-0 z-50">
+            <nav className="bg-white shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
-                    <div className="flex justify-between items-center h-12">
+                    <div className="flex justify-between items-center h-16">
                         {/* Logo & Mobile Menu Button */}
-                        <div className="flex items-center flex-1 ml-2 sm:ml-4">
+                        <div className="flex items-center flex-1">
                             <button
                                 type="button"
-                                className="inline-flex items-center justify-center p-1 rounded-md text-gray-700 lg:hidden"
+                                className="inline-flex items-center justify-center p-2 rounded-md text-[#6bb41e] lg:hidden hover:bg-[#6bb41e]/10"
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             >
                                 {mobileMenuOpen ? (
-                                    <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 ) : (
-                                    <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                                     </svg>
                                 )}
                             </button>
 
-                            <Link href="/" className="flex gap-2 items-center">
-                                <Image width={32} height={32} src="/logo.webp" className="h-6 w-auto" alt="logo" />
-                                <span className="font-semibold text-gray-900 text-sm">iftar-Delivery</span>
+                            <Link href="/" className="flex gap-3 items-center mr-4">
+                                <Image width={40} height={40} src="/logo.webp" className="h-8 w-auto" alt="logo" />
+                                <span className="font-bold text-[#6bb41e] text-lg">إفطار-ديليفري</span>
                             </Link>
                         </div>
 
@@ -238,80 +238,35 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                                         key={item.name}
                                         href={item.href}
                                         onClick={item.onClick}
-                                        className="relative text-gray-700 hover:text-black transition-colors px-2 py-1 rounded-md text-xs font-medium group"
+                                        className="relative text-gray-700 hover:text-[#6bb41e] transition-colors px-3 py-2 text-sm font-medium group"
                                     >
                                         {item.name}
-                                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+                                        <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-[#6bb41e] transition-all duration-300 group-hover:w-full"></span>
                                     </Link>
                                 ))}
                             </div>
                         </div>
 
                         {/* Cart & User Menu */}
-                        <div className="flex items-center space-x-3 flex-1 justify-end mr-2 sm:mr-4">
+                        <div className="flex items-center space-x-4 flex-1 justify-end">
                             <button
                                 onClick={() => setShowSideCart(!showSideCart)}
-                                className="relative p-1 hover:bg-gray-100 rounded-lg transition-all"
+                                className="relative p-2 hover:bg-[#6bb41e]/10 rounded-full transition-all text-[#6bb41e]"
                             >
-                                <FaCartShopping className="w-5 h-5" />
+                                <FaCartShopping className="w-6 h-6" />
                                 {cartProducts.length > 0 && (
-                                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                                         {cartProducts.length}
                                     </span>
                                 )}
                             </button>
-
-                            {!session ? (
-                                <button
-                                    onClick={() => router.push('/Login')}
-                                    className="bg-black text-white px-3 py-1 rounded-lg text-xs relative overflow-hidden transition-all duration-300 before:absolute before:bottom-0 before:left-0 before:w-full before:h-0 before:bg-white before:transition-all before:duration-300 hover:before:h-full hover:text-black before:-z-10 z-10 hover:shadow-lg"
-                                >
-                                    Login
-                                </button>
-                            ) : (
-                                <div className="relative">
-                                    <button
-                                        onClick={() => setUserMenuOpen(!userMenuOpen)}
-                                        className="p-1 hover:bg-gray-100 rounded-lg transition-all"
-                                    >
-                                        <FaUserAlt className="w-4 h-4" />
-                                    </button>
-
-                                    {userMenuOpen && (
-                                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
-                                            <div className="px-4 py-2 border-b text-xs">
-                                                Hi, <span className="font-semibold">{session?.user?.name}</span>
-                                            </div>
-                                            {session.user.role === 'admin' && (
-                                                <Link href="/dashbordAdmine" className="px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 flex items-center">
-                                                    <RiDashboardHorizontalLine className="w-4 h-4 mr-2" />
-                                                    Dashboard
-                                                </Link>
-                                            )}
-                                            <Link href="/account" className="px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 flex items-center">
-                                                <MdOutlineAccountBox className="w-4 h-4 mr-2" />
-                                                Account
-                                            </Link>
-                                            <button
-                                                onClick={() => signOut({ callbackUrl: '/' })}
-                                                className="w-full px-4 py-2 text-xs text-red-600 hover:bg-gray-100 flex items-center"
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                                </svg>
-                                                Logout
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>
 
                 {/* Mobile Navigation */}
                 {mobileMenuOpen && (
-                    <div className="lg:hidden">
+                    <div className="lg:hidden border-t border-gray-200">
                         <div className="px-2 pt-2 pb-3 space-y-1">
                             {navigation.map((item) => (
                                 <Link
@@ -321,7 +276,7 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                                         setMobileMenuOpen(false)
                                         item.onClick?.()
                                     }}
-                                    className="block px-3 py-1 rounded-md text-sm font-medium text-gray-700 hover:text-black hover:bg-gray-50"
+                                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#6bb41e] hover:bg-[#6bb41e]/10"
                                 >
                                     {item.name}
                                 </Link>
