@@ -235,7 +235,7 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                                     <div className="flex flex-col items-start">
                                         <span className="text-sm font-semibold">{totalPrice.toFixed(2)} DH</span>
                                         {totalPrice >= 120 && (
-                                            <span className="text-xs text-green-500 font-medium">Livraison gratuite !</span>
+                                            <span className="text-xs text-green-500 font-medium">توصيل مجاني!</span>
                                         )}
                                     </div>
                                     {cartProducts.length > 0 && (
@@ -254,7 +254,7 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                                 </div>
                                 {totalPrice < 120 && (
                                     <span className={`text-xs ${isScrolled ? 'text-black' : 'text-gray-500 hidden'} mt-1`}>
-                                        {(120 - totalPrice).toFixed(2)} DH pour la livraison gratuite
+                                        درهم للتوصيل المجاني {(120 - totalPrice).toFixed(2)} 
                                     </span>
                                 )}
                             </div>
