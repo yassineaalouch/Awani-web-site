@@ -7,7 +7,7 @@ export default function Condition() {
               <section>
                   <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
                   <p className="text-gray-700">
-                      Welcome to our platform. By accessing our website and using our services, you agree to these Terms and Conditions of Use ("TCU"). If you do not agree to these terms, please do not use our site.
+                      Welcome to our platform. By accessing our website and using our services, you agree to these Terms and Conditions of Use (TCU). If you do not agree to these terms, please do not use our site.
                   </p>
               </section>
 
