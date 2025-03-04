@@ -226,10 +226,10 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                     <div className="flex justify-between items-center h-16">
                         {/* Cart & User Menu */}
                         <div className="flex items-center space-x-4 flex-1 justify-start">
-                            <div className={`fixed ${isScrolled ? 'top-1/2 -translate-y-1/2 right-4' : ''} transition-all duration-300`}>
+                            <div className={`fixed ${isScrolled ? 'bottom-1 left-1/2 -translate-x-1/2 w-full max-w-xl px-4 bg-slate-100 rounded-lg text-center z-[9999]' : ''} transition-all duration-300 `}>
                                 <button
                                     onClick={() => setShowSideCart(!showSideCart)}
-                                    className="relative p-2 hover:bg-[#6bb41e]/10 rounded-full transition-all text-[#6bb41e] flex items-center gap-2"
+                                    className={`${isScrolled ? 'hidden' : 'relative p-2 hover:bg-[#6bb41e]/10 rounded-full transition-all text-[#6bb41e] flex items-center gap-2'}`}
                                 >
                                     <FaCartShopping className="w-6 h-6" />
                                     <div className="flex flex-col items-start">
@@ -246,14 +246,14 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                                 </button>
 
                                 {/* Progress bar */}
-                                <div className="w-full h-2 bg-gray-200 rounded-full mt-2">
+                                <div className={`w-full h-2 bg-gray-200 rounded-full mt-2 ${isScrolled ? 'bg-white shadow-lg' : 'hidden'}`}>
                                     <div 
                                         className={`h-full rounded-full transition-all duration-300 ${totalPrice >= 120 ? 'bg-green-500' : 'bg-[#6bb41e]'}`}
                                         style={{ width: `${progressPercentage}%` }}
                                     />
                                 </div>
                                 {totalPrice < 120 && (
-                                    <span className="text-xs text-gray-500 mt-1">
+                                    <span className={`text-xs ${isScrolled ? 'text-black' : 'text-gray-500 hidden'} mt-1`}>
                                         {(120 - totalPrice).toFixed(2)} DH pour la livraison gratuite
                                     </span>
                                 )}
