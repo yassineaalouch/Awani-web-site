@@ -212,7 +212,7 @@ export default function Nav_bar_interface({ classNameGlobal }) {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 100)
+            setIsScrolled(window.scrollY > 50)
         }
 
         window.addEventListener('scroll', handleScroll)
@@ -247,15 +247,18 @@ export default function Nav_bar_interface({ classNameGlobal }) {
 
                                 {/* Progress bar */}
                                 <div className={`w-full h-2 bg-gray-200 rounded-full mt-2 ${isScrolled ? 'bg-white shadow-lg' : 'hidden'}`}>
-                                    <div 
+                                    <div
                                         className={`h-full rounded-full transition-all duration-300 ${totalPrice >= 120 ? 'bg-green-500' : 'bg-[#6bb41e]'}`}
                                         style={{ width: `${progressPercentage}%` }}
                                     />
                                 </div>
                                 {totalPrice < 120 && (
                                     <span className={`text-xs ${isScrolled ? 'text-black' : 'text-gray-500 hidden'} mt-1`}>
-                                        درهم للتوصيل المجاني {(120 - totalPrice).toFixed(2)} 
+                                        درهم للتوصيل المجاني {(120 - totalPrice).toFixed(2)}
                                     </span>
+                                )}
+                                {totalPrice >= 120 && isScrolled && (
+                                    <span className="text-xs text-green-500 font-medium">توصيل مجاني!</span>
                                 )}
                             </div>
                         </div>
@@ -279,9 +282,9 @@ export default function Nav_bar_interface({ classNameGlobal }) {
 
                         {/* Logo & Mobile Menu Button */}
                         <div className="flex items-center flex-1 justify-end">
-                            <Link href="/" className="flex gap-3 items-center ml-4">
-                                <span className="font-bold text-green-950 text-lg">إفطار-ديليفري</span>
-                                <Image width={40} height={40} src="/logo.webp" className="h-8 w-auto" alt="logo" />
+                            <Link href="/" className="flex gap-1 items-center ml-4">
+                                <span className={isScrolled?' hidden':"font-bold text-green-950 text-lg"}>إفطار-ديليفري</span>
+                                <Image width={40} height={40} src="/favicon.ico" className="h-10 w-auto" alt="logo" />
                             </Link>
 
                             <button
