@@ -7,8 +7,8 @@ import { useState, useEffect } from "react";
 export default function About() {
     const [Q_A_List, setQ_A_List] = useState([])
     let list = [
-        { titre: 'من نحن', text: 'نحن فريق ملتزم بتقديم أفضل الحلول لعملائنا. رؤيتنا هي تحقيق الابتكار من خلال تقديم خدمات عالية الجودة لتمكين الأفراد والشركات.' },
-        { titre: 'قصتنا', text: 'بدأنا رحلتنا برؤية لتغيير الطريقة التي تتفاعل بها الشركات مع التكنولوجيا. من خلال تقديم حلول مخصصة، تمكنا من مساعدة العديد من الشركات على النمو وتحقيق أهدافها. هدفنا هو مواصلة هذه الرحلة معكم من خلال تقديم حلول مبتكرة تلبي احتياجاتكم المتزايدة.' },
+        { titre: 'من نحن', text: 'نحن منصة توصيل متخصصة في تسهيل تحضير الإفطار خلال شهر رمضان المبارك. نقدم مجموعة واسعة من المنتجات عالية الجودة من شركائنا الموثوقين بأسعار تنافسية، مع التركيز على تقديم خدمة سريعة وموثوقة تلبي احتياجات عملائنا.' },
+        { titre: 'رؤيتنا', text: 'نسعى لأن نكون الخيار الأول للعائلات خلال شهر رمضان من خلال توفير تجربة تسوق سلسة وخدمة توصيل موثوقة. نؤمن بأن وقتكم ثمين، خاصة خلال هذا الشهر الفضيل، لذلك نحرص على تقديم خدمة تساعدكم في التركيز على العبادة والعائلة بدلاً من القلق بشأن التسوق والتحضير للإفطار.' },
     ]
     useEffect(() => {
         getQuestions()
@@ -27,13 +27,23 @@ export default function About() {
     return (
         <>
             <NavBarInterface />
-            <div className=" bg-gray-100 min-h-screen pb-16 mx-auto p-6">
+            <div className="bg-gray-100 min-h-screen pb-16 mx-auto p-6">
                 <div className="flex flex-col items-center gap-10 py-12 px-4 sm:px-6 lg:px-8">
                     {list.map((ele, index) => (
-                        <Paragraph key={index} titre={ele.titre} text={ele.text} />
+                        <div key={index} className="max-w-4xl w-full">
+                            <div className="bg-white rounded-lg shadow-lg p-8">
+                                <h1 className="text-4xl font-extrabold text-gray-900 text-center mb-6">
+                                    {ele.titre}
+                                </h1>
+                                <div className="h-1 w-20 bg-[#6bb41e] mx-auto mb-6"></div>
+                                <p className="text-lg text-gray-700 text-center">
+                                    {ele.text}
+                                </p>
+                            </div>
+                        </div>
                     ))}
                 </div>
-                <div className=' w-full flex justify-center'>
+                <div className='w-full flex justify-center'>
                     <div className='w-11/12'>
                         <h1 className="md:text-3xl text-xl font-bold mb-8 justify-center gap-2 text-black flex">الأسئلة الشائعة<div className="h-10 w-1 bg-black"></div></h1>
                         {Q_A_List.map((faq, index) => (
@@ -67,6 +77,7 @@ function FAQItem({ question, answer }) {
         </div>
     );
 }
+
 function Paragraph({ titre, text }) {
     return (
         <div className="max-w-4xl w-full text-center">
