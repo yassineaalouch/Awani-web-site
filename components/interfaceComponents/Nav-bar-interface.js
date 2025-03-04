@@ -191,6 +191,7 @@ export default function Nav_bar_interface({ classNameGlobal }) {
     const [showSideCart, setShowSideCart] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [userMenuOpen, setUserMenuOpen] = useState(false)
+    const [isScrolled, setIsScrolled] = useState(false)
     const router = useRouter();
     const { data: session } = useSession()
 
@@ -201,33 +202,62 @@ export default function Nav_bar_interface({ classNameGlobal }) {
         { name: 'اتصل بنا', href: '/contact' }
     ]
 
+    // Calculate total price
+    const totalPrice = cartProducts.reduce((total, product) => {
+        return total + (product.price * product.quantity)
+    }, 0)
+
+    // Calculate progress percentage
+    const progressPercentage = Math.min((totalPrice / 120) * 100, 100)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 100)
+        }
+
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
     return (
         <div className="w-full top-0 z-50">
             <nav className="bg-white shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
                     <div className="flex justify-between items-center h-16">
-                        {/* Logo & Mobile Menu Button */}
-                        <div className="flex items-center flex-1">
-                            <button
-                                type="button"
-                                className="inline-flex items-center justify-center p-2 rounded-md text-[#6bb41e] lg:hidden hover:bg-[#6bb41e]/10"
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            >
-                                {mobileMenuOpen ? (
-                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                ) : (
-                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                                    </svg>
-                                )}
-                            </button>
+                        {/* Cart & User Menu */}
+                        <div className="flex items-center space-x-4 flex-1 justify-start">
+                            <div className={`fixed ${isScrolled ? 'top-1/2 -translate-y-1/2 right-4' : ''} transition-all duration-300`}>
+                                <button
+                                    onClick={() => setShowSideCart(!showSideCart)}
+                                    className="relative p-2 hover:bg-[#6bb41e]/10 rounded-full transition-all text-[#6bb41e] flex items-center gap-2"
+                                >
+                                    <FaCartShopping className="w-6 h-6" />
+                                    <div className="flex flex-col items-start">
+                                        <span className="text-sm font-semibold">{totalPrice.toFixed(2)} DH</span>
+                                        {totalPrice >= 120 && (
+                                            <span className="text-xs text-green-500 font-medium">Livraison gratuite !</span>
+                                        )}
+                                    </div>
+                                    {cartProducts.length > 0 && (
+                                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                            {cartProducts.length}
+                                        </span>
+                                    )}
+                                </button>
 
-                            <Link href="/" className="flex gap-3 items-center mr-4">
-                                <Image width={40} height={40} src="/logo.webp" className="h-8 w-auto" alt="logo" />
-                                <span className="font-bold text-[#6bb41e] text-lg">إفطار-ديليفري</span>
-                            </Link>
+                                {/* Progress bar */}
+                                <div className="w-full h-2 bg-gray-200 rounded-full mt-2">
+                                    <div 
+                                        className={`h-full rounded-full transition-all duration-300 ${totalPrice >= 120 ? 'bg-green-500' : 'bg-[#6bb41e]'}`}
+                                        style={{ width: `${progressPercentage}%` }}
+                                    />
+                                </div>
+                                {totalPrice < 120 && (
+                                    <span className="text-xs text-gray-500 mt-1">
+                                        {(120 - totalPrice).toFixed(2)} DH pour la livraison gratuite
+                                    </span>
+                                )}
+                            </div>
                         </div>
 
                         {/* Desktop Navigation */}
@@ -247,17 +277,26 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                             </div>
                         </div>
 
-                        {/* Cart & User Menu */}
-                        <div className="flex items-center space-x-4 flex-1 justify-end">
+                        {/* Logo & Mobile Menu Button */}
+                        <div className="flex items-center flex-1 justify-end">
+                            <Link href="/" className="flex gap-3 items-center ml-4">
+                                <span className="font-bold text-green-950 text-lg">إفطار-ديليفري</span>
+                                <Image width={40} height={40} src="/logo.webp" className="h-8 w-auto" alt="logo" />
+                            </Link>
+
                             <button
-                                onClick={() => setShowSideCart(!showSideCart)}
-                                className="relative p-2 hover:bg-[#6bb41e]/10 rounded-full transition-all text-[#6bb41e]"
+                                type="button"
+                                className="inline-flex items-center justify-center p-2 rounded-md text-[#6bb41e] lg:hidden hover:bg-[#6bb41e]/10"
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             >
-                                <FaCartShopping className="w-6 h-6" />
-                                {cartProducts.length > 0 && (
-                                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                                        {cartProducts.length}
-                                    </span>
+                                {mobileMenuOpen ? (
+                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                ) : (
+                                    <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
                                 )}
                             </button>
                         </div>
