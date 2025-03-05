@@ -9,18 +9,19 @@ function QualiteCarts() {
         <InfoCard
           Icon={LiaMoneyBillWaveSolid}
           title="الدفع عند الاستلام"
-          description="نعيد الأموال خلال 30 يومًا"
+          description="تحقق من الطلب قبل دفع المال"
         />
         <InfoCard
           Icon={BiSupport}
-          title="24/7 خدمة عملاء 24/7"
-          description="خدمة عملاء 24/7 "
+          title="7/7 8:00-22:00"
+          description="خدمة عملاء متاحة طوال الأسبوع"
         />
         <InfoCard
           Icon={FaTruckFast}
           title="توصيل مجاني وسريع"
-          description="توصيل مجاني لجميع الطلبات التي تزيد قيمتها عن 140 دولارًا"
+          description="توصيل مجاني لجميع الطلبات التي تزيد قيمتها عن 120 درهمًا"
         />
+
 
       </div>
     </div>

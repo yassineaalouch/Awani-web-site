@@ -1,7 +1,5 @@
 import { FaFacebook } from "react-icons/fa";
 import { TiSocialInstagram } from "react-icons/ti";
-import { FaXTwitter } from "react-icons/fa6";
-import MapLocation from "@/components/MapLocation";
 import Link from "next/link";
 
 export default function Footer(props) {
@@ -33,9 +31,8 @@ export default function Footer(props) {
                         <div className="text-center sm:text-right">
                             <h2 className="font-bold text-xl mb-6 text-[#f5d7b5]">اتصل بنا</h2>
                             <div className="space-y-3">
-                                <p className="text-[#e0e0e0]">+212 620 397 592</p>
-                                <p className="text-[#e0e0e0]">info@example.com</p>
-                                <p className="text-[#e0e0e0]">العنوان، المدينة</p>
+                                <p className="text-[#e0e0e0]">+212 642733682</p>
+                                <p className="text-[#e0e0e0]">yaalouch77@gmail.com</p>
                             </div>
                         </div>
 
@@ -43,9 +40,7 @@ export default function Footer(props) {
                         <div className="text-center sm:text-right">
                             <h2 className="font-bold text-xl mb-6 text-[#f5d7b5]">ساعات العمل</h2>
                             <div className="space-y-3">
-                                <p className="text-[#e0e0e0]">الإثنين - الجمعة: 9:00 - 18:00</p>
-                                <p className="text-[#e0e0e0]">السبت: 9:00 - 14:00</p>
-                                <p className="text-[#e0e0e0]">الأحد: مغلق</p>
+                                <p className="text-[#e0e0e0]">كل يوم: 8:00 - قبل المغرب بثلاث ساعات ونصف</p>
                             </div>
                         </div>
 
@@ -53,14 +48,11 @@ export default function Footer(props) {
                         <div className="text-center sm:text-right md:pl-10">
                             <h2 className="font-bold text-xl mb-6 text-[#f5d7b5]">تابعونا</h2>
                             <div className="flex justify-center sm:justify-end space-x-4">
-                                <Link href="https://www.facebook.com/profile.php?id=100069789726333" className="hover:transform hover:scale-110 transition-transform duration-200">
+                                <Link href="https://www.facebook.com/profile.php?id=61556799719161" className="hover:transform hover:scale-110 transition-transform duration-200">
                                     <FaFacebook className="text-[#e0e0e0] hover:text-[#6bb41e] transition-colors duration-200 text-2xl" />
                                 </Link>
-                                <Link href="https://www.instagram.com/awani_abdo_tacharok/" className="hover:transform hover:scale-110 transition-transform duration-200">
+                                <Link href="https://www.instagram.com/cuisine.ma_/?hl=fr" className="hover:transform hover:scale-110 transition-transform duration-200">
                                     <TiSocialInstagram className="text-[#e0e0e0] hover:text-[#6bb41e] transition-colors duration-200 text-2xl" />
-                                </Link>
-                                <Link href="#" className="hover:transform hover:scale-110 transition-transform duration-200">
-                                    <FaXTwitter className="text-[#e0e0e0] hover:text-[#6bb41e] transition-colors duration-200 text-2xl" />
                                 </Link>
                             </div>
                         </div>

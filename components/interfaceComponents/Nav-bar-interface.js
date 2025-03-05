@@ -201,7 +201,7 @@ export default function Nav_bar_interface({ classNameGlobal }) {
         { name: 'من نحن', href: '/About' },
         { name: 'اتصل بنا', href: '/contact' }
     ]
-
+    const pathname = router.pathname;
     // Calculate total price
     const totalPrice = cartProducts.reduce((total, product) => {
         return total + (product.price * product.quantity)
@@ -225,11 +225,13 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
                     <div className="flex justify-between items-center h-16">
                         {/* Cart & User Menu */}
+
+
                         <div className="flex items-center space-x-4 flex-1 justify-start">
-                            <div className={`fixed ${isScrolled ? 'bottom-1 left-1/2 -translate-x-1/2 w-full max-w-xl px-4 bg-slate-100 rounded-lg text-center z-[9999]' : ''} transition-all duration-300 `}>
+                            <div className={`fixed ${isScrolled && (pathname == '/Shop' || pathname == '/') ? 'bottom-1 left-1/2 -translate-x-1/2 w-full max-w-xl px-4 bg-slate-100 rounded-lg text-center z-[9999]' : ''} transition-all duration-300 `}>
                                 <button
                                     onClick={() => setShowSideCart(!showSideCart)}
-                                    className={`${isScrolled ? 'hidden' : 'relative p-2 hover:bg-[#6bb41e]/10 rounded-full transition-all text-[#6bb41e] flex items-center gap-2'}`}
+                                    className={`${isScrolled && (pathname == '/Shop' || pathname == '/') ? 'hidden' : 'relative p-2 hover:bg-[#6bb41e]/10 rounded-full transition-all text-[#6bb41e] flex items-center gap-2'}`}
                                 >
                                     <FaCartShopping className="w-6 h-6" />
                                     <div className="flex flex-col items-start">
@@ -246,18 +248,18 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                                 </button>
 
                                 {/* Progress bar */}
-                                <div className={`w-full h-2 bg-gray-200 rounded-full mt-2 ${isScrolled ? 'bg-white shadow-lg' : 'hidden'}`}>
+                                <div className={`w-full h-2 bg-gray-200 rounded-full mt-2 ${isScrolled && (pathname == '/Shop' || pathname == '/') ? 'bg-white shadow-lg' : 'hidden'}`}>
                                     <div
                                         className={`h-full rounded-full transition-all duration-300 ${totalPrice >= 120 ? 'bg-green-500' : 'bg-[#6bb41e]'}`}
                                         style={{ width: `${progressPercentage}%` }}
                                     />
                                 </div>
                                 {totalPrice < 120 && (
-                                    <span className={`text-xs ${isScrolled ? 'text-black' : 'text-gray-500 hidden'} mt-1`}>
+                                    <span className={`text-xs ${isScrolled && (pathname == '/Shop' || pathname == '/') ? 'text-black' : 'text-gray-500 hidden'} mt-1`}>
                                         درهم للتوصيل المجاني {(120 - totalPrice).toFixed(2)}
                                     </span>
                                 )}
-                                {totalPrice >= 120 && isScrolled && (
+                                {totalPrice >= 120 && isScrolled && (pathname == '/Shop' || pathname == '/') && (
                                     <span className="text-xs text-green-500 font-medium">توصيل مجاني!</span>
                                 )}
                             </div>

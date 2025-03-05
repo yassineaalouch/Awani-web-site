@@ -106,11 +106,9 @@ export default function Shop({ productList }) {
             <BlackBarTop />
             <div className="mt-12"></div>
             <NavBarInterface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'} />
-            <div className="">
-                <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories} />
-            </div>
+            <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories} />
             <div className="min-h-screen pb-8 flex flex-col items-center justify-between ">
-                <div className="flex h-fit justify-center gap-2 flex-wrap md:grid sm:grid-cols-3 lg:grid-cols-4">
+                <div className=" h-screen overflow-y-auto  gap-2 w-11/12 md:w-5/6 grid sm:grid-cols-3 lg:grid-cols-4">
                     {productListFilter.length > 0 && productListFilter.map((element) => (
                         <ProductCart key={element._id} currencyWanted={currencyWanted} exchangeRate={rateOfChange} product={element} />
                     ))}
