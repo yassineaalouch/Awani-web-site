@@ -66,16 +66,16 @@ export default async function handle(req, res) {
 
 
         if (method === 'POST') {
-            const { title, description, price, promotionsOrDiscounts, discountPrice, images, comments, category, properties, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions } = req.body;
+            const { title, description, price, promotionsOrDiscounts, buyingPrice, discountPrice, images, comments, category, properties, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions } = req.body;
             const productDoc = await Product.create({
-                title, description, price, discountPrice, images, promotionsOrDiscounts, comments, category: category || null, properties: properties || null, purchasePrice, supplier, stockQuantity, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions
+                title, description, price, buyingPrice, discountPrice, images, promotionsOrDiscounts, comments, category: category || null, properties: properties || null, purchasePrice, supplier, stockQuantity, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions
             })
             res.json(productDoc);
         }
 
         if (method === 'PUT') {
-            const { title, description, price, promotionsOrDiscounts, discountPrice, images, comments, category, properties, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions, _id } = req.body;
-            await Product.updateOne({ _id }, { title, description, promotionsOrDiscounts, comments, price, discountPrice, images, category: category || null, properties: properties || null, purchasePrice, supplier, stockQuantity, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions });
+            const { title, description, price, promotionsOrDiscounts, buyingPrice, discountPrice, images, comments, category, properties, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions, _id } = req.body;
+            await Product.updateOne({ _id }, { title, description, promotionsOrDiscounts, comments, price, buyingPrice, discountPrice, images, category: category || null, properties: properties || null, purchasePrice, supplier, stockQuantity, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions });
             res.json(true);
         }
 

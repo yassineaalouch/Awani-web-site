@@ -15,7 +15,7 @@ import makeAnimated from 'react-select/animated';
 import TiptapEditor from "./TiptapEditor";
 
 
-export default function ProductForm({ _id, rating, properties: existProperties, comments: existingComments, ratingDistribution, title: existingTitle, discountPrice: existingDiscountPrice, description: existingDescription, price: existingPrice, images: existingImages, category: existingCategory, purchasePrice: existingPurchasePrice, supplier: existingSupplier, stockQuantity: existingStockQuantity, dimensions: existingDimensions, countryOfProduction: existingCountryOfProduction, deliveryTime: existingDeliveryTime, SKU: existingSKU, barcode: existingBarcode, customerReviews: existingCustomerReviews, materials: existingMaterials, careInstructions: existingCareInstructions, allergens: existingAllergens, expirationDate: existingExpirationDate, certificatesAndLabels: existingCertificatesAndLabels, recyclingInformation: existingRecyclingInformation, returnAndWarrantyConditions: existingReturnAndWarrantyConditions, promotionsOrDiscounts: existingPromotionsOrDiscounts, complementaryProducts: existingComplementaryProducts, productFAQ: existingProductFAQ }) {
+export default function ProductForm({ _id, rating, properties: existProperties, buyingPrice: existingBuyingPrice, comments: existingComments, ratingDistribution, title: existingTitle, discountPrice: existingDiscountPrice, description: existingDescription, price: existingPrice, images: existingImages, category: existingCategory, purchasePrice: existingPurchasePrice, supplier: existingSupplier, stockQuantity: existingStockQuantity, dimensions: existingDimensions, countryOfProduction: existingCountryOfProduction, deliveryTime: existingDeliveryTime, SKU: existingSKU, barcode: existingBarcode, customerReviews: existingCustomerReviews, materials: existingMaterials, careInstructions: existingCareInstructions, allergens: existingAllergens, expirationDate: existingExpirationDate, certificatesAndLabels: existingCertificatesAndLabels, recyclingInformation: existingRecyclingInformation, returnAndWarrantyConditions: existingReturnAndWarrantyConditions, promotionsOrDiscounts: existingPromotionsOrDiscounts, complementaryProducts: existingComplementaryProducts, productFAQ: existingProductFAQ }) {
     const { data: session } = useSession()
     const [existPropList, setExistPropList] = useState(existProperties || [])
     console.log("existPropList", existPropList)
@@ -68,7 +68,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
     const [update, setUpdate] = useState(false);
     const animatedComponents = makeAnimated();
     const [litOfPropertiesToValidate, setLitOfPropertiesToValidate] = useState(properties || [])
-
+    const [buyingPrice, setBuyingPrice] = useState(existingBuyingPrice || 0);
 
 
     const [PropertiesNew, setPropertiesNew] = useState(existProperties || [])
@@ -138,7 +138,7 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
     async function saveProduct(ev) {
         ev.preventDefault();
         const serializedContent = JSON.stringify(description);
-        const data = { title, description: serializedContent, price, promotionsOrDiscounts: discountListToSend, discountPrice, comments, images, category, properties: PropertiesNew, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions };
+        const data = { title, description: serializedContent, price, buyingPrice, promotionsOrDiscounts: discountListToSend, discountPrice, comments, images, category, properties: PropertiesNew, purchasePrice, supplier, stockQuantity, dimensions, countryOfProduction, deliveryTime, SKU, barcode, careInstructions, expirationDate, recyclingInformation, returnAndWarrantyConditions };
         if (title.trim() != "") {
             if (_id) {
                 await axios.put('/api/products', { ...data, _id }, {
@@ -373,6 +373,16 @@ export default function ProductForm({ _id, rating, properties: existProperties, 
                     required
                 />
 
+                <label className="this">Buying Price</label>    
+                <input
+                    className="this"
+                    type="number"
+                    placeholder="Buying Price"
+                    value={buyingPrice}
+                    onChange={e => setBuyingPrice(e.target.value)}
+                    required
+                />
+                
                 <label className="this">Price before discount</label>
                 <input
                     className="this"

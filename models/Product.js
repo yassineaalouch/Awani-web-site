@@ -10,6 +10,7 @@ const ProductSchema = new Schema({
   category: { type: Schema.Types.ObjectId, ref: 'Category', default: null },
   comments: { type: Boolean, default: true },
   purchasePrice: { type: Number },
+  buyingPrice: { type: Number },
   stockQuantity: { type: Number },
   dimensions: {
     length: { type: Number },
