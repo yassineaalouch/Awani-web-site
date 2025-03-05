@@ -108,7 +108,7 @@ export default function Shop({ productList }) {
             <NavBarInterface classNameGlobal={' mt-12'} classNameMenuUserIcon={' !top-16'} />
             <ProductFilterBar ImportFilterValues={ImportFilterValues} categories={categories} />
             <div className="min-h-screen pb-8 flex flex-col items-center justify-between ">
-                <div className=" h-screen overflow-y-auto  gap-2 w-11/12 md:w-5/6 grid sm:grid-cols-3 lg:grid-cols-4">
+                <div className=" h-fit gap-2 w-11/12 md:w-5/6 grid sm:grid-cols-3 lg:grid-cols-4">
                     {productListFilter.length > 0 && productListFilter.map((element) => (
                         <ProductCart key={element._id} currencyWanted={currencyWanted} exchangeRate={rateOfChange} product={element} />
                     ))}

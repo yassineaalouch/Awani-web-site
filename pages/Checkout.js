@@ -225,7 +225,13 @@ export default function Checkout({ Session }) {
                                 required
                             />
                         </div>
-
+                  <label htmlFor='terms' className="text-xs">
+                    أوافق على جميع{' '}
+                    <Link href={'/conditions'} target="_blank" className="w-fit">
+                      <span className="text-xs text-blue-500 mt-0 font-bold">الشروط والأحكام.</span>
+                    </Link>
+                  </label>
+                        <input id='terms' required type="checkbox" className="mr-2" />
                         <button
                             type="submit"
                             disabled={isLoading}

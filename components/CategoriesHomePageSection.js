@@ -9,11 +9,11 @@ function CategoriesHomePageSection() {
   const { filterLocal, setFilterLocal } = useContext(FilterLocalContext);
   const [currentIndex, setCurrentIndex] = useState(0);
   const list = [
-    { img: '/traditional-moroccan-tagine.avif', text: 'تقليدي' },
-    { img: '/fastFood.jpg', text: 'وجبات سريعة' },
-    { img: '/salad.avif', text: 'سلطة'},
-    { img: '/croissan.avif', text: 'مخبوزات ' },
-    { img: '/jus.jpg', text: 'عصائر ' },
+    { img: '/traditional-moroccan-tagine.png', text: 'تقليدي' },
+    { img: '/fastFood.png', text: 'وجبات سريعة' },
+    { img: '/salad.png', text: 'سلطة'},
+    { img: '/croissan.png', text: 'مخبوزات ' },
+    { img: '/jus.png', text: 'عصائر ' },
   ];
   const visibleSlides = 3;
   const productsRef = useRef(null);
@@ -103,7 +103,7 @@ function CategoriesHomePageSection() {
                     quality={60}
                     loading="lazy"
                   />
-                  <p className="text-center mt-2 text-gray-800 font-medium hover:text-[#6bb41e] transition-colors">{ele.text}</p>
+                  <p className="text-center text-xs sm:text-base mt-2 text-gray-800 font-medium hover:text-[#6bb41e] transition-colors">{ele.text}</p>
                 </Link>
               </div>
             ))}

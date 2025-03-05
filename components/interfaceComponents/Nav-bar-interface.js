@@ -285,7 +285,7 @@ export default function Nav_bar_interface({ classNameGlobal }) {
                         {/* Logo & Mobile Menu Button */}
                         <div className="flex items-center flex-1 justify-end">
                             <Link href="/" className="flex gap-1 items-center ml-4">
-                                <span className={isScrolled?' hidden':"font-bold text-green-950 text-lg"}>إفطار-ديليفري</span>
+                                <span className={"font-bold hidden sm:block text-green-950 text-lg"}>إفطار-ديليفري</span>
                                 <Image width={40} height={40} src="/favicon.ico" className="h-10 w-auto" alt="logo" />
                             </Link>
 
@@ -310,21 +310,31 @@ export default function Nav_bar_interface({ classNameGlobal }) {
 
                 {/* Mobile Navigation */}
                 {mobileMenuOpen && (
-                    <div className="lg:hidden border-t border-gray-200">
-                        <div className="px-2 pt-2 pb-3 space-y-1">
-                            {navigation.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    onClick={() => {
-                                        setMobileMenuOpen(false)
-                                        item.onClick?.()
-                                    }}
-                                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-[#6bb41e] hover:bg-[#6bb41e]/10"
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
+                    <div className="lg:hidden fixed inset-0 z-50 bg-black bg-opacity-50">
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl w-11/12 max-w-sm">
+                            <div className="px-4 py-6 space-y-4">
+                                {navigation.map((item) => (
+                                    <Link
+                                        key={item.name}
+                                        href={item.href}
+                                        onClick={() => {
+                                            setMobileMenuOpen(false)
+                                            item.onClick?.()
+                                        }}
+                                        className="block px-4 py-3 rounded-md text-base font-medium text-gray-700 hover:text-[#6bb41e] hover:bg-[#6bb41e]/10 text-center"
+                                    >
+                                        {item.name}
+                                    </Link>
+                                ))}
+                            </div>
+                            <button
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                            >
+                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 )}
